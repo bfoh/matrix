@@ -2,22 +2,27 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase";
-import { Calendar, Mail, MessageSquare, Phone, User, Loader2 } from "lucide-react";
+import { Calendar, Mail, MessageSquare, Phone, User, Loader2, Trash2, Mic, Globe } from "lucide-react";
 
 interface Appointment {
     id: string;
     created_at: string;
     name: string;
-    email: string;
+    email?: string;
     phone: string;
-    preferred_date: string | null;
-    message: string | null;
-    status: string;
+    preferred_date?: string | null;
+    date?: string | null;
+    time?: string | null;
+    message?: string | null;
+    notes?: string | null;
+    status?: string;
+    source?: string;
 }
 
 export default function AppointmentsPage() {
     const [appointments, setAppointments] = useState<Appointment[]>([]);
     const [loading, setLoading] = useState(true);
+    const [deleting, setDeleting] = useState<string | null>(null);
     const supabase = createClient();
 
     useEffect(() => {
@@ -36,10 +41,57 @@ export default function AppointmentsPage() {
             setAppointments(data || []);
         } catch (error) {
             console.error("Error fetching appointments:", error);
-            // alert("Failed to load appointments");
         } finally {
             setLoading(false);
         }
+    };
+
+    const deleteAppointment = async (id: string) => {
+        if (!confirm("Are you sure you want to delete this appointment?")) return;
+        setDeleting(id);
+        try {
+            const res = await fetch(`/api/appointments/delete?id=${id}`, {
+                method: "DELETE",
+            });
+            const result = await res.json();
+            if (!res.ok || result.error) throw new Error(result.error || "Delete failed");
+            setAppointments((prev) => prev.filter((a) => a.id !== id));
+        } catch (error) {
+            console.error("Error deleting appointment:", error);
+            alert("Failed to delete appointment.");
+        } finally {
+            setDeleting(null);
+        }
+    };
+
+    // Helper: determine the display date from either preferred_date or date+time fields
+    const getDisplayDate = (apt: Appointment) => {
+        if (apt.preferred_date) {
+            return {
+                date: new Date(apt.preferred_date).toLocaleDateString(),
+                time: new Date(apt.preferred_date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            };
+        }
+        if (apt.date) {
+            return {
+                date: new Date(apt.date).toLocaleDateString(),
+                time: apt.time || "Not specified",
+            };
+        }
+        return null;
+    };
+
+    // Helper: determine source
+    const isVoiceAI = (apt: Appointment) => {
+        return apt.message?.startsWith("[Voice AI]") || false;
+    };
+
+    // Helper: get the message or notes, stripping the Voice AI prefix for display
+    const getNotesOrMessage = (apt: Appointment) => {
+        if (apt.message?.startsWith("[Voice AI] ")) {
+            return apt.message.replace("[Voice AI] ", "");
+        }
+        return apt.message || apt.notes || null;
     };
 
     if (loading) {
@@ -83,61 +135,100 @@ export default function AppointmentsPage() {
                                     <th className="p-4 font-semibold">Contact Info</th>
                                     <th className="p-4 font-semibold">Preferred Date</th>
                                     <th className="p-4 font-semibold">Message</th>
+                                    <th className="p-4 font-semibold">Source</th>
                                     <th className="p-4 font-semibold">Submitted</th>
+                                    <th className="p-4 font-semibold text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-white/5">
-                                {appointments.map((apt) => (
-                                    <tr key={apt.id} className="hover:bg-white/5 transition-colors">
-                                        <td className="p-4 align-top">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-8 h-8 rounded-full bg-[#D9DE00]/20 flex items-center justify-center text-[#D9DE00]">
-                                                    <User size={14} />
+                                {appointments.map((apt) => {
+                                    const dateInfo = getDisplayDate(apt);
+                                    const voiceAI = isVoiceAI(apt);
+                                    const noteText = getNotesOrMessage(apt);
+
+                                    return (
+                                        <tr key={apt.id} className="hover:bg-white/5 transition-colors group">
+                                            <td className="p-4 align-top">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 rounded-full bg-[#D9DE00]/20 flex items-center justify-center text-[#D9DE00]">
+                                                        <User size={14} />
+                                                    </div>
+                                                    <span className="text-white font-bold font-montserrat text-sm">
+                                                        {apt.name}
+                                                    </span>
                                                 </div>
-                                                <span className="text-white font-bold font-montserrat text-sm">
-                                                    {apt.name}
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td className="p-4 align-top space-y-1">
-                                            <div className="flex items-center gap-2 text-gray-300 text-sm font-raleway">
-                                                <Mail size={12} className="text-gray-500" />
-                                                {apt.email}
-                                            </div>
-                                            <div className="flex items-center gap-2 text-gray-300 text-sm font-raleway">
-                                                <Phone size={12} className="text-gray-500" />
-                                                {apt.phone}
-                                            </div>
-                                        </td>
-                                        <td className="p-4 align-top">
-                                            {apt.preferred_date ? (
-                                                <div className="flex items-center gap-2 text-[#D9DE00] text-sm font-mono bg-[#D9DE00]/10 px-2 py-1 rounded w-fit">
-                                                    <Calendar size={12} />
-                                                    {new Date(apt.preferred_date).toLocaleDateString()}
-                                                    <span className="text-white/50">|</span>
-                                                    {new Date(apt.preferred_date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                                </div>
-                                            ) : (
-                                                <span className="text-gray-500 text-xs italic">Not specified</span>
-                                            )}
-                                        </td>
-                                        <td className="p-4 align-top">
-                                            {apt.message ? (
-                                                <div className="flex gap-2 max-w-xs">
-                                                    <MessageSquare size={12} className="text-gray-500 mt-1 flex-shrink-0" />
-                                                    <p className="text-gray-300 text-sm leading-relaxed line-clamp-3 hover:line-clamp-none transition-all cursor-pointer" title={apt.message}>
-                                                        {apt.message}
-                                                    </p>
-                                                </div>
-                                            ) : (
-                                                <span className="text-gray-500 text-xs italic">No message</span>
-                                            )}
-                                        </td>
-                                        <td className="p-4 align-top text-gray-500 text-xs font-mono">
-                                            {new Date(apt.created_at).toLocaleDateString()}
-                                        </td>
-                                    </tr>
-                                ))}
+                                            </td>
+                                            <td className="p-4 align-top space-y-1">
+                                                {apt.email && (
+                                                    <div className="flex items-center gap-2 text-gray-300 text-sm font-raleway">
+                                                        <Mail size={12} className="text-gray-500" />
+                                                        {apt.email}
+                                                    </div>
+                                                )}
+                                                {apt.phone && (
+                                                    <div className="flex items-center gap-2 text-gray-300 text-sm font-raleway">
+                                                        <Phone size={12} className="text-gray-500" />
+                                                        {apt.phone}
+                                                    </div>
+                                                )}
+                                            </td>
+                                            <td className="p-4 align-top">
+                                                {dateInfo ? (
+                                                    <div className="flex items-center gap-2 text-[#D9DE00] text-sm font-mono bg-[#D9DE00]/10 px-2 py-1 rounded w-fit">
+                                                        <Calendar size={12} />
+                                                        {dateInfo.date}
+                                                        <span className="text-white/50">|</span>
+                                                        {dateInfo.time}
+                                                    </div>
+                                                ) : (
+                                                    <span className="text-gray-500 text-xs italic">Not specified</span>
+                                                )}
+                                            </td>
+                                            <td className="p-4 align-top">
+                                                {noteText ? (
+                                                    <div className="flex gap-2 max-w-xs">
+                                                        <MessageSquare size={12} className="text-gray-500 mt-1 flex-shrink-0" />
+                                                        <p className="text-gray-300 text-sm leading-relaxed line-clamp-3 hover:line-clamp-none transition-all cursor-pointer" title={noteText}>
+                                                            {noteText}
+                                                        </p>
+                                                    </div>
+                                                ) : (
+                                                    <span className="text-gray-500 text-xs italic">No message</span>
+                                                )}
+                                            </td>
+                                            <td className="p-4 align-top">
+                                                {voiceAI ? (
+                                                    <span className="inline-flex items-center gap-1.5 text-xs font-bold font-raleway uppercase tracking-wider px-3 py-1.5 rounded-full bg-accent/15 text-[#E31837] border border-accent/30">
+                                                        <Mic size={11} />
+                                                        Voice AI
+                                                    </span>
+                                                ) : (
+                                                    <span className="inline-flex items-center gap-1.5 text-xs font-bold font-raleway uppercase tracking-wider px-3 py-1.5 rounded-full bg-[#D9DE00]/10 text-[#D9DE00] border border-[#D9DE00]/30">
+                                                        <Globe size={11} />
+                                                        Online
+                                                    </span>
+                                                )}
+                                            </td>
+                                            <td className="p-4 align-top text-gray-500 text-xs font-mono">
+                                                {new Date(apt.created_at).toLocaleDateString()}
+                                            </td>
+                                            <td className="p-4 align-top text-center">
+                                                <button
+                                                    onClick={() => deleteAppointment(apt.id)}
+                                                    disabled={deleting === apt.id}
+                                                    className="p-2 rounded-lg text-gray-500 hover:text-red-500 hover:bg-red-500/10 transition-all duration-200 disabled:opacity-50"
+                                                    title="Delete appointment"
+                                                >
+                                                    {deleting === apt.id ? (
+                                                        <Loader2 size={16} className="animate-spin" />
+                                                    ) : (
+                                                        <Trash2 size={16} />
+                                                    )}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>

@@ -5,17 +5,64 @@ import { motion } from "framer-motion";
 import BookingModal from "./BookingModal";
 import { useState } from "react";
 
-
-
 export default function Hero() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.18, delayChildren: 0.3 }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 35 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as const }
+        }
+    };
+
     return (
         <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
-            {/* Background - using a placeholder color for now, ideally video */}
-            <div className="absolute inset-0 bg-black/40 z-10" />
+            {/* Gradient overlays */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-black/60 z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/30 z-10 pointer-events-none" />
 
+            {/* Floating ambient orbs */}
+            <motion.div
+                animate={{ y: [0, -18, 0], opacity: [0.35, 0.55, 0.35] }}
+                transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-[18%] left-[8%] w-72 h-72 bg-primary/8 rounded-full blur-[90px] pointer-events-none z-10"
+            />
+            <motion.div
+                animate={{ y: [0, 14, 0], opacity: [0.2, 0.4, 0.2] }}
+                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+                className="absolute bottom-[28%] right-[10%] w-56 h-56 bg-white/5 rounded-full blur-[80px] pointer-events-none z-10"
+            />
+            <motion.div
+                animate={{ y: [0, -10, 0], x: [0, 8, 0] }}
+                transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+                className="absolute top-[45%] right-[25%] w-36 h-36 bg-primary/6 rounded-full blur-[60px] pointer-events-none z-10"
+            />
+
+            {/* Subtle architectural grid */}
             <div
+                className="absolute inset-0 z-10 pointer-events-none opacity-[0.04]"
+                style={{
+                    backgroundImage: "linear-gradient(rgba(201,168,76,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.6) 1px, transparent 1px)",
+                    backgroundSize: "80px 80px",
+                    maskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%)"
+                }}
+            />
+
+            {/* Video background */}
+            <motion.div
+                initial={{ scale: 1.12 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 2, ease: "easeOut" }}
                 className="absolute inset-0 w-full h-full z-0"
                 dangerouslySetInnerHTML={{
                     __html: `
@@ -26,111 +73,91 @@ export default function Hero() {
               loop
               muted
               playsinline
-            >
-            </video>
+            ></video>
           `,
                 }}
             />
 
-            <div className="relative z-20 text-center px-4 max-w-6xl mx-auto mt-20">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                >
-                    <h1 className="text-white text-[45px] md:text-[80px] font-bold tracking-tight mb-6 font-montserrat uppercase leading-[0.9]">
-                        BUILDING THE <br />
-                        <span className="text-primary">FUTURE OF GHANA</span>
+            {/* Hero content */}
+            <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                className="relative z-20 text-center px-4 max-w-5xl mx-auto"
+            >
+                {/* Eyebrow label */}
+                <motion.div variants={itemVariants} className="flex items-center justify-center gap-3 mb-6">
+                    <span className="w-8 h-[1px] bg-primary/70 inline-block" />
+                    <span className="text-primary font-raleway font-bold text-[11px] tracking-[0.3em] uppercase">
+                        Ghana&apos;s Premier Real Estate Firm
+                    </span>
+                    <span className="w-8 h-[1px] bg-primary/70 inline-block" />
+                </motion.div>
+
+                {/* Main headline */}
+                <motion.div variants={itemVariants} className="mb-5">
+                    <h1 className="text-white text-[46px] md:text-[78px] lg:text-[92px] font-bold tracking-tight font-montserrat uppercase leading-[0.92]">
+                        LUXURY LIVING
+                        <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-light to-white/70">
+                            REDEFINED.
+                        </span>
                     </h1>
-                    <p className="text-gray-300 text-[14px] md:text-[18px] font-normal tracking-wide mb-10 max-w-3xl mx-auto font-raleway">
-                        Precision Engineering. Architectural Excellence. Premium Real Estate.
+                </motion.div>
+
+                {/* Subheading */}
+                <motion.div variants={itemVariants}>
+                    <p className="text-white/60 text-[13px] md:text-[15px] font-raleway tracking-[0.18em] mb-12 max-w-xl mx-auto uppercase">
+                        Bespoke properties in Accra&apos;s most coveted addresses
                     </p>
                 </motion.div>
 
+                {/* CTAs */}
                 <motion.div
-                    className="flex flex-col md:flex-row gap-4 justify-center items-center mt-8"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                    variants={itemVariants}
+                    className="flex flex-col sm:flex-row gap-4 justify-center items-center"
                 >
+                    {/* Primary CTA */}
                     <Link href="#featured-properties">
-                        <button className="bg-primary text-black px-8 py-3 font-montserrat font-bold text-sm uppercase tracking-wide hover:bg-white transition-colors">
-                            Explore Properties
+                        <button className="group relative bg-primary text-black px-12 py-4 font-montserrat font-bold text-[12px] uppercase tracking-[0.2em] overflow-hidden transition-all duration-500 hover:shadow-[0_0_32px_rgba(201,168,76,0.45)] min-w-[220px]">
+                            <span className="relative z-10 group-hover:text-black transition-colors duration-300">
+                                Explore Properties
+                            </span>
+                            <div className="absolute inset-0 bg-primary-light transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-0" />
                         </button>
                     </Link>
-                    <Link href="#contact-us">
-                        <button className="border border-white text-white px-8 py-3 font-montserrat font-bold text-sm uppercase tracking-wide hover:bg-white hover:text-black transition-colors">
-                            Contact Us
-                        </button>
-                    </Link>
-                </motion.div>
-            </div>
 
-            {/* Scroll indicator */}
-
-            {/* Search Bar & Appointment CTA */}
-            <div className="absolute bottom-0 left-0 right-0 z-30 bg-black/80 border-t border-white/10 backdrop-blur-sm py-4 px-6">
-                <div className="container mx-auto flex flex-col md:flex-row items-center justify-center gap-4">
-                    {/* Search Input */}
-                    <div className="relative w-full max-w-2xl">
-                        <input
-                            type="text"
-                            placeholder="Search by Address or Area..."
-                            className="w-full bg-white/10 text-white border border-white/20 px-4 py-3 pl-12 focus:outline-none focus:border-primary transition-colors text-sm font-raleway tracking-wide placeholder:text-gray-400"
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") {
-                                    window.location.href = `/properties?search=${(e.target as HTMLInputElement).value}`;
-                                }
-                            }}
-                        />
-                        {/* Search Icon (SVG) */}
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                        >
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                    </div>
-
-                    {/* Book Appointment CTA */}
+                    {/* Secondary CTA — ghost */}
                     <button
                         onClick={() => setIsModalOpen(true)}
-                        className="w-full md:w-auto bg-primary text-black px-6 py-3 text-sm font-bold tracking-widest flex items-center justify-center gap-2 hover:bg-white transition-colors uppercase"
+                        className="group relative border border-white/30 text-white/90 px-12 py-4 font-montserrat font-bold text-[12px] uppercase tracking-[0.2em] overflow-hidden transition-all duration-500 hover:border-primary/60 min-w-[220px]"
                     >
-                        {/* Calendar Icon (SVG) */}
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                        </svg>
-                        <span>Book Appointment</span>
+                        <span className="relative z-10 group-hover:text-black transition-colors duration-500">
+                            Book a Consultation
+                        </span>
+                        <div className="absolute inset-0 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right z-0" />
                     </button>
+                </motion.div>
+            </motion.div>
+
+            {/* Scroll indicator */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2.2, duration: 1 }}
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-3"
+            >
+                <span className="text-white/40 text-[9px] font-raleway tracking-[0.35em] uppercase">Scroll</span>
+                <div className="w-[1px] h-[52px] bg-white/15 relative overflow-hidden">
+                    <motion.div
+                        animate={{ y: [0, 52] }}
+                        transition={{ repeat: Infinity, duration: 1.6, ease: "linear" }}
+                        className="w-full h-1/2 bg-primary absolute top-0"
+                    />
                 </div>
-            </div>
+            </motion.div>
 
-            {/* Booking Modal */}
             <BookingModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-
         </section>
     );
 }

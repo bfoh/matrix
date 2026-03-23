@@ -13,9 +13,6 @@ interface Property {
     price: string;
     status: string;
     image: string;
-    details: string; // Currently my DB doesn't have 'details' column in previous scripts I think? 
-    // Wait, I created: bedrooms int, bathrooms numeric, area_sqm int. 
-    // I should construct the 'details' string from these.
     bedrooms: number;
     bathrooms: number;
     area_sqm: number;
@@ -36,60 +33,83 @@ export default function FeaturedProperties() {
                 .order('created_at', { ascending: false });
 
             if (data) {
-                setProperties(data as any); // Type casting for simplicity in this artifact
+                setProperties(data as any);
             }
             setLoading(false);
         };
         fetchProperties();
     }, []);
 
-    if (loading) return null; // Or a skeleton loader
-    if (properties.length === 0) return null; // Hide section if no properties? Or show static?
+    if (loading) return null;
+    if (properties.length === 0) return null;
 
     return (
-        <section id="featured-properties" className="bg-[#f9f9f9] py-[85px]">
-            <div className="container mx-auto px-6">
+        <section id="featured-properties" className="bg-[#050505] py-24 md:py-32 border-t border-white/5 relative overflow-hidden">
+            {/* Subtle glow effect behind grid */}
+            <div className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[80%] h-[400px] bg-primary/5 blur-[150px] rounded-[100%] pointer-events-none z-0" />
+
+            <div className="container mx-auto px-6 relative z-10">
 
                 {/* Section Header with Carousel Controls */}
-                <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-gray-200 pb-4 md:border-none md:pb-0">
-                    <h2 className="text-black text-[32px] md:text-[43px] font-normal font-montserrat tracking-[1px] uppercase leading-tight">
-                        Featured Properties
-                    </h2>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-20 border-b border-white/10 pb-6 md:pb-8"
+                >
+                    <div>
+                        <span className="text-primary font-bold tracking-[4px] text-[12px] uppercase font-raleway block mb-4">
+                            Exclusive Listing
+                        </span>
+                        <h2 className="text-white text-[32px] md:text-[48px] font-bold font-montserrat tracking-[1px] uppercase leading-tight">
+                            Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary/80 to-white/50">Properties</span>
+                        </h2>
+                    </div>
 
-                    <div className="flex items-center gap-1 text-black text-[14px] font-bold font-raleway tracking-[1px] uppercase mt-4 md:mt-0">
-                        <button className="hover:text-gray-600 transition-colors">PREVIOUS</button>
-                        <span className="mx-1">|</span>
-                        <button className="hover:text-gray-600 transition-colors relative after:content-[''] after:block after:w-full after:h-[2px] after:bg-[#555] after:mt-1">
+                    <div className="flex items-center gap-4 text-white text-[12px] font-bold font-raleway tracking-[2px] uppercase mt-8 md:mt-0">
+                        <button className="hover:text-primary transition-colors flex items-center gap-2 group">
+                            <span className="w-8 h-[1px] bg-white/30 group-hover:bg-primary transition-colors inline-block" />
+                            PREV
+                        </button>
+                        <span className="text-white/20">|</span>
+                        <button className="hover:text-primary transition-colors flex items-center gap-2 group">
                             NEXT
+                            <span className="w-8 h-[1px] bg-white group-hover:bg-primary transition-colors inline-block" />
                         </button>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Properties Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[30px]">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
                     {properties.map((property, index) => (
+                        <Link href={`/properties/${property.id}`} key={property.id} className="block h-full">
                         <motion.div
-                            key={property.id}
-                            className="group cursor-pointer flex flex-col h-full"
-                            initial={{ opacity: 0, y: 30 }}
+                            className="group cursor-pointer flex flex-col h-full bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all duration-500 overflow-hidden relative backdrop-blur-sm"
+                            initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1, duration: 0.6 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ delay: index * 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                         >
                             {/* Image Container */}
-                            <div className="relative overflow-hidden aspect-[4/3] w-full bg-gray-200">
-                                <img
+                            <div className="relative overflow-hidden aspect-[4/3] w-full bg-black">
+                                <motion.img
+                                    whileHover={{ scale: 1.08 }}
+                                    transition={{ duration: 1.5, ease: "easeOut" }}
                                     src={property.image}
                                     alt={property.title}
-                                    className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700 ease-in-out"
+                                    className="object-cover w-full h-full transform transition-transform duration-1000 ease-out"
                                 />
+                                {/* Dark Gradient Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
+
                                 {/* Badge */}
-                                <div className="absolute top-0 right-0 bg-[#D9DE00] text-black text-[14px] font-bold font-raleway px-[35px] py-[4px] uppercase tracking-wide z-10">
+                                <div className="absolute top-4 right-4 bg-primary text-black text-[11px] font-bold font-raleway px-4 py-1.5 uppercase tracking-widest z-10 shadow-lg backdrop-blur-md">
                                     {property.status}
                                 </div>
 
                                 {/* Share Icon */}
-                                <div className="absolute bottom-3 right-3 z-30">
+                                <div className="absolute bottom-4 right-4 z-30 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                                     <ShareIcon
                                         title={property.title}
                                         price={property.price}
@@ -98,48 +118,62 @@ export default function FeaturedProperties() {
                                     />
                                 </div>
 
-                                {/* Hover Overlay with VIEW PROPERTY Button */}
-                                <div className="absolute inset-0 bg-transparent flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                                    <Link href={`/properties/${property.id}`}>
-                                        <button className="w-[250px] h-[58px] border-2 border-black bg-transparent text-black text-[14px] font-raleway font-bold tracking-widest uppercase transition-colors duration-200 hover:bg-black hover:text-[#D9DE00]">
-                                            View Property
-                                        </button>
-                                    </Link>
-                                </div>
+                                {/* Hover vignette */}
+                                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
                             </div>
 
-                            {/* Dark Info Box */}
-                            <div className="bg-black text-white p-[25px_15px_15px] flex flex-col items-center text-center flex-grow">
-                                <h3 className="text-[21px] font-normal font-montserrat tracking-[1px] uppercase mb-[7px] leading-[31.5px]">
+                            {/* Info Box */}
+                            <div className="p-6 flex flex-col flex-grow relative z-10">
+                                {/* Title + address */}
+                                <h3 className="text-white text-[17px] font-bold font-montserrat tracking-wide uppercase mb-1 leading-tight line-clamp-1 group-hover:text-primary transition-colors duration-300">
                                     {property.title}
                                 </h3>
-
-                                <p className="text-[16px] font-normal font-raleway tracking-[1px] uppercase leading-[25.6px] mb-1">
+                                <p className="text-gray-500 text-[11px] font-medium font-raleway tracking-widest uppercase mb-4 line-clamp-1">
                                     {property.address}
                                 </p>
 
-                                <p className="text-[16px] font-normal font-raleway tracking-[1px] uppercase leading-[25.6px] mb-4 text-gray-300">
-                                    {property.bedrooms} BD | {property.bathrooms} BA | {property.area_sqm} SQ M
+                                {/* Divider */}
+                                <div className="w-10 h-[1px] bg-white/15 mb-4 group-hover:w-full group-hover:bg-primary/40 transition-all duration-700" />
+
+                                {/* Stats */}
+                                <p className="text-gray-400 text-[11px] font-bold font-raleway tracking-[0.18em] uppercase mb-5 flex items-center gap-3">
+                                    <span>{property.bedrooms} BD</span>
+                                    <span className="w-1 h-1 rounded-full bg-white/25 flex-shrink-0" />
+                                    <span>{property.bathrooms} BA</span>
+                                    <span className="w-1 h-1 rounded-full bg-white/25 flex-shrink-0" />
+                                    <span>{property.area_sqm} SQM</span>
                                 </p>
 
-                                <div className="mt-auto">
-                                    <span className="text-[16px] font-normal font-raleway tracking-[1px] leading-[25.6px]">
+                                {/* Price + CTA row — always visible */}
+                                <div className="mt-auto flex items-center justify-between gap-3">
+                                    <span className="text-primary text-[17px] font-bold font-montserrat tracking-wide">
                                         {property.price}
+                                    </span>
+                                    <span className="bg-primary/10 border border-primary/30 group-hover:bg-primary group-hover:border-primary text-primary group-hover:text-black px-5 py-2 text-[10px] font-bold font-raleway tracking-[0.2em] uppercase transition-all duration-300 flex-shrink-0">
+                                        View Property
                                     </span>
                                 </div>
                             </div>
                         </motion.div>
+                        </Link>
                     ))}
                 </div>
 
                 {/* View All Button */}
-                <div className="flex justify-center mt-16">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4, duration: 0.6 }}
+                    className="flex justify-center mt-20"
+                >
                     <Link href="/properties">
-                        <button className="border-2 border-black text-black px-12 py-4 text-[13px] font-bold font-raleway tracking-[3px] uppercase hover:bg-black hover:text-[#D9DE00] transition-colors duration-300">
-                            View All
+                        <button className="group relative border border-white/20 bg-transparent text-white px-14 py-4 text-[12px] font-bold font-raleway tracking-[4px] uppercase overflow-hidden transition-all duration-500 hover:border-accent">
+                            <span className="relative z-10 group-hover:text-white transition-colors duration-500">View All Properties</span>
+                            <div className="absolute inset-0 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-0" />
                         </button>
                     </Link>
-                </div>
+                </motion.div>
 
             </div>
         </section >
