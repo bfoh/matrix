@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, PlusCircle, LogOut, Home, Calendar } from "lucide-react";
+import { LayoutDashboard, PlusCircle, LogOut, Home, Calendar, Palette } from "lucide-react";
 
 
 import { createClient } from "@/lib/supabase";
@@ -104,6 +104,18 @@ export default function AdminLayout({
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-share-2"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" x2="15.42" y1="13.51" y2="17.49" /><line x1="15.41" x2="8.59" y1="6.51" y2="10.49" /></svg>
                         <span className="text-sm tracking-wide font-raleway font-semibold">SHARE CARDS</span>
+                    </Link>
+
+                    <Link
+                        href="/admin/branding-hub"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`flex items-center gap-3 px-4 py-3 rounded-md transition-colors ${pathname === "/admin/branding-hub" || pathname.startsWith("/admin/branding-hub")
+                            ? "bg-[#D9DE00] text-black font-bold"
+                            : "text-gray-400 hover:text-white hover:bg-white/5"
+                            }`}
+                    >
+                        <Palette size={20} />
+                        <span className="text-sm tracking-wide font-raleway font-semibold">BRANDING HUB</span>
                     </Link>
 
                     <Link
