@@ -105,22 +105,22 @@ function SocialItem({ label, desc, children, onDownload, isGenerating }: {
 }) {
     return (
         <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
-            <div className="px-5 py-3 flex justify-between items-center border-b border-white/[0.06]">
+            <div className="px-4 md:px-5 py-3 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 border-b border-white/[0.06]">
                 <div>
-                    <span className="text-[13px] font-bold font-montserrat text-white tracking-wider">{label}</span>
-                    <span className="text-[10px] text-white/25 ml-3">{desc}</span>
+                    <span className="text-[12px] md:text-[13px] font-bold font-montserrat text-white tracking-wider">{label}</span>
+                    <span className="text-[9px] md:text-[10px] text-white/25 ml-2 md:ml-3">{desc}</span>
                 </div>
                 <button
                     onClick={onDownload}
                     disabled={isGenerating}
-                    className="flex items-center gap-1.5 text-[10px] font-bold tracking-[1px] px-3 py-1.5 rounded bg-[#D9DE00]/15 text-[#D9DE00] hover:bg-[#D9DE00]/25 transition-colors disabled:opacity-50"
+                    className="flex items-center gap-1.5 text-[10px] font-bold tracking-[1px] px-3 py-1.5 rounded bg-[#D9DE00]/15 text-[#D9DE00] hover:bg-[#D9DE00]/25 transition-colors disabled:opacity-50 self-start sm:self-auto"
                 >
                     {isGenerating ? <Loader2 size={12} className="animate-spin" /> : <Download size={12} />}
                     PNG
                 </button>
             </div>
-            <div className="p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-auto">
-                <div className="transform origin-top" style={{ transform: "scale(0.4)" }}>
+            <div className="p-3 md:p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-auto">
+                <div className="transform origin-top scale-[0.22] sm:scale-[0.3] md:scale-[0.4]">
                     {children}
                 </div>
             </div>

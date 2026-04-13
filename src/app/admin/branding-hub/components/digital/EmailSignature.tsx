@@ -59,8 +59,10 @@ export default function EmailSignature({ onBack }: { onBack: () => void }) {
                                 </button>
                             </div>
                         </div>
-                        <div className="p-8 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d]">
+                        <div className="p-4 md:p-8 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-x-auto">
+                            <div className="transform scale-[0.5] sm:scale-[0.7] md:scale-100 origin-top">
                             <EmailSignatureTemplate ref={templateRef} data={data} />
+                            </div>
                         </div>
                     </div>
 

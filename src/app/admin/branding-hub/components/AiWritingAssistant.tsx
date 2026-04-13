@@ -35,11 +35,54 @@ export default function AiWritingAssistant({ materialType, onApply }: AiWritingA
         chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
+    const cleanAiResponse = (text: string) => {
+        // Remove common AI preambles and postambles
+        let cleaned = text.trim();
+        
+        // Remove leading conversational fillers
+        cleaned = cleaned.replace(/^(Certainly!|Here's|Here is|Sure,|Absolutely!|I've generated|I can help with that|Below is|I have written).*/i, "").trim();
+        
+        // If the above regex removed too much (like the first sentence), we might need a more surgical approach
+        // But usually, AI says "Certainly! Here is your letter: \n\n Dear..."
+        // So we look for the first occurrence of "Dear", "Subject", "Title", or double newlines after common phrases
+        
+        const preambles = [
+            /certainly[!\.]?/i,
+            /here (is|are) your[a-z\s]+[!\.\:]?/i,
+            /sure[!\.]?/i,
+            /absolutely[!\.]?/i,
+            /i('ve| have) generated[a-z\s]+[!\.\:]/i,
+            /i('ve| have) (written|drafted)[a-z\s]+[!\.\:]/i,
+            /i can (help|assist) with that[!\.]?/i,
+            /below is (the|a)[a-z\s]+[!\.\:]?/i
+        ];
+
+        let lines = cleaned.split("\n");
+        let startIdx = 0;
+
+        // Skip the first few lines if they match preambles and are followed by an empty line or a formal start
+        for (let i = 0; i < Math.min(lines.length, 3); i++) {
+            if (preambles.some(regex => regex.test(lines[i]))) {
+                startIdx = i + 1;
+                // If the next line is empty, skip it too
+                if (lines[startIdx] === "") startIdx++;
+            } else {
+                break;
+            }
+        }
+
+        return lines.slice(startIdx).join("\n").trim();
+    };
+
     const handleSend = async () => {
         if (!input.trim() || isLoading) return;
         const prompt = input.trim();
         setInput("");
         await generate(prompt, activeAction, tone);
+    };
+
+    const handleApply = (text: string) => {
+        onApply(cleanAiResponse(text));
     };
 
     const handleQuickAction = (action: typeof QUICK_ACTIONS[number]) => {
@@ -57,7 +100,7 @@ export default function AiWritingAssistant({ materialType, onApply }: AiWritingA
     };
 
     return (
-        <div className="rounded-xl border border-[#D9DE00]/12 bg-gradient-to-b from-[#D9DE00]/[0.03] to-black/90 flex flex-col h-full overflow-hidden">
+        <div className="rounded-xl border border-[#D9DE00]/12 bg-gradient-to-b from-[#D9DE00]/[0.03] to-black/90 flex flex-col h-full min-h-[400px] md:min-h-0 overflow-hidden">
             {/* Header */}
             <div className="px-5 py-4 border-b border-[#D9DE00]/10 bg-gradient-to-r from-[#D9DE00]/[0.06] to-transparent">
                 <div className="flex items-center justify-between">
@@ -145,7 +188,7 @@ export default function AiWritingAssistant({ materialType, onApply }: AiWritingA
                             <div className="whitespace-pre-wrap">{msg.content}</div>
                             {msg.role === "assistant" && msg.content && !isLoading && (
                                 <button
-                                    onClick={() => onApply(msg.content)}
+                                    onClick={() => handleApply(msg.content)}
                                     className="mt-2 text-[9px] font-bold tracking-[1px] text-[#D9DE00] hover:text-[#e5ea2a] transition-colors flex items-center gap-1"
                                 >
                                     → APPLY TO EDITOR

@@ -46,7 +46,7 @@ export default function WatermarkGenerator({ onBack }: { onBack: () => void }) {
                                 </button>
                             )}
                         </div>
-                        <div className="p-8 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] min-h-[400px]">
+                        <div className="p-4 md:p-8 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] min-h-[250px] md:min-h-[400px]">
                             {image ? (
                                 <div ref={canvasRef} style={{ position: "relative", display: "inline-block" }}>
                                     <img

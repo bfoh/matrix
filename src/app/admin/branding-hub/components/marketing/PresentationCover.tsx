@@ -30,48 +30,56 @@ export default function PresentationCover({ onBack }: { onBack: () => void }) {
                                 {isGenerating ? <Loader2 size={12} className="animate-spin" /> : <Download size={12} />} PNG
                             </button>
                         </div>
-                        <div className="p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-auto">
-                            <div className="transform scale-[0.4] md:scale-[0.5] origin-top">
+                        <div className="p-3 md:p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-auto">
+                            <div className="transform scale-[0.18] sm:scale-[0.28] md:scale-[0.5] origin-top">
                                 <div
                                     ref={templateRef}
                                     style={{
-                                        width: 1920, height: 1080, background: BRAND.colors.black,
+                                        width: 1920, height: 1080, background: "#0a0a0a",
                                         position: "relative", overflow: "hidden", fontFamily: BRAND.fonts.heading,
-                                        display: "flex", alignItems: "center", padding: "0 120px",
+                                        display: "flex", flexDirection: "column", padding: "120px 160px",
                                     }}
                                 >
-                                    {/* Background accents */}
-                                    <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: 8, background: BRAND.colors.yellow }} />
-                                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(217,222,0,0.06) 0%, transparent 40%)" }} />
-                                    <div style={{ position: "absolute", bottom: 0, right: 0, width: 400, height: 300, background: "linear-gradient(135deg, transparent, rgba(217,222,0,0.04))" }} />
+                                    {/* Large Background Watermark Logo (very subtle) */}
+                                    <div style={{ position: "absolute", bottom: -200, right: -200, opacity: 0.02, pointerEvents: "none" }}>
+                                        <img src={BRAND.logoTransparent} alt="" crossOrigin="anonymous" style={{ width: 1000, height: 1000, objectFit: "contain" }} />
+                                    </div>
+                                    
+                                    {/* Geometric Accents */}
+                                    <div style={{ position: "absolute", top: 0, left: 0, width: 24, height: "100%", background: BRAND.colors.yellow }} />
+                                    <div style={{ position: "absolute", top: 0, right: 0, width: 600, height: 4, background: `linear-gradient(90deg, transparent, ${BRAND.colors.yellow})` }} />
+                                    <div style={{ position: "absolute", bottom: 0, left: 0, width: 800, height: 4, background: `linear-gradient(90deg, ${BRAND.colors.yellow}, transparent)` }} />
 
-                                    <div style={{ position: "relative", zIndex: 1 }}>
-                                        {/* Logo + Company */}
-                                        <div style={{ display: "flex", alignItems: "center", gap: 20, marginBottom: 60 }}>
-                                            <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 60, height: 60, objectFit: "contain" }} />
+                                    <div style={{ position: "relative", zIndex: 1, flex: 1, display: "flex", flexDirection: "column" }}>
+                                        {/* Top Branding */}
+                                        <div style={{ display: "flex", alignItems: "center", gap: 24, marginBottom: "auto" }}>
+                                            <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 100, height: 100, objectFit: "contain" }} />
                                             <div>
-                                                <div style={{ fontSize: 14, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: 4 }}>MATRIX MULTITECH LTD</div>
-                                                <div style={{ fontSize: 11, color: BRAND.colors.yellow, letterSpacing: 3, fontWeight: 600, marginTop: 2 }}>{BRAND.tagline}</div>
+                                                <div style={{ fontSize: 24, fontWeight: 900, color: "#fff", letterSpacing: 6, textTransform: "uppercase" }}>{BRAND.companyShort}</div>
+                                                <div style={{ fontSize: 13, color: BRAND.colors.yellow, letterSpacing: 4, fontWeight: 700, marginTop: 4, textTransform: "uppercase" }}>{BRAND.tagline}</div>
                                             </div>
                                         </div>
 
-                                        {/* Title */}
-                                        <div style={{ fontSize: 64, fontWeight: 800, color: "#fff", letterSpacing: 2, lineHeight: 1.2, maxWidth: 900 }}>
-                                            {data.title}
-                                        </div>
-                                        <div style={{ fontSize: 24, color: "rgba(255,255,255,0.4)", marginTop: 16, fontFamily: BRAND.fonts.body, fontWeight: 400, letterSpacing: 1 }}>
-                                            {data.subtitle}
+                                        {/* Main Content Area */}
+                                        <div style={{ marginBottom: "auto" }}>
+                                            <div style={{ width: 120, height: 6, background: BRAND.colors.yellow, marginBottom: 40 }} />
+                                            <div style={{ fontSize: 100, fontWeight: 900, color: "#fff", letterSpacing: "-2px", lineHeight: 1.05, maxWidth: 1200, textTransform: "uppercase" }}>
+                                                {data.title}
+                                            </div>
+                                            <div style={{ fontSize: 32, color: "rgba(255,255,255,0.4)", marginTop: 24, fontFamily: BRAND.fonts.body, fontWeight: 500, letterSpacing: 2, maxWidth: 1000 }}>
+                                                {data.subtitle}
+                                            </div>
                                         </div>
 
-                                        {/* Divider */}
-                                        <div style={{ width: 80, height: 3, background: BRAND.colors.yellow, marginTop: 40, marginBottom: 40 }} />
-
-                                        {/* Presenter + Date */}
-                                        <div style={{ fontSize: 18, color: "rgba(255,255,255,0.6)", fontFamily: BRAND.fonts.body }}>
-                                            {data.presenter}
-                                        </div>
-                                        <div style={{ fontSize: 14, color: "rgba(255,255,255,0.3)", marginTop: 6, fontFamily: BRAND.fonts.body }}>
-                                            {data.date}
+                                        {/* Bottom Presenter Details */}
+                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+                                            <div>
+                                                <div style={{ fontSize: 14, color: BRAND.colors.yellow, fontWeight: 800, letterSpacing: 3, marginBottom: 8, textTransform: "uppercase" }}>PRESENTED BY</div>
+                                                <div style={{ fontSize: 28, color: "#fff", fontWeight: 700, fontFamily: BRAND.fonts.body }}>{data.presenter.toUpperCase()}</div>
+                                            </div>
+                                            <div style={{ textAlign: "right" }}>
+                                                <div style={{ fontSize: 14, color: "rgba(255,255,255,0.3)", fontWeight: 700, letterSpacing: 2 }}>{data.date.toUpperCase()}</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -58,14 +58,16 @@ export async function POST(request: NextRequest) {
 
         const apiKey = process.env.ANTHROPIC_API_KEY;
         if (!apiKey) {
-            return Response.json({ error: "AI service not configured. Please add ANTHROPIC_API_KEY to environment variables." }, { status: 500 });
+            return Response.json(
+                { error: "AI service not configured. Please add ANTHROPIC_API_KEY to environment variables." },
+                { status: 500 }
+            );
         }
 
         const client = new Anthropic({ apiKey });
 
         let userPrompt = prompt;
 
-        // Add action context
         if (action === "refine") {
             userPrompt = `Please refine and improve the following text, making it more polished and professional while keeping the same meaning:\n\n${prompt}`;
         } else if (action === "shorten") {
@@ -76,40 +78,24 @@ export async function POST(request: NextRequest) {
 
         const materialContext = MATERIAL_CONTEXTS[materialType] || "";
         const toneInstruction = TONE_INSTRUCTIONS[tone] || TONE_INSTRUCTIONS.formal;
-
         const systemContent = `${SYSTEM_PROMPT}\n\n${materialContext}\n\n${toneInstruction}`;
 
-        // Use streaming for real-time feel
-        const stream = await client.messages.stream({
+        const message = await client.messages.create({
             model: "claude-sonnet-4-20250514",
             max_tokens: 2048,
             system: systemContent,
             messages: [{ role: "user", content: userPrompt }],
         });
 
-        // Stream the response
-        const encoder = new TextEncoder();
-        const readable = new ReadableStream({
-            async start(controller) {
-                for await (const event of stream) {
-                    if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
-                        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: event.delta.text })}\n\n`));
-                    }
-                }
-                controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-                controller.close();
-            },
-        });
+        const text = message.content
+            .filter((block): block is Anthropic.TextBlock => block.type === "text")
+            .map((block) => block.text)
+            .join("");
 
-        return new Response(readable, {
-            headers: {
-                "Content-Type": "text/event-stream",
-                "Cache-Control": "no-cache",
-                Connection: "keep-alive",
-            },
-        });
-    } catch (error) {
+        return Response.json({ text });
+    } catch (error: unknown) {
         console.error("AI generation error:", error);
-        return Response.json({ error: "Failed to generate content" }, { status: 500 });
+        const message = error instanceof Error ? error.message : "Failed to generate content";
+        return Response.json({ error: message }, { status: 500 });
     }
 }

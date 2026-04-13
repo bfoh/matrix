@@ -22,6 +22,13 @@ interface Property {
     description?: string[];
 }
 
+const PropertyStat = ({ val, label }: { val: number | string, label: string }) => (
+    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <div style={{ fontSize: 32, fontWeight: 900, color: BRAND.colors.yellow, fontFamily: BRAND.fonts.heading, minWidth: 60 }}>{val}</div>
+        <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: 2, fontWeight: 700 }}>{label}</div>
+    </div>
+);
+
 export default function PropertyFlyer({ onBack }: { onBack: () => void }) {
     const templateRef = useRef<HTMLDivElement>(null);
     const { downloadPng, isGenerating: isPng } = useCanvasDownload();
@@ -100,8 +107,8 @@ export default function PropertyFlyer({ onBack }: { onBack: () => void }) {
 
                     {/* Flyer Preview */}
                     <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
-                        <div className="px-5 py-3 flex justify-between items-center border-b border-white/[0.06]">
-                            <span className="text-[10px] tracking-[2px] font-bold text-white/30">FLYER PREVIEW — 1080×1350</span>
+                        <div className="px-4 md:px-5 py-3 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 border-b border-white/[0.06]">
+                            <span className="text-[10px] tracking-[2px] font-bold text-white/30">FLYER PREVIEW</span>
                             <div className="flex gap-2">
                                 <button onClick={() => downloadPng(templateRef, "matrix-property-flyer.png", 2)} disabled={isGenerating || !property} className="flex items-center gap-1.5 text-[10px] font-bold tracking-[1px] px-3 py-1.5 rounded bg-[#D9DE00]/15 text-[#D9DE00] hover:bg-[#D9DE00]/25 transition-colors disabled:opacity-50">
                                     {isPng ? <Loader2 size={12} className="animate-spin" /> : <Download size={12} />} PNG
@@ -111,79 +118,122 @@ export default function PropertyFlyer({ onBack }: { onBack: () => void }) {
                                 </button>
                             </div>
                         </div>
-                        <div className="p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-auto">
+                        <div className="p-3 md:p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-auto">
                             {property ? (
-                                <div className="transform scale-[0.45] md:scale-[0.55] origin-top">
+                                <div className="transform scale-[0.28] sm:scale-[0.38] md:scale-[0.55] origin-top">
                                     <div
                                         ref={templateRef}
                                         style={{
-                                            width: 1080, height: 1350, background: BRAND.colors.black,
+                                            width: 1080, height: 1350, background: "#0a0a0a",
                                             position: "relative", overflow: "hidden", fontFamily: BRAND.fonts.body,
                                         }}
                                     >
-                                        {/* Hero Image */}
-                                        <div style={{ position: "relative", height: "55%" }}>
+                                        {/* Hero Image Section */}
+                                        <div style={{ position: "relative", height: "60%" }}>
                                             <img src={property.image} alt={property.title} crossOrigin="anonymous" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                                            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 30%, transparent 60%, rgba(0,0,0,0.9) 100%)" }} />
-
-                                            {/* Status badge */}
-                                            <div style={{ position: "absolute", top: 32, right: 32, background: BRAND.colors.yellow, color: "#000", padding: "8px 20px", borderRadius: 4, fontFamily: BRAND.fonts.heading, fontSize: 14, fontWeight: 800, letterSpacing: 2 }}>
+                                            
+                                            {/* Top Overlays */}
+                                            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 25%, transparent 75%, #0a0a0a 100%)" }} />
+                                            
+                                            {/* Status Badge */}
+                                            <div style={{ 
+                                                position: "absolute", 
+                                                top: 40, 
+                                                right: 40, 
+                                                background: BRAND.colors.yellow, 
+                                                color: "#000", 
+                                                padding: "12px 28px", 
+                                                borderRadius: 6, 
+                                                fontFamily: BRAND.fonts.heading, 
+                                                fontSize: 16, 
+                                                fontWeight: 900, 
+                                                letterSpacing: 3,
+                                                boxShadow: "0 10px 30px rgba(0,0,0,0.3)"
+                                            }}>
                                                 {property.status.toUpperCase()}
                                             </div>
 
-                                            {/* Logo */}
-                                            <div style={{ position: "absolute", top: 32, left: 32, display: "flex", alignItems: "center", gap: 12 }}>
-                                                <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 44, height: 44, objectFit: "contain" }} />
+                                            {/* Logo Header */}
+                                            <div style={{ position: "absolute", top: 40, left: 40, display: "flex", alignItems: "center", gap: 16 }}>
+                                                <div style={{ background: "#fff", width: 60, height: 60, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}>
+                                                    <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 36, height: 36, objectFit: "contain" }} />
+                                                </div>
                                                 <div>
-                                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 12, fontWeight: 700, color: "#fff", letterSpacing: 2 }}>MATRIX MULTITECH</div>
-                                                    <div style={{ fontSize: 9, color: BRAND.colors.yellow, letterSpacing: 2 }}>{BRAND.tagline}</div>
+                                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 13, fontWeight: 800, color: "#fff", letterSpacing: 3, textTransform: "uppercase" }}>{BRAND.companyShort}</div>
+                                                    <div style={{ fontSize: 9, color: BRAND.colors.yellow, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase" }}>{BRAND.tagline}</div>
+                                                </div>
+                                            </div>
+
+                                            {/* Price Overlay */}
+                                            <div style={{ position: "absolute", bottom: 40, left: 40 }}>
+                                                <div style={{ 
+                                                    background: BRAND.colors.yellow, 
+                                                    color: "#000", 
+                                                    display: "inline-block", 
+                                                    padding: "12px 32px", 
+                                                    fontFamily: BRAND.fonts.heading, 
+                                                    fontSize: 48, 
+                                                    fontWeight: 900, 
+                                                    letterSpacing: "-1px",
+                                                    boxShadow: "0 10px 40px rgba(0,0,0,0.5)"
+                                                }}>
+                                                    GH₵ {property.price.toLocaleString()}
                                                 </div>
                                             </div>
                                         </div>
 
-                                        {/* Details */}
-                                        <div style={{ padding: "36px 40px 0" }}>
-                                            <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 40, fontWeight: 800, color: BRAND.colors.yellow, letterSpacing: 1 }}>
-                                                GH₵ {property.price.toLocaleString()}
-                                            </div>
-                                            <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 26, fontWeight: 700, color: "#fff", marginTop: 8, letterSpacing: 1 }}>
-                                                {headline || property.title}
-                                            </div>
-                                            {tagline && (
-                                                <div style={{ fontSize: 16, color: "rgba(255,255,255,0.5)", marginTop: 6, fontStyle: "italic" }}>
-                                                    {tagline}
+                                        {/* Property Details Section */}
+                                        <div style={{ padding: "50px 60px" }}>
+                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 40 }}>
+                                                <div style={{ flex: 1 }}>
+                                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 36, fontWeight: 900, color: "#fff", letterSpacing: "0.5px", lineHeight: 1.1, textTransform: "uppercase" }}>
+                                                        {headline || property.title}
+                                                    </div>
+                                                    <div style={{ fontSize: 18, color: "rgba(255,255,255,0.4)", marginTop: 12, display: "flex", alignItems: "center", gap: 8, fontWeight: 500 }}>
+                                                        <span style={{ color: BRAND.colors.yellow }}>📍</span> {property.address.toUpperCase()}
+                                                    </div>
+                                                    {tagline && (
+                                                        <div style={{ fontSize: 16, color: BRAND.colors.yellow, marginTop: 16, fontWeight: 600, fontStyle: "italic", opacity: 0.8 }}>
+                                                            "{tagline}"
+                                                        </div>
+                                                    )}
                                                 </div>
-                                            )}
-                                            <div style={{ fontSize: 15, color: "rgba(255,255,255,0.4)", marginTop: 10, display: "flex", alignItems: "center", gap: 6 }}>
-                                                📍 {property.address}
+                                                
+                                                {/* Stats Column */}
+                                                <div style={{ display: "flex", flexDirection: "column", gap: 24, borderLeft: "1px solid rgba(255,255,255,0.1)", paddingLeft: 40 }}>
+                                                    <PropertyStat val={property.bedrooms} label="BEDROOMS" />
+                                                    <PropertyStat val={property.bathrooms} label="BATHROOMS" />
+                                                    <PropertyStat val={property.area_sqm} label="SQ. METERS" />
+                                                </div>
                                             </div>
 
-                                            {/* Stats */}
-                                            <div style={{ display: "flex", gap: 32, marginTop: 28, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-                                                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                                                    <div style={{ fontSize: 28, fontWeight: 800, color: BRAND.colors.yellow, fontFamily: BRAND.fonts.heading }}>{property.bedrooms}</div>
-                                                    <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", letterSpacing: 1 }}>BEDROOMS</div>
-                                                </div>
-                                                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                                                    <div style={{ fontSize: 28, fontWeight: 800, color: BRAND.colors.yellow, fontFamily: BRAND.fonts.heading }}>{property.bathrooms}</div>
-                                                    <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", letterSpacing: 1 }}>BATHROOMS</div>
-                                                </div>
-                                                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                                                    <div style={{ fontSize: 28, fontWeight: 800, color: BRAND.colors.yellow, fontFamily: BRAND.fonts.heading }}>{property.area_sqm}</div>
-                                                    <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", letterSpacing: 1 }}>SQ. M</div>
-                                                </div>
+                                            {/* Description Placeholder */}
+                                            <div style={{ marginTop: 40, fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.8, maxWidth: "70%" }}>
+                                                Experience unparalleled luxury in this meticulously designed property. Located in one of the most sought-after neighborhoods, this residence offers the perfect blend of modern sophistication and timeless elegance.
                                             </div>
                                         </div>
 
-                                        {/* Bottom contact bar */}
-                                        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 80, background: BRAND.colors.yellow, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 40px" }}>
-                                            <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-                                                <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 14, fontWeight: 800, color: "#000", letterSpacing: 1 }}>{BRAND.phone}</div>
-                                                <div style={{ fontSize: 13, color: "rgba(0,0,0,0.6)" }}>{BRAND.email}</div>
-                                                <div style={{ fontSize: 13, color: "rgba(0,0,0,0.6)" }}>{BRAND.website}</div>
+                                        {/* Footer Contact Bar */}
+                                        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 100, background: "#111", borderTop: `1px solid ${BRAND.colors.yellow}33`, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 60px" }}>
+                                            <div style={{ display: "flex", alignItems: "center", gap: 40 }}>
+                                                <div>
+                                                    <div style={{ fontSize: 10, color: BRAND.colors.yellow, fontWeight: 800, letterSpacing: 2, marginBottom: 4 }}>CONTACT AGENT</div>
+                                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 18, fontWeight: 800, color: "#fff", letterSpacing: 1 }}>{BRAND.phone}</div>
+                                                </div>
+                                                <div>
+                                                    <div style={{ fontSize: 10, color: "rgba(255,255,255,0.3)", fontWeight: 800, letterSpacing: 2, marginBottom: 4 }}>EMAIL</div>
+                                                    <div style={{ fontSize: 14, color: "#fff", fontWeight: 600 }}>{BRAND.email.toUpperCase()}</div>
+                                                </div>
                                             </div>
-                                            <div style={{ background: "#fff", padding: 4, borderRadius: 4 }}>
-                                                <QRCodeSVG value={BRAND.websiteUrl} size={52} bgColor="#fff" fgColor="#000" />
+                                            
+                                            <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+                                                <div style={{ textAlign: "right" }}>
+                                                    <div style={{ fontSize: 10, color: "rgba(255,255,255,0.3)", fontWeight: 800, letterSpacing: 2, marginBottom: 4 }}>WEBSITE</div>
+                                                    <div style={{ fontSize: 14, color: BRAND.colors.yellow, fontWeight: 700 }}>{BRAND.website.toUpperCase()}</div>
+                                                </div>
+                                                <div style={{ background: "#fff", padding: 6, borderRadius: 8, boxShadow: "0 4px 12px rgba(0,0,0,0.5)" }}>
+                                                    <QRCodeSVG value={BRAND.websiteUrl} size={52} bgColor="#fff" fgColor="#000" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -196,7 +246,7 @@ export default function PropertyFlyer({ onBack }: { onBack: () => void }) {
                 </div>
 
                 {/* AI Panel */}
-                <div className="xl:w-[380px] min-h-[600px]">
+                <div className="xl:w-[380px] min-h-[400px] md:min-h-[600px]">
                     <AiWritingAssistant materialType="property-flyer" onApply={handleAiApply} />
                 </div>
             </div>

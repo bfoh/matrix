@@ -32,46 +32,62 @@ export default function SignageBanner({ onBack }: { onBack: () => void }) {
                                 {isGenerating ? <Loader2 size={12} className="animate-spin" /> : <Download size={12} />} PNG
                             </button>
                         </div>
-                        <div className="p-8 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d]">
-                            <div className="transform scale-[0.65] md:scale-[0.8] origin-top">
+                        <div className="p-3 md:p-8 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d]">
+                            <div className="transform scale-[0.28] sm:scale-[0.45] md:scale-[0.8] origin-top">
                                 <div
                                     ref={templateRef}
                                     style={{
                                         width: 1200,
                                         height: 800,
-                                        background: BRAND.colors.black,
-                                        border: `6px solid ${BRAND.colors.yellow}`,
+                                        background: "#050505",
+                                        border: `12px solid ${BRAND.colors.yellow}`,
                                         display: "flex",
                                         flexDirection: "column",
                                         alignItems: "center",
-                                        justifyContent: "center",
+                                        justifyContent: "space-between",
+                                        padding: "80px 60px",
                                         position: "relative",
                                         fontFamily: BRAND.fonts.heading,
+                                        boxShadow: "inset 0 0 100px rgba(0,0,0,0.5)"
                                     }}
                                 >
-                                    <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 100, height: 100, objectFit: "contain", marginBottom: 24 }} />
-
-                                    <div style={{ fontSize: 80, fontWeight: 900, color: BRAND.colors.yellow, letterSpacing: 10, textAlign: "center" }}>
-                                        {data.status}
-                                    </div>
-
-                                    {data.customText && (
-                                        <div style={{ fontSize: 24, color: "rgba(255,255,255,0.6)", marginTop: 12, fontFamily: BRAND.fonts.body, fontWeight: 500 }}>
-                                            {data.customText}
+                                    {/* Logo Section */}
+                                    <div style={{ textAlign: "center" }}>
+                                        <div style={{ background: "#fff", width: 100, height: 100, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto", boxShadow: "0 8px 20px rgba(0,0,0,0.3)" }}>
+                                            <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 64, height: 64, objectFit: "contain" }} />
                                         </div>
-                                    )}
-
-                                    <div style={{ fontSize: 14, color: "rgba(255,255,255,0.4)", letterSpacing: 4, marginTop: 24, fontWeight: 600 }}>
-                                        MATRIX MULTITECH LTD
+                                        <div style={{ fontSize: 18, color: "rgba(255,255,255,0.4)", letterSpacing: 6, marginTop: 24, fontWeight: 800, textTransform: "uppercase" }}>{BRAND.companyShort}</div>
                                     </div>
 
-                                    <div style={{ fontSize: 32, color: "#fff", fontWeight: 700, marginTop: 20, fontFamily: BRAND.fonts.body }}>
-                                        {data.phone}
+                                    {/* Status Section */}
+                                    <div style={{ textAlign: "center", width: "100%" }}>
+                                        <div style={{ fontSize: 140, fontWeight: 900, color: BRAND.colors.yellow, letterSpacing: -2, lineHeight: 0.9, textTransform: "uppercase" }}>
+                                            {data.status}
+                                        </div>
+                                        {data.customText && (
+                                            <div style={{ fontSize: 36, color: "#fff", marginTop: 20, fontFamily: BRAND.fonts.body, fontWeight: 600, letterSpacing: 1 }}>
+                                                {data.customText.toUpperCase()}
+                                            </div>
+                                        )}
                                     </div>
 
-                                    <div style={{ fontSize: 16, color: "rgba(255,255,255,0.3)", marginTop: 8, fontFamily: BRAND.fonts.body }}>
-                                        {BRAND.website}
+                                    {/* Contact Section */}
+                                    <div style={{ textAlign: "center" }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: 16, justifyContent: "center", marginBottom: 12 }}>
+                                            <div style={{ height: 2, width: 40, background: BRAND.colors.yellow }} />
+                                            <div style={{ fontSize: 56, color: "#fff", fontWeight: 900, fontFamily: BRAND.fonts.body, letterSpacing: 1 }}>
+                                                {data.phone}
+                                            </div>
+                                            <div style={{ height: 2, width: 40, background: BRAND.colors.yellow }} />
+                                        </div>
+                                        <div style={{ fontSize: 20, color: BRAND.colors.yellow, letterSpacing: 4, fontWeight: 700 }}>
+                                            {BRAND.website.toUpperCase()}
+                                        </div>
                                     </div>
+
+                                    {/* Corner detail */}
+                                    <div style={{ position: "absolute", bottom: 20, right: 20, width: 40, height: 40, borderRight: `4px solid ${BRAND.colors.yellow}`, borderBottom: `4px solid ${BRAND.colors.yellow}`, opacity: 0.5 }} />
+                                    <div style={{ position: "absolute", top: 20, left: 20, width: 40, height: 40, borderLeft: `4px solid ${BRAND.colors.yellow}`, borderTop: `4px solid ${BRAND.colors.yellow}`, opacity: 0.5 }} />
                                 </div>
                             </div>
                         </div>

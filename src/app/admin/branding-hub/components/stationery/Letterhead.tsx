@@ -89,8 +89,8 @@ export default function Letterhead({ onBack }: LetterheadProps) {
                                 </button>
                             </div>
                         </div>
-                        <div className="p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-auto">
-                            <div className="transform scale-[0.6] md:scale-[0.75] origin-top">
+                        <div className="p-3 md:p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-auto">
+                            <div className="transform scale-[0.42] sm:scale-[0.55] md:scale-[0.75] origin-top">
                                 <LetterheadTemplate ref={templateRef} data={data} />
                             </div>
                         </div>
@@ -121,7 +121,7 @@ export default function Letterhead({ onBack }: LetterheadProps) {
                 </div>
 
                 {/* Right: AI Panel */}
-                <div className="xl:w-[380px] min-h-[600px]">
+                <div className="xl:w-[380px] min-h-[400px] md:min-h-[600px]">
                     <AiWritingAssistant materialType="letterhead" onApply={handleAiApply} />
                 </div>
             </div>

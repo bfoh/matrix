@@ -45,54 +45,65 @@ export default function IdBadge({ onBack }: { onBack: () => void }) {
                                 </button>
                             </div>
                         </div>
-                        <div className="p-8 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d]">
+                        <div className="p-4 md:p-8 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d]">
                             <div
                                 ref={templateRef}
                                 style={{
                                     width: 320,
                                     height: 506,
-                                    background: BRAND.colors.black,
-                                    borderRadius: 12,
-                                    border: `1px solid rgba(217,222,0,0.2)`,
+                                    background: "#050505",
+                                    borderRadius: 16,
                                     overflow: "hidden",
                                     position: "relative",
                                     fontFamily: BRAND.fonts.body,
+                                    boxShadow: "0 20px 40px rgba(0,0,0,0.4)"
                                 }}
                             >
-                                {/* Yellow top bar */}
-                                <div style={{ height: 8, background: BRAND.colors.yellow }} />
-
-                                {/* Logo */}
-                                <div style={{ textAlign: "center", padding: "20px 0 12px" }}>
-                                    <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 56, height: 56, objectFit: "contain", margin: "0 auto" }} />
-                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: 2, marginTop: 6 }}>MATRIX MULTITECH LTD</div>
+                                {/* Yellow top bar accent */}
+                                <div style={{ height: 60, background: BRAND.colors.yellow, position: "relative", overflow: "hidden" }}>
+                                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.1) 0%, transparent 100%)" }} />
                                 </div>
 
-                                {/* Photo */}
-                                <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
-                                    <div style={{ width: 120, height: 120, borderRadius: "50%", background: "#222", border: `3px solid ${BRAND.colors.yellow}`, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                        {data.photo ? (
-                                            <img src={data.photo} alt="Photo" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                                        ) : (
-                                            <span style={{ fontSize: 40, color: "#444" }}>👤</span>
-                                        )}
+                                {/* Logo Section - overlapping the yellow bar */}
+                                <div style={{ position: "absolute", top: 20, left: 0, right: 0, textAlign: "center", zIndex: 10 }}>
+                                    <div style={{ background: "#fff", width: 70, height: 70, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto", boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}>
+                                        <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 44, height: 44, objectFit: "contain" }} />
                                     </div>
                                 </div>
 
-                                {/* Info */}
-                                <div style={{ textAlign: "center", padding: "0 24px" }}>
-                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 18, fontWeight: 800, color: "#fff", letterSpacing: 1 }}>{data.name.toUpperCase()}</div>
-                                    <div style={{ fontSize: 13, color: BRAND.colors.yellow, fontWeight: 600, letterSpacing: 2, marginTop: 4 }}>{data.title.toUpperCase()}</div>
-                                    <div style={{ fontSize: 10, color: "rgba(255,255,255,0.35)", marginTop: 4, letterSpacing: 1 }}>{data.department}</div>
+                                {/* Content Section */}
+                                <div style={{ padding: "50px 24px 24px", textAlign: "center" }}>
+                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 9, fontWeight: 900, color: BRAND.colors.yellow, letterSpacing: 2, marginBottom: 20 }}>{BRAND.companyShort}</div>
+
+                                    {/* Photo Section */}
+                                    <div style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}>
+                                        <div style={{ width: 140, height: 140, borderRadius: 12, background: "#111", border: `2px solid ${BRAND.colors.yellow}`, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 8px 20px rgba(0,0,0,0.3)" }}>
+                                            {data.photo ? (
+                                                <img src={data.photo} alt="Photo" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                                            ) : (
+                                                <span style={{ fontSize: 60, color: "#222" }}>👤</span>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Employee Info */}
+                                    <div style={{ marginBottom: 32 }}>
+                                        <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 20, fontWeight: 900, color: "#fff", letterSpacing: 0.5 }}>{data.name.toUpperCase()}</div>
+                                        <div style={{ fontSize: 13, color: BRAND.colors.yellow, fontWeight: 700, letterSpacing: 2, marginTop: 6, textTransform: "uppercase" }}>{data.title}</div>
+                                        <div style={{ fontSize: 9, color: "rgba(255,255,255,0.3)", marginTop: 8, letterSpacing: 1.5, fontWeight: 600 }}>DEPT: {data.department.toUpperCase()}</div>
+                                    </div>
+
+                                    {/* QR Code Section */}
+                                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+                                        <div style={{ padding: 6, background: "#fff", borderRadius: 8, boxShadow: "0 4px 10px rgba(0,0,0,0.5)" }}>
+                                            <QRCodeSVG value={BRAND.websiteUrl} size={60} bgColor="#fff" fgColor="#000" />
+                                        </div>
+                                        <div style={{ fontSize: 7, color: "rgba(255,255,255,0.2)", letterSpacing: 1, fontWeight: 600 }}>OFFICIAL IDENTITY CARD</div>
+                                    </div>
                                 </div>
 
-                                {/* QR Code */}
-                                <div style={{ position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)", padding: 6, background: "#fff", borderRadius: 4 }}>
-                                    <QRCodeSVG value={BRAND.websiteUrl} size={50} bgColor="#fff" fgColor="#000" />
-                                </div>
-
-                                {/* Bottom bar */}
-                                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 4, background: BRAND.colors.yellow }} />
+                                {/* Bottom corner detail */}
+                                <div style={{ position: "absolute", bottom: -20, right: -20, width: 60, height: 60, background: BRAND.colors.yellow, borderRadius: "50%", opacity: 0.2 }} />
                             </div>
                         </div>
                     </div>

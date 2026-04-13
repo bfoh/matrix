@@ -68,67 +68,79 @@ Matrix MultiTech Ltd`,
                                 {isGenerating ? <Loader2 size={12} className="animate-spin" /> : <Download size={12} />} PDF
                             </button>
                         </div>
-                        <div className="p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-auto">
-                            <div className="transform scale-[0.6] md:scale-[0.7] origin-top">
+                        <div className="p-3 md:p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-auto">
+                            <div className="transform scale-[0.42] sm:scale-[0.55] md:scale-[0.7] origin-top">
                                 <div
                                     ref={templateRef}
                                     style={{
-                                        width: 620, height: 877, background: BRAND.colors.black,
+                                        width: 620, height: 877, background: "#0a0a0a",
                                         fontFamily: BRAND.fonts.body, position: "relative", overflow: "hidden",
+                                        display: "flex", flexDirection: "column"
                                     }}
                                 >
+                                    {/* Animated-like background accent */}
+                                    <div style={{ position: "absolute", top: -100, right: -100, width: 300, height: 300, background: `radial-gradient(circle, ${BRAND.colors.yellow}11 0%, transparent 70%)`, borderRadius: "50%" }} />
+                                    <div style={{ position: "absolute", bottom: -50, left: -50, width: 200, height: 200, background: `radial-gradient(circle, ${BRAND.colors.yellow}08 0%, transparent 70%)`, borderRadius: "50%" }} />
+
                                     {/* Top accent */}
-                                    <div style={{ height: 6, background: BRAND.colors.yellow }} />
+                                    <div style={{ height: 4, width: "100%", background: `linear-gradient(90deg, ${BRAND.colors.yellow}, ${BRAND.colors.yellow}33)` }} />
 
                                     {/* Cover content */}
-                                    <div style={{ padding: "60px 50px", display: "flex", flexDirection: "column", height: "calc(100% - 6px)" }}>
-                                        {/* Logo */}
-                                        <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 70, height: 70, objectFit: "contain", marginBottom: 16 }} />
-
-                                        <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 10, fontWeight: 600, color: "rgba(255,255,255,0.3)", letterSpacing: 3 }}>
-                                            MATRIX MULTITECH LTD
-                                        </div>
-                                        <div style={{ fontSize: 8, color: BRAND.colors.yellow, letterSpacing: 2, marginTop: 4 }}>
-                                            {BRAND.tagline}
-                                        </div>
-
-                                        {/* Title */}
-                                        <div style={{ marginTop: 50 }}>
-                                            <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 32, fontWeight: 800, color: "#fff", letterSpacing: 1, lineHeight: 1.3 }}>
-                                                {data.title}
-                                            </div>
-                                            <div style={{ width: 60, height: 3, background: BRAND.colors.yellow, marginTop: 16, marginBottom: 16 }} />
-                                            <div style={{ fontSize: 14, color: "rgba(255,255,255,0.5)" }}>
-                                                Prepared for: <span style={{ color: BRAND.colors.yellow, fontWeight: 600 }}>{data.client}</span>
-                                            </div>
-                                            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", marginTop: 8 }}>
-                                                {data.date}
+                                    <div style={{ padding: "80px 60px", flex: 1, display: "flex", flexDirection: "column", position: "relative", zIndex: 1 }}>
+                                        {/* Logo and Company Header */}
+                                        <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 60 }}>
+                                            <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 60, height: 60, objectFit: "contain" }} />
+                                            <div>
+                                                <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 13, fontWeight: 900, color: "#fff", letterSpacing: 3 }}>{BRAND.companyShort}</div>
+                                                <div style={{ fontSize: 9, color: BRAND.colors.yellow, fontWeight: 700, letterSpacing: 1.5, marginTop: 2 }}>{BRAND.tagline.toUpperCase()}</div>
                                             </div>
                                         </div>
 
-                                        {/* Content */}
+                                        {/* Main Title Section */}
+                                        <div style={{ marginBottom: "auto" }}>
+                                            <div style={{ 
+                                                fontFamily: BRAND.fonts.heading, 
+                                                fontSize: 42, 
+                                                fontWeight: 900, 
+                                                color: "#fff", 
+                                                letterSpacing: "-0.5px", 
+                                                lineHeight: 1.1,
+                                                maxWidth: "80%"
+                                            }}>
+                                                {data.title.toUpperCase()}
+                                            </div>
+                                            <div style={{ width: 44, height: 4, background: BRAND.colors.yellow, marginTop: 24, marginBottom: 32 }} />
+                                            
+                                            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                                                <div style={{ fontSize: 10, color: "rgba(255,255,255,0.4)", fontWeight: 700, letterSpacing: 1.5 }}>PREPARED FOR</div>
+                                                <div style={{ fontSize: 18, color: BRAND.colors.yellow, fontWeight: 800 }}>{data.client}</div>
+                                                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", marginTop: 4 }}>{data.date}</div>
+                                            </div>
+                                        </div>
+
+                                        {/* Content Preview / Summary */}
                                         <div style={{
-                                            marginTop: 40,
-                                            fontSize: 10,
-                                            color: "rgba(255,255,255,0.6)",
-                                            lineHeight: 1.9,
+                                            fontSize: 12,
+                                            color: "rgba(255,255,255,0.7)",
+                                            lineHeight: 1.8,
                                             whiteSpace: "pre-wrap",
-                                            flex: 1,
+                                            letterSpacing: "0.2px",
+                                            maxHeight: 300,
                                             overflow: "hidden",
+                                            maskImage: "linear-gradient(to bottom, black 70%, transparent 100%)"
                                         }}>
                                             {data.content}
                                         </div>
 
                                         {/* Footer */}
-                                        <div style={{ borderTop: `1px solid rgba(217,222,0,0.2)`, paddingTop: 12, marginTop: 20 }}>
-                                            <div style={{ fontSize: 7, color: "rgba(255,255,255,0.25)", textAlign: "center", letterSpacing: 0.5 }}>
-                                                {BRAND.location} • {BRAND.phone} • {BRAND.email} • {BRAND.website}
+                                        <div style={{ marginTop: 60, borderTop: `1px solid rgba(255,255,255,0.08)`, paddingTop: 20 }}>
+                                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 7, color: "rgba(255,255,255,0.25)", letterSpacing: 1, fontWeight: 600 }}>
+                                                <span>{BRAND.companyShort}</span>
+                                                <span>{BRAND.websiteUrl.replace("https://", "").toUpperCase()}</span>
+                                                <span>{BRAND.gps}</span>
                                             </div>
                                         </div>
                                     </div>
-
-                                    {/* Bottom accent */}
-                                    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 3, background: BRAND.colors.yellow }} />
                                 </div>
                             </div>
                         </div>
@@ -136,7 +148,7 @@ Matrix MultiTech Ltd`,
 
                     {/* Editor */}
                     <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden p-5 space-y-4">
-                        <div className="grid grid-cols-3 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <div>
                                 <label className="block text-[10px] font-bold tracking-[2px] text-white/30 mb-2">TITLE</label>
                                 <input type="text" value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} className="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-raleway focus:border-[#D9DE00] focus:outline-none" />
@@ -163,7 +175,7 @@ Matrix MultiTech Ltd`,
                     </div>
                 </div>
 
-                <div className="xl:w-[380px] min-h-[600px]">
+                <div className="xl:w-[380px] min-h-[400px] md:min-h-[600px]">
                     <AiWritingAssistant materialType="branded-proposal" onApply={handleAiApply} />
                 </div>
             </div>

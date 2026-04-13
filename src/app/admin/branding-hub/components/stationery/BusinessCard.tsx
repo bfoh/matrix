@@ -2,19 +2,19 @@
 
 import { useState, useRef } from "react";
 import { ArrowLeft, Download, Loader2 } from "lucide-react";
-import BusinessCardTemplate from "./BusinessCardTemplate";
+import { BusinessCardFront, BusinessCardBack } from "./BusinessCardTemplate";
 import { useCanvasDownload } from "../useCanvasDownload";
-import { usePdfDownload } from "../usePdfDownload";
 import { BRAND } from "../brandConstants";
+import { jsPDF } from "jspdf";
+import { ensureFontsForCapture } from "../loadFontsForCapture";
 
-interface BusinessCardProps {
-    onBack: () => void;
-}
-
-export default function BusinessCard({ onBack }: BusinessCardProps) {
-    const cardRef = useRef<HTMLDivElement>(null);
+export default function BusinessCard({ onBack }: { onBack: () => void }) {
+    const frontRef = useRef<HTMLDivElement>(null);
+    const backRef = useRef<HTMLDivElement>(null);
     const { downloadPng, isGenerating: isPngGenerating } = useCanvasDownload();
-    const { downloadPdf, isGenerating: isPdfGenerating } = usePdfDownload();
+
+    const [isPdfGenerating, setIsPdfGenerating] = useState(false);
+    const isGenerating = isPngGenerating || isPdfGenerating;
 
     const [data, setData] = useState<{ name: string; title: string; phone: string; email: string }>({
         name: BRAND.ceo,
@@ -23,29 +23,59 @@ export default function BusinessCard({ onBack }: BusinessCardProps) {
         email: BRAND.email,
     });
 
-    const isGenerating = isPngGenerating || isPdfGenerating;
+    const [activeSide, setActiveSide] = useState<"front" | "back">("front");
 
-    const handleDownloadPng = () => {
-        downloadPng(cardRef, "matrix-business-card.png", 2);
+    const captureEl = async (el: HTMLElement, scale: number) => {
+        await ensureFontsForCapture();
+        const html2canvas = (await import("html2canvas")).default;
+        return html2canvas(el, {
+            scale,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: null,
+            logging: false,
+            onclone: (_doc, clonedEl) => {
+                let parent = clonedEl.parentElement;
+                while (parent) {
+                    if (parent.style.transform && parent.style.transform !== "none") {
+                        parent.style.transform = "none";
+                    }
+                    parent = parent.parentElement;
+                }
+            },
+        });
     };
 
-    const handleDownloadPdf = () => {
-        downloadPdf(cardRef, {
-            orientation: "landscape",
-            widthInches: 3.5,
-            heightInches: 2,
-            scale: 3,
-            filename: "matrix-business-card.pdf",
-        });
+    const handleDownloadPdf = async () => {
+        if (!frontRef.current || !backRef.current) return;
+        setIsPdfGenerating(true);
+        try {
+            const [frontCanvas, backCanvas] = await Promise.all([
+                captureEl(frontRef.current, 3),
+                captureEl(backRef.current, 3),
+            ]);
+
+            const pdf = new jsPDF({ orientation: "landscape", unit: "in", format: [3.5, 2] });
+            pdf.addImage(frontCanvas.toDataURL("image/png", 1.0), "PNG", 0, 0, 3.5, 2);
+            pdf.addPage([3.5, 2], "landscape");
+            pdf.addImage(backCanvas.toDataURL("image/png", 1.0), "PNG", 0, 0, 3.5, 2);
+            pdf.save("matrix-business-card.pdf");
+        } catch (error) {
+            console.error("Error generating PDF:", error);
+            alert("Error generating PDF. Please try again.");
+        } finally {
+            setIsPdfGenerating(false);
+        }
+    };
+
+    const handleDownloadPng = () => {
+        const ref = activeSide === "front" ? frontRef : backRef;
+        downloadPng(ref, `matrix-business-card-${activeSide}.png`, 3);
     };
 
     return (
         <div className="p-6 md:p-8">
-            {/* Header */}
-            <button
-                onClick={onBack}
-                className="flex items-center gap-2 text-white/40 hover:text-[#D9DE00] transition-colors mb-6 group"
-            >
+            <button onClick={onBack} className="flex items-center gap-2 text-white/40 hover:text-[#D9DE00] transition-colors mb-6 group">
                 <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
                 <span className="text-xs font-bold tracking-[2px] font-raleway">BRANDING HUB / STATIONERY</span>
             </button>
@@ -58,8 +88,29 @@ export default function BusinessCard({ onBack }: BusinessCardProps) {
                 {/* Preview */}
                 <div className="flex-1">
                     <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
-                        <div className="px-5 py-3 flex justify-between items-center border-b border-white/[0.06]">
-                            <span className="text-[10px] tracking-[2px] font-bold text-white/30">LIVE PREVIEW</span>
+                        <div className="px-4 md:px-5 py-3 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 border-b border-white/[0.06]">
+                            <div className="flex gap-1 bg-white/[0.04] rounded-lg p-0.5">
+                                <button
+                                    onClick={() => setActiveSide("front")}
+                                    className={`px-4 py-1.5 text-[10px] font-bold tracking-[1.5px] rounded-md transition-all ${
+                                        activeSide === "front"
+                                            ? "bg-[#D9DE00] text-black"
+                                            : "text-white/30 hover:text-white/50"
+                                    }`}
+                                >
+                                    FRONT
+                                </button>
+                                <button
+                                    onClick={() => setActiveSide("back")}
+                                    className={`px-4 py-1.5 text-[10px] font-bold tracking-[1.5px] rounded-md transition-all ${
+                                        activeSide === "back"
+                                            ? "bg-[#D9DE00] text-black"
+                                            : "text-white/30 hover:text-white/50"
+                                    }`}
+                                >
+                                    BACK
+                                </button>
+                            </div>
                             <div className="flex gap-2">
                                 <button
                                     onClick={handleDownloadPng}
@@ -75,15 +126,53 @@ export default function BusinessCard({ onBack }: BusinessCardProps) {
                                     className="flex items-center gap-1.5 text-[10px] font-bold tracking-[1px] px-3 py-1.5 rounded bg-red-500/15 text-red-500 hover:bg-red-500/25 transition-colors disabled:opacity-50"
                                 >
                                     {isPdfGenerating ? <Loader2 size={12} className="animate-spin" /> : <Download size={12} />}
-                                    PDF
+                                    PDF (2-PAGE)
                                 </button>
                             </div>
                         </div>
-                        <div className="p-8 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d]">
-                            <div className="transform scale-[0.55] md:scale-[0.65] origin-top">
-                                <BusinessCardTemplate ref={cardRef} data={data} />
+                        <div className="p-4 md:p-8 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d]">
+                            <div className="transform scale-[0.3] sm:scale-[0.42] md:scale-[0.6] origin-top">
+                                {activeSide === "front" ? (
+                                    <BusinessCardFront ref={frontRef} data={data} />
+                                ) : (
+                                    <BusinessCardBack ref={backRef} />
+                                )}
                             </div>
                         </div>
+                    </div>
+
+                    {/* Both sides small preview */}
+                    <div className="mt-4 grid grid-cols-2 gap-3">
+                        <button
+                            onClick={() => setActiveSide("front")}
+                            className={`rounded-lg border p-3 transition-all ${
+                                activeSide === "front"
+                                    ? "border-[#D9DE00]/30 bg-[#D9DE00]/[0.04]"
+                                    : "border-white/[0.06] bg-white/[0.02] hover:border-white/10"
+                            }`}
+                        >
+                            <div className="text-[9px] font-bold tracking-[1.5px] text-white/30 mb-2 text-left">FRONT</div>
+                            <div className="bg-black rounded overflow-hidden" style={{ aspectRatio: "1050/600" }}>
+                                <div className="transform scale-[0.12] origin-top-left" style={{ width: 1050 }}>
+                                    <BusinessCardFront data={data} />
+                                </div>
+                            </div>
+                        </button>
+                        <button
+                            onClick={() => setActiveSide("back")}
+                            className={`rounded-lg border p-3 transition-all ${
+                                activeSide === "back"
+                                    ? "border-[#D9DE00]/30 bg-[#D9DE00]/[0.04]"
+                                    : "border-white/[0.06] bg-white/[0.02] hover:border-white/10"
+                            }`}
+                        >
+                            <div className="text-[9px] font-bold tracking-[1.5px] text-white/30 mb-2 text-left">BACK</div>
+                            <div className="bg-black rounded overflow-hidden" style={{ aspectRatio: "1050/600" }}>
+                                <div className="transform scale-[0.12] origin-top-left" style={{ width: 1050 }}>
+                                    <BusinessCardBack />
+                                </div>
+                            </div>
+                        </button>
                     </div>
                 </div>
 
@@ -138,7 +227,7 @@ export default function BusinessCard({ onBack }: BusinessCardProps) {
                                     className="w-full flex items-center justify-center gap-2 bg-[#D9DE00] text-black font-bold py-3 rounded-lg text-sm tracking-wider font-montserrat hover:bg-[#e5ea2a] transition-colors disabled:opacity-50"
                                 >
                                     {isPngGenerating ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
-                                    DOWNLOAD PNG
+                                    DOWNLOAD PNG ({activeSide.toUpperCase()})
                                 </button>
                                 <button
                                     onClick={handleDownloadPdf}
@@ -146,12 +235,18 @@ export default function BusinessCard({ onBack }: BusinessCardProps) {
                                     className="w-full flex items-center justify-center gap-2 bg-white/5 border border-white/10 text-white font-bold py-3 rounded-lg text-sm tracking-wider font-montserrat hover:bg-white/10 transition-colors disabled:opacity-50"
                                 >
                                     {isPdfGenerating ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
-                                    DOWNLOAD PRINT PDF
+                                    DOWNLOAD PRINT PDF (FRONT + BACK)
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            {/* Hidden render targets for capture — both sides always mounted */}
+            <div style={{ position: "absolute", left: "-9999px", top: "-9999px" }} aria-hidden="true">
+                <BusinessCardFront ref={frontRef} data={data} />
+                <BusinessCardBack ref={backRef} />
             </div>
         </div>
     );

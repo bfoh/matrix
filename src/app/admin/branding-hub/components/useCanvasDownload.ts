@@ -2,6 +2,28 @@
 
 import { useState, RefObject } from "react";
 import html2canvas from "html2canvas";
+import { ensureFontsForCapture } from "./loadFontsForCapture";
+
+function captureElement(el: HTMLElement, scale: number) {
+    return html2canvas(el, {
+        scale,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null,
+        logging: false,
+        onclone: (_clonedDoc, clonedEl) => {
+            // Remove CSS transforms on ancestors so html2canvas
+            // reads correct dimensions and text metrics
+            let parent = clonedEl.parentElement;
+            while (parent) {
+                if (parent.style.transform && parent.style.transform !== "none") {
+                    parent.style.transform = "none";
+                }
+                parent = parent.parentElement;
+            }
+        },
+    });
+}
 
 export function useCanvasDownload() {
     const [isGenerating, setIsGenerating] = useState(false);
@@ -15,13 +37,8 @@ export function useCanvasDownload() {
         setIsGenerating(true);
 
         try {
-            const canvas = await html2canvas(ref.current, {
-                scale,
-                useCORS: true,
-                allowTaint: true,
-                backgroundColor: null,
-                logging: false,
-            });
+            await ensureFontsForCapture();
+            const canvas = await captureElement(ref.current, scale);
 
             canvas.toBlob((blob) => {
                 if (!blob) return;
@@ -47,14 +64,8 @@ export function useCanvasDownload() {
         scale: number = 3
     ): Promise<HTMLCanvasElement | null> => {
         if (!ref.current) return null;
-
-        return html2canvas(ref.current, {
-            scale,
-            useCORS: true,
-            allowTaint: true,
-            backgroundColor: null,
-            logging: false,
-        });
+        await ensureFontsForCapture();
+        return captureElement(ref.current, scale);
     };
 
     return { downloadPng, getCanvas, isGenerating };

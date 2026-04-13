@@ -43,8 +43,8 @@ export default function Envelope({ onBack }: { onBack: () => void }) {
                             PDF
                         </button>
                     </div>
-                    <div className="p-8 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d]">
-                        <div className="transform scale-[0.7] md:scale-[0.85] origin-top">
+                    <div className="p-4 md:p-8 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d]">
+                        <div className="transform scale-[0.38] sm:scale-[0.55] md:scale-[0.85] origin-top">
                             <EnvelopeTemplate ref={templateRef} />
                         </div>
                     </div>

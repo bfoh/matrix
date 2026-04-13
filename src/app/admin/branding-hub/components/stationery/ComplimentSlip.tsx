@@ -46,8 +46,8 @@ export default function ComplimentSlip({ onBack }: { onBack: () => void }) {
                                 PDF
                             </button>
                         </div>
-                        <div className="p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d]">
-                            <div className="transform scale-[0.75] md:scale-[0.9] origin-top">
+                        <div className="p-3 md:p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d]">
+                            <div className="transform scale-[0.45] sm:scale-[0.6] md:scale-[0.9] origin-top">
                                 <ComplimentSlipTemplate ref={templateRef} data={data} />
                             </div>
                         </div>
@@ -76,7 +76,7 @@ export default function ComplimentSlip({ onBack }: { onBack: () => void }) {
                     </button>
                 </div>
 
-                <div className="xl:w-[380px] min-h-[500px]">
+                <div className="xl:w-[380px] min-h-[350px] md:min-h-[500px]">
                     <AiWritingAssistant materialType="compliment-slip" onApply={(text) => setData({ message: text })} />
                 </div>
             </div>

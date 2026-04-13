@@ -86,7 +86,7 @@ export default function BrandingHubPage() {
     return (
         <div className="p-6 md:p-8 max-w-[1400px] mx-auto">
             {/* Hero Header */}
-            <div className="relative px-8 md:px-10 pt-10 md:pt-12 pb-10 mb-8 rounded-2xl bg-gradient-to-br from-[#D9DE00]/[0.08] via-black/90 to-[#D9DE00]/[0.04] border border-[#D9DE00]/15 overflow-hidden">
+            <div className="relative px-5 md:px-10 pt-8 md:pt-12 pb-8 md:pb-10 mb-6 md:mb-8 rounded-2xl bg-gradient-to-br from-[#D9DE00]/[0.08] via-black/90 to-[#D9DE00]/[0.04] border border-[#D9DE00]/15 overflow-hidden">
                 {/* Radial glow */}
                 <div className="absolute -top-[60%] -right-[20%] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(217,222,0,0.06)_0%,transparent_70%)] pointer-events-none" />
                 {/* Bottom accent line */}
@@ -96,38 +96,38 @@ export default function BrandingHubPage() {
                     <span className="w-6 h-px bg-[#D9DE00]" />
                     MATRIX MULTITECH LTD
                 </div>
-                <h1 className="font-montserrat text-3xl md:text-[38px] font-extrabold tracking-[3px] text-white mb-2">
+                <h1 className="font-montserrat text-2xl md:text-[38px] font-extrabold tracking-[2px] md:tracking-[3px] text-white mb-2">
                     BRANDING <span className="text-[#D9DE00]">HUB</span>
                 </h1>
                 <p className="text-[15px] text-white/40 max-w-[500px] leading-relaxed font-raleway">
                     Your complete brand toolkit — generate professional materials with one click, customized to your brand identity.
                 </p>
 
-                <div className="flex gap-8 mt-7">
+                <div className="flex gap-6 md:gap-8 mt-5 md:mt-7">
                     <div>
-                        <div className="font-montserrat text-[28px] font-extrabold text-[#D9DE00]">
+                        <div className="font-montserrat text-[22px] md:text-[28px] font-extrabold text-[#D9DE00]">
                             {MATERIALS.length}
                         </div>
-                        <div className="text-[10px] tracking-[2px] text-white/25 font-semibold">MATERIALS</div>
+                        <div className="text-[9px] md:text-[10px] tracking-[1.5px] md:tracking-[2px] text-white/25 font-semibold">MATERIALS</div>
                     </div>
                     <div>
-                        <div className="font-montserrat text-[28px] font-extrabold text-[#D9DE00]">3</div>
-                        <div className="text-[10px] tracking-[2px] text-white/25 font-semibold">CATEGORIES</div>
+                        <div className="font-montserrat text-[22px] md:text-[28px] font-extrabold text-[#D9DE00]">3</div>
+                        <div className="text-[9px] md:text-[10px] tracking-[1.5px] md:tracking-[2px] text-white/25 font-semibold">CATEGORIES</div>
                     </div>
                     <div>
-                        <div className="font-montserrat text-[28px] font-extrabold text-[#D9DE00]">∞</div>
-                        <div className="text-[10px] tracking-[2px] text-white/25 font-semibold">DOWNLOADS</div>
+                        <div className="font-montserrat text-[22px] md:text-[28px] font-extrabold text-[#D9DE00]">∞</div>
+                        <div className="text-[9px] md:text-[10px] tracking-[1.5px] md:tracking-[2px] text-white/25 font-semibold">DOWNLOADS</div>
                     </div>
                 </div>
             </div>
 
             {/* Tabs */}
-            <div className="flex gap-1 mb-8 bg-white/[0.03] border border-white/[0.06] rounded-xl p-1">
+            <div className="flex gap-1 mb-6 md:mb-8 bg-white/[0.03] border border-white/[0.06] rounded-xl p-1">
                 {TABS.map((tab) => (
                     <button
                         key={tab.key}
                         onClick={() => setActiveTab(tab.key)}
-                        className={`flex-1 py-3.5 px-6 text-center text-[12px] font-bold tracking-[2.5px] rounded-lg transition-all duration-300 ${
+                        className={`flex-1 py-2.5 md:py-3.5 px-2 md:px-6 text-center text-[10px] md:text-[12px] font-bold tracking-[1px] md:tracking-[2.5px] rounded-lg transition-all duration-300 ${
                             activeTab === tab.key
                                 ? "bg-gradient-to-br from-[#D9DE00] to-[#b8bd00] text-black shadow-[0_4px_20px_rgba(217,222,0,0.25),0_0_40px_rgba(217,222,0,0.08)]"
                                 : "text-white/30 hover:text-white/50"
@@ -135,7 +135,7 @@ export default function BrandingHubPage() {
                     >
                         {tab.label}
                         <span
-                            className={`ml-2 text-[9px] font-semibold px-1.5 py-0.5 rounded ${
+                            className={`ml-1 md:ml-2 text-[8px] md:text-[9px] font-semibold px-1 md:px-1.5 py-0.5 rounded ${
                                 activeTab === tab.key
                                     ? "bg-black/15 text-black/60"
                                     : "bg-white/10 text-white/25"
@@ -168,7 +168,7 @@ export default function BrandingHubPage() {
             </div>
 
             {/* Footer Note */}
-            <div className="mt-8 px-6 py-4 rounded-xl bg-gradient-to-br from-[#D9DE00]/[0.04] to-black/50 border border-[#D9DE00]/10 flex items-center gap-4">
+            <div className="mt-6 md:mt-8 px-4 md:px-6 py-3 md:py-4 rounded-xl bg-gradient-to-br from-[#D9DE00]/[0.04] to-black/50 border border-[#D9DE00]/10 flex items-center gap-3 md:gap-4">
                 <div className="w-8 h-8 rounded-lg bg-[#D9DE00]/10 flex items-center justify-center text-[14px] flex-shrink-0">
                     ✦
                 </div>
@@ -185,39 +185,56 @@ function MaterialThumbnail({ id }: { id: MaterialType }) {
     switch (id) {
         case "business-card":
             return (
-                <div
-                    style={{
-                        width: 220,
-                        height: 125,
-                        background: "#0a0a0a",
-                        border: "1px solid rgba(217,222,0,0.2)",
-                        borderRadius: 6,
-                        display: "flex",
-                        overflow: "hidden",
-                        boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
-                        position: "relative",
-                    }}
-                >
+                <div style={{ display: "flex", gap: 6 }}>
+                    {/* Front mini */}
                     <div
                         style={{
-                            width: "40%",
+                            width: 105,
+                            height: 60,
+                            background: "#0a0a0a",
+                            borderRadius: 4,
+                            overflow: "hidden",
+                            boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+                            position: "relative",
+                            display: "flex",
+                        }}
+                    >
+                        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1.5, background: "#D9DE00" }} />
+                        <div style={{ flex: 1, padding: "10px 6px 6px 8px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                            <div>
+                                <div style={{ fontFamily: "Montserrat,sans-serif", fontSize: 7, fontWeight: 800, color: "#fff" }}>Ernest Opoku</div>
+                                <div style={{ fontSize: 4.5, color: "#D9DE00", fontWeight: 600, marginTop: 1, letterSpacing: 1 }}>CEO</div>
+                            </div>
+                            <div style={{ fontSize: 3.5, color: "rgba(255,255,255,0.35)" }}>+233 26 767 1110</div>
+                        </div>
+                        <div style={{ width: 34, borderLeft: "0.5px solid rgba(217,222,0,0.15)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 3 }}>
+                            <div style={{ fontFamily: "Montserrat,sans-serif", fontSize: 10, fontWeight: 900, color: "#D9DE00" }}>M</div>
+                            <div style={{ fontSize: 2.5, color: "rgba(255,255,255,0.3)", textAlign: "center", lineHeight: 1.2 }}>MATRIX</div>
+                        </div>
+                    </div>
+                    {/* Back mini */}
+                    <div
+                        style={{
+                            width: 105,
+                            height: 60,
+                            background: "#0a0a0a",
+                            borderRadius: 4,
+                            overflow: "hidden",
+                            boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
                             justifyContent: "center",
-                            borderRight: "2px solid #D9DE00",
-                            background: "linear-gradient(180deg,#0a0a0a,#060606)",
-                            padding: 10,
+                            position: "relative",
                         }}
                     >
-                        <div style={{ fontFamily: "Montserrat,sans-serif", fontSize: 28, fontWeight: 900, color: "#D9DE00", textShadow: "0 0 20px rgba(217,222,0,0.3)" }}>M</div>
-                        <div style={{ fontSize: 5, letterSpacing: 2, color: "rgba(255,255,255,0.5)", marginTop: 4, textAlign: "center", fontWeight: 600 }}>MATRIX MULTITECH</div>
-                    </div>
-                    <div style={{ width: "60%", padding: "14px 12px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                        <div style={{ fontFamily: "Montserrat,sans-serif", fontSize: 9, fontWeight: 800, color: "#fff", letterSpacing: 1 }}>ERNEST OPOKU</div>
-                        <div style={{ fontSize: 7, color: "#D9DE00", margin: "3px 0", fontWeight: 600, letterSpacing: 1 }}>CEO</div>
-                        <div style={{ fontSize: 5, color: "rgba(255,255,255,0.35)", margin: "1px 0" }}>+233 26 767 1110</div>
-                        <div style={{ fontSize: 5, color: "rgba(255,255,255,0.35)", margin: "1px 0" }}>info@matrixmultitech.com</div>
+                        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1.5, background: "#D9DE00" }} />
+                        <div style={{ position: "absolute", bottom: 0, left: 0, width: 8, height: 1, background: "#D9DE00" }} />
+                        <div style={{ position: "absolute", bottom: 0, left: 0, width: 1, height: 8, background: "#D9DE00" }} />
+                        <div style={{ position: "absolute", bottom: 0, right: 0, width: 8, height: 1, background: "#D9DE00" }} />
+                        <div style={{ position: "absolute", bottom: 0, right: 0, width: 1, height: 8, background: "#D9DE00" }} />
+                        <div style={{ fontFamily: "Montserrat,sans-serif", fontSize: 14, fontWeight: 900, color: "#D9DE00" }}>M</div>
+                        <div style={{ fontSize: 3.5, color: "rgba(255,255,255,0.4)", letterSpacing: 1, fontWeight: 600, marginTop: 2 }}>MATRIX MULTITECH</div>
                     </div>
                 </div>
             );

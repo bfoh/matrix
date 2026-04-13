@@ -15,62 +15,95 @@ const ComplimentSlipTemplate = forwardRef<HTMLDivElement, { data: ComplimentSlip
                 style={{
                     width: 650,
                     height: 250,
-                    background: "linear-gradient(180deg, #fafaf5, #f0f0eb)",
+                    background: "#ffffff",
                     fontFamily: BRAND.fonts.body,
-                    padding: "24px 32px",
+                    padding: "32px 40px",
                     position: "relative",
+                    overflow: "hidden",
+                    display: "flex",
+                    flexDirection: "column",
                 }}
             >
+                {/* Subtle watermark */}
+                <div style={{ position: "absolute", top: "50%", left: "80%", transform: "translate(-50%, -50%)", opacity: 0.015, pointerEvents: "none" }}>
+                    <img src={BRAND.logoTransparent} alt="" crossOrigin="anonymous" style={{ width: 220, height: 220, objectFit: "contain" }} />
+                </div>
+
                 {/* Header */}
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 6 }}>
-                    <img
-                        src={BRAND.logo}
-                        alt="Matrix Logo"
-                        crossOrigin="anonymous"
-                        style={{ width: 36, height: 36, objectFit: "contain" }}
-                    />
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
+                    <div>
+                        <img
+                            src={BRAND.logo}
+                            alt="Matrix Logo"
+                            crossOrigin="anonymous"
+                            style={{ width: 44, height: 44, objectFit: "contain" }}
+                        />
+                    </div>
                     <div style={{ textAlign: "right" }}>
-                        <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 10, fontWeight: 800, color: "#111", letterSpacing: "2px" }}>
-                            MATRIX MULTITECH LTD
+                        <div style={{ 
+                            fontFamily: BRAND.fonts.heading, 
+                            fontSize: 11, 
+                            fontWeight: 900, 
+                            color: "#000", 
+                            letterSpacing: "2px",
+                            textTransform: "uppercase" 
+                        }}>
+                            {BRAND.companyShort}
                         </div>
-                        <div style={{ fontSize: 7, color: BRAND.colors.yellow, fontWeight: 600, letterSpacing: "1.5px", marginTop: 2 }}>
+                        <div style={{ 
+                            fontFamily: BRAND.fonts.body, 
+                            fontSize: 7, 
+                            color: BRAND.colors.yellowDark, 
+                            fontWeight: 700, 
+                            letterSpacing: "1px", 
+                            marginTop: 3,
+                            textTransform: "uppercase"
+                        }}>
                             {BRAND.tagline}
                         </div>
                     </div>
                 </div>
 
-                {/* Yellow line */}
-                <div style={{ height: 1.5, background: `linear-gradient(90deg, ${BRAND.colors.yellow}, ${BRAND.colors.yellow}22)`, marginBottom: 18 }} />
-
-                {/* Title */}
-                <div style={{
-                    fontFamily: BRAND.fonts.heading,
-                    fontSize: 14,
-                    fontWeight: 600,
-                    color: "#888",
-                    fontStyle: "italic",
-                    letterSpacing: "1px",
-                    marginBottom: 10,
-                }}>
-                    With Compliments
+                {/* Accent Divider */}
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 24 }}>
+                    <div style={{ height: 3, width: 24, background: BRAND.colors.yellow }} />
+                    <div style={{ height: 1, flex: 1, background: "rgba(0,0,0,0.06)" }} />
                 </div>
 
-                {/* Message */}
-                <div style={{
-                    fontFamily: BRAND.fonts.body,
-                    fontSize: 10,
-                    color: "#555",
-                    lineHeight: 1.8,
-                    whiteSpace: "pre-wrap",
-                }}>
-                    {data.message}
+                {/* Content Section */}
+                <div style={{ flex: 1 }}>
+                    <div style={{
+                        fontFamily: BRAND.fonts.heading,
+                        fontSize: 11,
+                        fontWeight: 800,
+                        color: "#bbb",
+                        textTransform: "uppercase",
+                        letterSpacing: "3px",
+                        marginBottom: 12,
+                    }}>
+                        With Compliments
+                    </div>
+
+                    <div style={{
+                        fontFamily: BRAND.fonts.body,
+                        fontSize: 11,
+                        color: "#444",
+                        lineHeight: 1.6,
+                        whiteSpace: "pre-wrap",
+                        fontStyle: "italic",
+                    }}>
+                        {data.message || "Insert your message here..."}
+                    </div>
                 </div>
 
-                {/* Footer */}
-                <div style={{ position: "absolute", bottom: 16, left: 32, right: 32 }}>
-                    <div style={{ height: 1, background: `linear-gradient(90deg, ${BRAND.colors.yellow}, ${BRAND.colors.yellow}22)`, marginBottom: 5 }} />
-                    <div style={{ fontSize: 6, color: "#bbb", textAlign: "center", letterSpacing: "0.5px" }}>
-                        {BRAND.phone} • {BRAND.email} • {BRAND.website}
+                {/* Minimal Footer */}
+                <div style={{ marginTop: 24, borderTop: "1px solid rgba(0,0,0,0.04)", paddingTop: 12 }}>
+                    <div style={{ display: "flex", justifyContent: "center", gap: 12, fontSize: 6.5, color: "#aaa", fontWeight: 600, letterSpacing: 0.5 }}>
+                        <span>{BRAND.phone}</span>
+                        <span style={{ color: BRAND.colors.yellow }}>•</span>
+                        <span>{BRAND.email.toUpperCase()}</span>
+                        <span style={{ color: BRAND.colors.yellow }}>•</span>
+                        <span>{BRAND.website.toUpperCase()}</span>
                     </div>
                 </div>
             </div>

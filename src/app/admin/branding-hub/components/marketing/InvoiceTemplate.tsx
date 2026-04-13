@@ -61,81 +61,99 @@ export default function InvoiceTemplate({ onBack }: { onBack: () => void }) {
                                 {isGenerating ? <Loader2 size={12} className="animate-spin" /> : <Download size={12} />} PDF
                             </button>
                         </div>
-                        <div className="p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-auto">
-                            <div className="transform scale-[0.6] md:scale-[0.7] origin-top">
-                                <div ref={templateRef} style={{ width: 620, height: 877, background: "#fafaf5", fontFamily: BRAND.fonts.body, padding: "32px 40px", position: "relative" }}>
-                                    {/* Header */}
-                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
-                                        <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 50, height: 50, objectFit: "contain" }} />
-                                        <div style={{ textAlign: "right" }}>
-                                            <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 24, fontWeight: 800, color: BRAND.colors.yellow, letterSpacing: 3 }}>INVOICE</div>
-                                            <div style={{ fontSize: 9, color: "#777", marginTop: 4 }}>#{data.invoiceNo}</div>
-                                            <div style={{ fontSize: 9, color: "#777" }}>{data.date}</div>
-                                        </div>
+                        <div className="p-3 md:p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-auto">
+                            <div className="transform scale-[0.42] sm:scale-[0.55] md:scale-[0.7] origin-top">
+                                <div ref={templateRef} style={{ width: 620, height: 877, background: "#ffffff", fontFamily: BRAND.fonts.body, padding: "48px 50px", position: "relative", letterSpacing: "0.2px", wordSpacing: "0px", overflow: "hidden" }}>
+                                    {/* Subtle background watermark */}
+                                    <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", opacity: 0.015, pointerEvents: "none", zIndex: 0 }}>
+                                        <img src={BRAND.logoTransparent} alt="" crossOrigin="anonymous" style={{ width: 350, height: 350, objectFit: "contain" }} />
                                     </div>
 
-                                    <div style={{ height: 2, background: `linear-gradient(90deg, ${BRAND.colors.yellow}, ${BRAND.colors.yellow}33)`, marginBottom: 20 }} />
-
-                                    {/* From / To */}
-                                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 28 }}>
+                                    {/* Header Section */}
+                                    <div style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 32 }}>
                                         <div>
-                                            <div style={{ fontSize: 8, fontWeight: 700, color: "#999", letterSpacing: 2, marginBottom: 4 }}>FROM</div>
-                                            <div style={{ fontSize: 11, color: "#333", fontWeight: 600 }}>{BRAND.company}</div>
-                                            <div style={{ fontSize: 9, color: "#777", whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{BRAND.location}{"\n"}{BRAND.phone}{"\n"}{BRAND.email}</div>
+                                            <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 64, height: 64, objectFit: "contain", marginBottom: 12 }} />
+                                            <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 13, fontWeight: 900, color: "#000", letterSpacing: "2px" }}>{BRAND.companyShort}</div>
+                                            <div style={{ fontSize: 8, color: BRAND.colors.yellowDark, fontWeight: 700, letterSpacing: "1px", marginTop: 2 }}>{BRAND.tagline.toUpperCase()}</div>
                                         </div>
                                         <div style={{ textAlign: "right" }}>
-                                            <div style={{ fontSize: 8, fontWeight: 700, color: "#999", letterSpacing: 2, marginBottom: 4 }}>BILL TO</div>
-                                            <div style={{ fontSize: 11, color: "#333", fontWeight: 600 }}>{data.clientName}</div>
-                                            <div style={{ fontSize: 9, color: "#777", whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{data.clientAddress}</div>
+                                            <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 32, fontWeight: 900, color: BRAND.colors.yellow, letterSpacing: 6, lineHeight: 1 }}>INVOICE</div>
+                                            <div style={{ fontSize: 10, color: "#888", marginTop: 12, fontWeight: 600 }}>NO. <span style={{ color: "#333" }}>{data.invoiceNo}</span></div>
+                                            <div style={{ fontSize: 10, color: "#888", fontWeight: 600 }}>DATE <span style={{ color: "#333" }}>{data.date}</span></div>
                                         </div>
                                     </div>
 
-                                    {/* Items Table */}
-                                    <div style={{ marginBottom: 24 }}>
-                                        <div style={{ display: "flex", background: BRAND.colors.yellow, padding: "8px 12px", borderRadius: "4px 4px 0 0" }}>
-                                            <div style={{ flex: 3, fontSize: 8, fontWeight: 700, color: "#000", letterSpacing: 1.5 }}>DESCRIPTION</div>
-                                            <div style={{ flex: 1, fontSize: 8, fontWeight: 700, color: "#000", letterSpacing: 1.5, textAlign: "center" }}>QTY</div>
-                                            <div style={{ flex: 1, fontSize: 8, fontWeight: 700, color: "#000", letterSpacing: 1.5, textAlign: "right" }}>RATE</div>
-                                            <div style={{ flex: 1, fontSize: 8, fontWeight: 700, color: "#000", letterSpacing: 1.5, textAlign: "right" }}>AMOUNT</div>
+                                    <div style={{ height: 4, width: 40, background: BRAND.colors.yellow, marginBottom: 32 }} />
+
+                                    {/* From / To Section */}
+                                    <div style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "space-between", marginBottom: 40, gap: 40 }}>
+                                        <div style={{ flex: 1 }}>
+                                            <div style={{ fontSize: 9, fontWeight: 800, color: "#aaa", letterSpacing: 2, marginBottom: 10, textTransform: "uppercase" }}>FROM</div>
+                                            <div style={{ fontSize: 12, color: "#111", fontWeight: 700, marginBottom: 4 }}>{BRAND.company}</div>
+                                            <div style={{ fontSize: 10, color: "#666", whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{BRAND.location}{"\n"}{BRAND.phone}{"\n"}{BRAND.email}</div>
+                                        </div>
+                                        <div style={{ flex: 1, textAlign: "right" }}>
+                                            <div style={{ fontSize: 9, fontWeight: 800, color: "#aaa", letterSpacing: 2, marginBottom: 10, textTransform: "uppercase" }}>BILL TO</div>
+                                            <div style={{ fontSize: 12, color: "#111", fontWeight: 700, marginBottom: 4 }}>{data.clientName}</div>
+                                            <div style={{ fontSize: 10, color: "#666", whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{data.clientAddress}</div>
+                                        </div>
+                                    </div>
+
+                                    {/* Table Section */}
+                                    <div style={{ position: "relative", zIndex: 1, marginBottom: 32 }}>
+                                        <div style={{ display: "flex", borderBottom: `2px solid #000`, padding: "0 12px 12px 12px" }}>
+                                            <div style={{ flex: 3.5, fontSize: 10, fontWeight: 800, color: "#000", letterSpacing: 1.5 }}>DESCRIPTION</div>
+                                            <div style={{ flex: 0.8, fontSize: 10, fontWeight: 800, color: "#000", letterSpacing: 1.5, textAlign: "center" }}>QTY</div>
+                                            <div style={{ flex: 1.2, fontSize: 10, fontWeight: 800, color: "#000", letterSpacing: 1.5, textAlign: "right" }}>RATE</div>
+                                            <div style={{ flex: 1.5, fontSize: 10, fontWeight: 800, color: "#000", letterSpacing: 1.5, textAlign: "right" }}>AMOUNT</div>
                                         </div>
                                         {data.items.map((item, i) => (
-                                            <div key={i} style={{ display: "flex", padding: "10px 12px", borderBottom: "1px solid #e8e8e0", alignItems: "center" }}>
-                                                <div style={{ flex: 3, fontSize: 10, color: "#333" }}>{item.description || "—"}</div>
-                                                <div style={{ flex: 1, fontSize: 10, color: "#555", textAlign: "center" }}>{item.qty}</div>
-                                                <div style={{ flex: 1, fontSize: 10, color: "#555", textAlign: "right" }}>GH₵ {item.rate.toFixed(2)}</div>
-                                                <div style={{ flex: 1, fontSize: 10, color: "#333", textAlign: "right", fontWeight: 600 }}>GH₵ {(item.qty * item.rate).toFixed(2)}</div>
+                                            <div key={i} style={{ display: "flex", padding: "14px 12px", borderBottom: "1px solid #efefef", alignItems: "center" }}>
+                                                <div style={{ flex: 3.5 }}>
+                                                    <div style={{ fontSize: 11, color: "#111", fontWeight: 600 }}>{item.description || "—"}</div>
+                                                </div>
+                                                <div style={{ flex: 0.8, fontSize: 11, color: "#444", textAlign: "center" }}>{item.qty}</div>
+                                                <div style={{ flex: 1.2, fontSize: 11, color: "#444", textAlign: "right" }}>{item.rate.toLocaleString("en-GH", { minimumFractionDigits: 2 })}</div>
+                                                <div style={{ flex: 1.5, fontSize: 11, color: "#111", textAlign: "right", fontWeight: 700 }}>GH₵ {(item.qty * item.rate).toLocaleString("en-GH", { minimumFractionDigits: 2 })}</div>
                                             </div>
                                         ))}
                                     </div>
 
-                                    {/* Total */}
-                                    <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 28 }}>
-                                        <div style={{ width: 200 }}>
-                                            <div style={{ display: "flex", justifyContent: "space-between", padding: "10px 0", borderTop: `2px solid ${BRAND.colors.yellow}` }}>
-                                                <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 12, fontWeight: 800, color: "#111", letterSpacing: 1 }}>TOTAL</div>
-                                                <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 14, fontWeight: 800, color: BRAND.colors.yellow }}>GH₵ {total.toFixed(2)}</div>
+                                    {/* Totals Section */}
+                                    <div style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "flex-end", marginBottom: 40 }}>
+                                        <div style={{ width: 220 }}>
+                                            <div style={{ display: "flex", justifyContent: "space-between", padding: "12px 12px", background: "rgba(217,222,0,0.05)", borderRadius: 4 }}>
+                                                <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 13, fontWeight: 900, color: "#000", letterSpacing: 1 }}>GRAND TOTAL</div>
+                                                <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 16, fontWeight: 900, color: BRAND.colors.yellowDark }}>GH₵ {total.toLocaleString("en-GH", { minimumFractionDigits: 2 })}</div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* Notes */}
-                                    {data.notes && (
-                                        <div style={{ marginBottom: 16 }}>
-                                            <div style={{ fontSize: 8, fontWeight: 700, color: "#999", letterSpacing: 2, marginBottom: 4 }}>NOTES</div>
-                                            <div style={{ fontSize: 9, color: "#666", lineHeight: 1.7, whiteSpace: "pre-wrap" }}>{data.notes}</div>
+                                    {/* Notes & Terms Section */}
+                                    <div style={{ position: "relative", zIndex: 1, display: "flex", gap: 40 }}>
+                                        <div style={{ flex: 1 }}>
+                                            {data.notes && (
+                                                <div style={{ marginBottom: 20 }}>
+                                                    <div style={{ fontSize: 8, fontWeight: 800, color: "#aaa", letterSpacing: 1.5, marginBottom: 8 }}>NOTES</div>
+                                                    <div style={{ fontSize: 9, color: "#666", lineHeight: 1.7, whiteSpace: "pre-wrap", borderLeft: `2px solid ${BRAND.colors.yellow}`, paddingLeft: 12 }}>{data.notes}</div>
+                                                </div>
+                                            )}
                                         </div>
-                                    )}
-                                    {data.paymentTerms && (
-                                        <div>
-                                            <div style={{ fontSize: 8, fontWeight: 700, color: "#999", letterSpacing: 2, marginBottom: 4 }}>PAYMENT TERMS</div>
-                                            <div style={{ fontSize: 9, color: "#666", lineHeight: 1.7 }}>{data.paymentTerms}</div>
+                                        <div style={{ flex: 1 }}>
+                                            {data.paymentTerms && (
+                                                <div>
+                                                    <div style={{ fontSize: 8, fontWeight: 800, color: "#aaa", letterSpacing: 1.5, marginBottom: 8 }}>PAYMENT TERMS</div>
+                                                    <div style={{ fontSize: 9, color: "#666", lineHeight: 1.7 }}>{data.paymentTerms}</div>
+                                                </div>
+                                            )}
                                         </div>
-                                    )}
+                                    </div>
 
-                                    {/* Footer */}
-                                    <div style={{ position: "absolute", bottom: 24, left: 40, right: 40 }}>
-                                        <div style={{ height: 1.5, background: `linear-gradient(90deg, ${BRAND.colors.yellow}, ${BRAND.colors.yellow}33)`, marginBottom: 6 }} />
-                                        <div style={{ fontSize: 7, color: "#999", textAlign: "center", letterSpacing: "0.5px" }}>{BRAND.location} • {BRAND.phone} • {BRAND.email} • {BRAND.website}</div>
+                                    {/* Footer Section */}
+                                    <div style={{ position: "absolute", bottom: 40, left: 50, right: 50, borderTop: "1px solid #efefef", paddingTop: 16 }}>
+                                        <div style={{ fontSize: 7.5, color: "#aaa", textAlign: "center", letterSpacing: "1px", fontWeight: 500 }}>
+                                            {BRAND.companyShort} • {BRAND.location} • {BRAND.website.toUpperCase()}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +162,7 @@ export default function InvoiceTemplate({ onBack }: { onBack: () => void }) {
 
                     {/* Editor */}
                     <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden p-5 space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-[10px] font-bold tracking-[2px] text-white/30 mb-2">INVOICE #</label>
                                 <input type="text" value={data.invoiceNo} onChange={(e) => setData({ ...data, invoiceNo: e.target.value })} className="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-raleway focus:border-[#D9DE00] focus:outline-none" />
@@ -170,11 +188,13 @@ export default function InvoiceTemplate({ onBack }: { onBack: () => void }) {
                                 <button onClick={addItem} className="text-[10px] font-bold text-[#D9DE00] flex items-center gap-1 hover:text-[#e5ea2a]"><Plus size={12} /> Add</button>
                             </div>
                             {data.items.map((item, i) => (
-                                <div key={i} className="flex gap-2 mb-2">
-                                    <input type="text" value={item.description} onChange={(e) => updateItem(i, "description", e.target.value)} placeholder="Description" className="flex-[3] bg-black border border-white/10 rounded-lg px-3 py-2 text-white text-xs font-raleway focus:border-[#D9DE00] focus:outline-none placeholder:text-white/15" />
-                                    <input type="number" value={item.qty} onChange={(e) => updateItem(i, "qty", Number(e.target.value))} className="flex-[0.7] bg-black border border-white/10 rounded-lg px-3 py-2 text-white text-xs font-raleway focus:border-[#D9DE00] focus:outline-none text-center" />
-                                    <input type="number" value={item.rate} onChange={(e) => updateItem(i, "rate", Number(e.target.value))} className="flex-1 bg-black border border-white/10 rounded-lg px-3 py-2 text-white text-xs font-raleway focus:border-[#D9DE00] focus:outline-none text-right" />
-                                    <button onClick={() => removeItem(i)} className="text-red-500/50 hover:text-red-500"><Trash2 size={14} /></button>
+                                <div key={i} className="mb-3 space-y-2 sm:space-y-0 sm:flex sm:gap-2 sm:mb-2">
+                                    <input type="text" value={item.description} onChange={(e) => updateItem(i, "description", e.target.value)} placeholder="Description" className="w-full sm:flex-[3] bg-black border border-white/10 rounded-lg px-3 py-2 text-white text-xs font-raleway focus:border-[#D9DE00] focus:outline-none placeholder:text-white/15" />
+                                    <div className="flex gap-2">
+                                        <input type="number" value={item.qty} onChange={(e) => updateItem(i, "qty", Number(e.target.value))} placeholder="Qty" className="flex-1 sm:flex-[0.7] bg-black border border-white/10 rounded-lg px-3 py-2 text-white text-xs font-raleway focus:border-[#D9DE00] focus:outline-none text-center" />
+                                        <input type="number" value={item.rate} onChange={(e) => updateItem(i, "rate", Number(e.target.value))} placeholder="Rate" className="flex-1 sm:flex-[1] bg-black border border-white/10 rounded-lg px-3 py-2 text-white text-xs font-raleway focus:border-[#D9DE00] focus:outline-none text-right" />
+                                        <button onClick={() => removeItem(i)} className="text-red-500/50 hover:text-red-500 flex-shrink-0"><Trash2 size={14} /></button>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -190,7 +210,7 @@ export default function InvoiceTemplate({ onBack }: { onBack: () => void }) {
                     </div>
                 </div>
 
-                <div className="xl:w-[380px] min-h-[600px]">
+                <div className="xl:w-[380px] min-h-[400px] md:min-h-[600px]">
                     <AiWritingAssistant materialType="invoice" onApply={handleAiApply} />
                 </div>
             </div>

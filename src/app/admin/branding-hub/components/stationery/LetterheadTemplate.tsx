@@ -16,14 +16,16 @@ const LetterheadTemplate = forwardRef<HTMLDivElement, { data: LetterheadData }>(
                 style={{
                     width: 620,
                     height: 877,
-                    background: "#fafaf5",
+                    background: "#ffffff",
                     fontFamily: BRAND.fonts.body,
-                    padding: "32px 40px",
+                    padding: "48px 60px", // Increased padding for a more premium look
                     position: "relative",
                     overflow: "hidden",
+                    display: "flex",
+                    flexDirection: "column",
                 }}
             >
-                {/* Watermark */}
+                {/* Watermark - Refined opacity and centering */}
                 {data.showWatermark && (
                     <div
                         style={{
@@ -31,61 +33,102 @@ const LetterheadTemplate = forwardRef<HTMLDivElement, { data: LetterheadData }>(
                             top: "50%",
                             left: "50%",
                             transform: "translate(-50%, -50%)",
-                            opacity: 0.04,
+                            opacity: 0.015, // Lowered even further for extreme subtlety
                             pointerEvents: "none",
+                            zIndex: 0,
                         }}
                     >
                         <img
                             src={BRAND.logoTransparent}
                             alt=""
                             crossOrigin="anonymous"
-                            style={{ width: 300, height: 300, objectFit: "contain" }}
+                            style={{ width: 400, height: 400, objectFit: "contain" }}
                         />
                     </div>
                 )}
 
-                {/* Header */}
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
-                    <img
-                        src={BRAND.logo}
-                        alt="Matrix Logo"
-                        crossOrigin="anonymous"
-                        style={{ width: 60, height: 60, objectFit: "contain" }}
-                    />
-                    <div style={{ textAlign: "right" }}>
-                        <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 13, fontWeight: 800, color: "#111", letterSpacing: "2px" }}>
-                            MATRIX MULTITECH LTD
+                {/* Header Section */}
+                <div style={{ position: "relative", zIndex: 1, marginBottom: 20 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 12 }}>
+                        <div>
+                            <img
+                                src={BRAND.logo}
+                                alt="Matrix Logo"
+                                crossOrigin="anonymous"
+                                style={{ width: 70, height: 70, objectFit: "contain" }}
+                            />
                         </div>
-                        <div style={{ fontFamily: BRAND.fonts.body, fontSize: 9, color: BRAND.colors.yellow, fontWeight: 600, letterSpacing: "1.5px", marginTop: 3 }}>
-                            {BRAND.tagline}
+                        <div style={{ textAlign: "right" }}>
+                            <div style={{ 
+                                fontFamily: BRAND.fonts.heading, 
+                                fontSize: 14, 
+                                fontWeight: 900, 
+                                color: "#000", 
+                                letterSpacing: "3px",
+                                textTransform: "uppercase" 
+                            }}>
+                                {BRAND.companyShort}
+                            </div>
+                            <div style={{ 
+                                fontFamily: BRAND.fonts.body, 
+                                fontSize: 9, 
+                                color: BRAND.colors.yellowDark, 
+                                fontWeight: 700, 
+                                letterSpacing: "2px", 
+                                marginTop: 4,
+                                textTransform: "uppercase"
+                            }}>
+                                {BRAND.tagline}
+                            </div>
                         </div>
+                    </div>
+
+                    {/* Styled Separator */}
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 40 }}>
+                        <div style={{ height: 3, width: 40, background: BRAND.colors.yellow }} />
+                        <div style={{ height: 1, flex: 1, background: "rgba(0,0,0,0.06)" }} />
                     </div>
                 </div>
 
-                {/* Yellow line */}
-                <div style={{ height: 2, background: `linear-gradient(90deg, ${BRAND.colors.yellow}, ${BRAND.colors.yellow}33)`, marginBottom: 28 }} />
-
-                {/* Letter content */}
+                {/* Letter content container */}
                 <div
                     style={{
-                        fontFamily: BRAND.fonts.body,
-                        fontSize: 11,
-                        color: "#333",
-                        lineHeight: 1.9,
-                        whiteSpace: "pre-wrap",
-                        minHeight: 600,
                         position: "relative",
                         zIndex: 1,
+                        flex: 1,
+                        fontFamily: BRAND.fonts.body,
+                        fontSize: 12,
+                        color: "#222",
+                        lineHeight: 1.8,
+                        whiteSpace: "pre-wrap",
+                        textAlign: "justify",
                     }}
                 >
                     {data.content || "Your letter content will appear here..."}
                 </div>
 
-                {/* Footer */}
-                <div style={{ position: "absolute", bottom: 24, left: 40, right: 40 }}>
-                    <div style={{ height: 1.5, background: `linear-gradient(90deg, ${BRAND.colors.yellow}, ${BRAND.colors.yellow}33)`, marginBottom: 6 }} />
-                    <div style={{ fontFamily: BRAND.fonts.body, fontSize: 7, color: "#999", textAlign: "center", letterSpacing: "0.5px" }}>
-                        {BRAND.location} • {BRAND.phone} • {BRAND.email} • {BRAND.website} • GPS: {BRAND.gps}
+                {/* Footer Section */}
+                <div style={{ position: "relative", zIndex: 1, marginTop: 40, borderTop: "1px solid rgba(0,0,0,0.06)", paddingTop: 16 }}>
+                    <div style={{ 
+                        display: "flex", 
+                        justifyContent: "center", 
+                        flexWrap: "wrap", 
+                        gap: "12px", 
+                        fontFamily: BRAND.fonts.body, 
+                        fontSize: 7.5, 
+                        color: "#888", 
+                        letterSpacing: "0.5px",
+                        fontWeight: 500
+                    }}>
+                        <span>{BRAND.address.toUpperCase()}</span>
+                        <span style={{ color: BRAND.colors.yellow }}>•</span>
+                        <span>{BRAND.phone}</span>
+                        <span style={{ color: BRAND.colors.yellow }}>•</span>
+                        <span>{BRAND.email.toUpperCase()}</span>
+                        <span style={{ color: BRAND.colors.yellow }}>•</span>
+                        <span>{BRAND.website.toUpperCase()}</span>
+                        <span style={{ color: BRAND.colors.yellow }}>•</span>
+                        <span>GPS: {BRAND.gps}</span>
                     </div>
                 </div>
             </div>

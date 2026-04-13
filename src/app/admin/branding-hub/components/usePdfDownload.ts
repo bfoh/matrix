@@ -3,6 +3,7 @@
 import { useState, RefObject } from "react";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
+import { ensureFontsForCapture } from "./loadFontsForCapture";
 
 interface PdfOptions {
     orientation?: "portrait" | "landscape";
@@ -25,12 +26,23 @@ export function usePdfDownload() {
         try {
             const { orientation = "portrait", widthInches, heightInches, scale = 3, filename } = options;
 
+            await ensureFontsForCapture();
+
             const canvas = await html2canvas(ref.current, {
                 scale,
                 useCORS: true,
                 allowTaint: true,
                 backgroundColor: null,
                 logging: false,
+                onclone: (_clonedDoc, clonedEl) => {
+                    let parent = clonedEl.parentElement;
+                    while (parent) {
+                        if (parent.style.transform && parent.style.transform !== "none") {
+                            parent.style.transform = "none";
+                        }
+                        parent = parent.parentElement;
+                    }
+                },
             });
 
             const imgData = canvas.toDataURL("image/png", 1.0);
