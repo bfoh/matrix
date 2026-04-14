@@ -3,7 +3,14 @@
 import { forwardRef } from "react";
 import { BRAND } from "../brandConstants";
 
-const EnvelopeTemplate = forwardRef<HTMLDivElement>((_, ref) => {
+export interface EnvelopeData {
+    recipientName: string;
+    organization: string;
+    address: string;
+    cityCountry: string;
+}
+
+const EnvelopeTemplate = forwardRef<HTMLDivElement, { data: EnvelopeData }>(({ data }, ref) => {
     return (
         <div
             ref={ref}
@@ -87,11 +94,11 @@ const EnvelopeTemplate = forwardRef<HTMLDivElement>((_, ref) => {
                 width: "45%",
             }}>
                 <div style={{ width: 40, height: 3, background: BRAND.colors.yellow, marginBottom: 16 }} />
-                <div style={{ fontSize: 14, color: "#aaa", lineHeight: 2, fontStyle: "italic" }}>
-                    Recipient Full Name<br />
-                    Organization Name<br />
-                    P.O. Box / Street Address<br />
-                    City, Country
+                <div style={{ fontSize: 14, color: data.recipientName ? "#333" : "#aaa", lineHeight: 2, fontStyle: data.recipientName ? "normal" : "italic" }}>
+                    {data.recipientName || "Recipient Full Name"}<br />
+                    {data.organization || "Organization Name"}<br />
+                    {data.address || "P.O. Box / Street Address"}<br />
+                    {data.cityCountry || "City, Country"}
                 </div>
             </div>
 
