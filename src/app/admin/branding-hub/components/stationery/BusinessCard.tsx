@@ -6,6 +6,7 @@ import { BusinessCardFront, BusinessCardBack } from "./BusinessCardTemplate";
 import { useCanvasDownload } from "../useCanvasDownload";
 import { BRAND } from "../brandConstants";
 import { jsPDF } from "jspdf";
+import { toPng } from "html-to-image";
 import { ensureFontsForCapture } from "../loadFontsForCapture";
 
 export default function BusinessCard({ onBack }: { onBack: () => void }) {
@@ -25,40 +26,50 @@ export default function BusinessCard({ onBack }: { onBack: () => void }) {
 
     const [activeSide, setActiveSide] = useState<"front" | "back">("front");
 
-    const captureEl = async (el: HTMLElement, scale: number) => {
+    /**
+     * Temporarily strip CSS transforms from ancestor elements so
+     * html-to-image captures at the actual element dimensions.
+     */
+    const captureEl = async (el: HTMLElement, scale: number): Promise<string> => {
         await ensureFontsForCapture();
-        const html2canvas = (await import("html2canvas")).default;
-        return html2canvas(el, {
-            scale,
-            useCORS: true,
-            allowTaint: true,
-            backgroundColor: null,
-            logging: false,
-            onclone: (_doc, clonedEl) => {
-                let parent = clonedEl.parentElement;
-                while (parent) {
-                    if (parent.style.transform && parent.style.transform !== "none") {
-                        parent.style.transform = "none";
-                    }
-                    parent = parent.parentElement;
-                }
-            },
+
+        const saved: Array<{ element: HTMLElement; original: string }> = [];
+        let parent = el.parentElement;
+        while (parent) {
+            const t = parent.style.transform;
+            if (t && t !== "none") {
+                saved.push({ element: parent, original: t });
+                parent.style.transform = "none";
+            }
+            parent = parent.parentElement;
+        }
+
+        const dataUrl = await toPng(el, {
+            pixelRatio: scale,
+            cacheBust: true,
+            includeQueryParams: true,
         });
+
+        saved.forEach(({ element, original }) => {
+            element.style.transform = original;
+        });
+
+        return dataUrl;
     };
 
     const handleDownloadPdf = async () => {
         if (!frontRef.current || !backRef.current) return;
         setIsPdfGenerating(true);
         try {
-            const [frontCanvas, backCanvas] = await Promise.all([
+            const [frontImg, backImg] = await Promise.all([
                 captureEl(frontRef.current, 3),
                 captureEl(backRef.current, 3),
             ]);
 
             const pdf = new jsPDF({ orientation: "landscape", unit: "in", format: [3.5, 2] });
-            pdf.addImage(frontCanvas.toDataURL("image/png", 1.0), "PNG", 0, 0, 3.5, 2);
+            pdf.addImage(frontImg, "PNG", 0, 0, 3.5, 2);
             pdf.addPage([3.5, 2], "landscape");
-            pdf.addImage(backCanvas.toDataURL("image/png", 1.0), "PNG", 0, 0, 3.5, 2);
+            pdf.addImage(backImg, "PNG", 0, 0, 3.5, 2);
             pdf.save("matrix-business-card.pdf");
         } catch (error) {
             console.error("Error generating PDF:", error);

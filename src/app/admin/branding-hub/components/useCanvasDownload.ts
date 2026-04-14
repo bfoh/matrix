@@ -1,36 +1,31 @@
 "use client";
 
 import { useState, RefObject } from "react";
-import html2canvas from "html2canvas";
+import { toPng, toCanvas } from "html-to-image";
 import { ensureFontsForCapture } from "./loadFontsForCapture";
 
-function captureElement(el: HTMLElement, scale: number) {
-    return html2canvas(el, {
-        scale,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: null,
-        logging: false,
-        onclone: (_clonedDoc, clonedEl) => {
-            // Remove CSS transforms on ancestors so html2canvas
-            // reads correct dimensions and text metrics
-            let parent = clonedEl.parentElement;
-            while (parent) {
-                if (parent.style.transform && parent.style.transform !== "none") {
-                    parent.style.transform = "none";
-                }
-                parent = parent.parentElement;
-            }
-            
-            // Normalize font layout metrics to prevent text collapsing (zero-width spaces)
-            const allElements = clonedEl.querySelectorAll('*') as NodeListOf<HTMLElement>;
-            allElements.forEach(el => {
-                el.style.letterSpacing = "normal";
-                el.style.wordSpacing = "normal";
-                el.style.fontVariantLigatures = "none";
-                el.style.textRendering = "auto";
-            });
-        },
+/**
+ * Temporarily strips CSS transforms from ancestor elements so that
+ * html-to-image measures the element at its actual pixel dimensions
+ * instead of the scaled-down preview size.
+ */
+function stripAncestorTransforms(el: HTMLElement): Array<{ element: HTMLElement; original: string }> {
+    const saved: Array<{ element: HTMLElement; original: string }> = [];
+    let parent = el.parentElement;
+    while (parent) {
+        const t = parent.style.transform;
+        if (t && t !== "none") {
+            saved.push({ element: parent, original: t });
+            parent.style.transform = "none";
+        }
+        parent = parent.parentElement;
+    }
+    return saved;
+}
+
+function restoreTransforms(saved: Array<{ element: HTMLElement; original: string }>) {
+    saved.forEach(({ element, original }) => {
+        element.style.transform = original;
     });
 }
 
@@ -47,19 +42,25 @@ export function useCanvasDownload() {
 
         try {
             await ensureFontsForCapture();
-            const canvas = await captureElement(ref.current, scale);
 
-            canvas.toBlob((blob) => {
-                if (!blob) return;
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement("a");
-                link.href = url;
-                link.download = filename;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                setTimeout(() => URL.revokeObjectURL(url), 1000);
-            }, "image/png", 1.0);
+            // Temporarily remove ancestor transforms
+            const saved = stripAncestorTransforms(ref.current);
+
+            const dataUrl = await toPng(ref.current, {
+                pixelRatio: scale,
+                cacheBust: true,
+                includeQueryParams: true,
+            });
+
+            // Restore transforms immediately
+            restoreTransforms(saved);
+
+            const link = document.createElement("a");
+            link.href = dataUrl;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         } catch (error) {
             console.error("Error generating PNG:", error);
             alert("Error generating image. Please try again.");
@@ -74,7 +75,15 @@ export function useCanvasDownload() {
     ): Promise<HTMLCanvasElement | null> => {
         if (!ref.current) return null;
         await ensureFontsForCapture();
-        return captureElement(ref.current, scale);
+
+        const saved = stripAncestorTransforms(ref.current);
+        const canvas = await toCanvas(ref.current, {
+            pixelRatio: scale,
+            cacheBust: true,
+            includeQueryParams: true,
+        });
+        restoreTransforms(saved);
+        return canvas;
     };
 
     return { downloadPng, getCanvas, isGenerating };

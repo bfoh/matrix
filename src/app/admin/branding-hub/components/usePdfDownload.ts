@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, RefObject } from "react";
-import html2canvas from "html2canvas";
+import { toPng } from "html-to-image";
 import { jsPDF } from "jspdf";
 import { ensureFontsForCapture } from "./loadFontsForCapture";
 
@@ -11,6 +11,32 @@ interface PdfOptions {
     heightInches: number;
     scale?: number;
     filename: string;
+}
+
+/**
+ * Walks up the DOM tree from `el` and collects any CSS transforms
+ * applied by ancestor elements so we can temporarily strip them.
+ * html-to-image (and html2canvas before it) measure elements in the
+ * context of the *cloned* document, so scaled previews confuse it.
+ */
+function stripAncestorTransforms(el: HTMLElement): Array<{ element: HTMLElement; original: string }> {
+    const saved: Array<{ element: HTMLElement; original: string }> = [];
+    let parent = el.parentElement;
+    while (parent) {
+        const t = parent.style.transform;
+        if (t && t !== "none") {
+            saved.push({ element: parent, original: t });
+            parent.style.transform = "none";
+        }
+        parent = parent.parentElement;
+    }
+    return saved;
+}
+
+function restoreTransforms(saved: Array<{ element: HTMLElement; original: string }>) {
+    saved.forEach(({ element, original }) => {
+        element.style.transform = original;
+    });
 }
 
 export function usePdfDownload() {
@@ -28,34 +54,19 @@ export function usePdfDownload() {
 
             await ensureFontsForCapture();
 
-            const canvas = await html2canvas(ref.current, {
-                scale,
-                useCORS: true,
-                allowTaint: true,
-                backgroundColor: null,
-                logging: false,
-                onclone: (_clonedDoc, clonedEl) => {
-                    let parent = clonedEl.parentElement;
-                    while (parent) {
-                        if (parent.style.transform && parent.style.transform !== "none") {
-                            parent.style.transform = "none";
-                        }
-                        parent = parent.parentElement;
-                    }
-                    
-                    // html2canvas commonly has issues with spaces and kerning if text-rendering is altered
-                    // or if ligatures are enabled. We normalize font properties here.
-                    const allElements = clonedEl.querySelectorAll('*') as NodeListOf<HTMLElement>;
-                    allElements.forEach(el => {
-                        el.style.letterSpacing = "normal";
-                        el.style.wordSpacing = "normal";
-                        el.style.fontVariantLigatures = "none";
-                        el.style.textRendering = "auto";
-                    });
-                },
+            // Temporarily remove ancestor transforms so pixel dimensions are accurate
+            const saved = stripAncestorTransforms(ref.current);
+
+            const pixelRatio = scale;
+            const imgData = await toPng(ref.current, {
+                pixelRatio,
+                cacheBust: true,
+                // Inline all font-face rules so the SVG foreignObject can use them
+                includeQueryParams: true,
             });
 
-            const imgData = canvas.toDataURL("image/png", 1.0);
+            // Restore transforms immediately
+            restoreTransforms(saved);
 
             const pdf = new jsPDF({
                 orientation,
