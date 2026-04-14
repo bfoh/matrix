@@ -5,7 +5,7 @@ export const BRAND = {
     ceo: "Ernest Opoku",
     ceoTitle: "CEO",
     phone: "+233 26 767 1110",
-    email: "info@matrixmultitech.com",
+    email: "info@matrixmultitech.net",
     website: "matrixmultitech.net",
     websiteUrl: "https://www.matrixmultitech.net",
     location: "Matrix Headquarters, Accra, Ghana",

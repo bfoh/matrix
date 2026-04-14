@@ -9,7 +9,7 @@ Company Details:
 - Services: Telecom and Real Estate
 - Tagline: "Telecom | Real Estate"
 - Phone: +233 26 767 1110
-- Email: info@matrixmultitech.com
+- Email: info@matrixmultitech.net
 - Website: matrixmultitech.net
 - Location: Matrix Headquarters, Accra, Ghana
 - GPS: GG-001-1387

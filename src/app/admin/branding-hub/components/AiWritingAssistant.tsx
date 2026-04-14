@@ -35,6 +35,14 @@ export default function AiWritingAssistant({ materialType, onApply }: AiWritingA
         chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
+    // Auto-apply AI-generated text to the editor when generation completes
+    useEffect(() => {
+        if (!isLoading && lastGenerated) {
+            onApply(cleanAiResponse(lastGenerated));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoading, lastGenerated]);
+
     const cleanAiResponse = (text: string) => {
         // Remove common AI preambles and postambles
         let cleaned = text.trim();
