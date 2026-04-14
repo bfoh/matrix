@@ -8,6 +8,16 @@ interface LetterheadData {
     showWatermark: boolean;
 }
 
+/**
+ * Premium A4 Letterhead Template
+ * 
+ * Design system:
+ * - Left accent bar (4px neon yellow) anchors the brand identity
+ * - Logo + company name sit at top-left for authority
+ * - Contact details structured in the right side of the header
+ * - Footer carries address, registration info, and a brand color strip
+ * - Generous whitespace signals luxury and confidence
+ */
 const LetterheadTemplate = forwardRef<HTMLDivElement, { data: LetterheadData }>(
     ({ data }, ref) => {
         return (
@@ -18,14 +28,27 @@ const LetterheadTemplate = forwardRef<HTMLDivElement, { data: LetterheadData }>(
                     height: 877,
                     background: "#ffffff",
                     fontFamily: BRAND.fonts.body,
-                    padding: "48px 60px",
                     position: "relative",
                     overflow: "hidden",
                     display: "flex",
                     flexDirection: "column",
                 }}
             >
-                {/* Watermark */}
+                {/* ═══════════════════════════════════════════════
+                    LEFT ACCENT BAR — runs the full height of the page
+                    Inspired by premium law firm & real estate stationery
+                    ═══════════════════════════════════════════════ */}
+                <div style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: 5,
+                    height: "100%",
+                    background: `linear-gradient(180deg, ${BRAND.colors.yellow} 0%, ${BRAND.colors.yellow} 60%, transparent 100%)`,
+                    zIndex: 2,
+                }} />
+
+                {/* Watermark — ultra-subtle, dead center */}
                 {data.showWatermark && (
                     <div
                         style={{
@@ -33,7 +56,7 @@ const LetterheadTemplate = forwardRef<HTMLDivElement, { data: LetterheadData }>(
                             top: "50%",
                             left: "50%",
                             transform: "translate(-50%, -50%)",
-                            opacity: 0.015,
+                            opacity: 0.018,
                             pointerEvents: "none",
                             zIndex: 0,
                         }}
@@ -42,62 +65,93 @@ const LetterheadTemplate = forwardRef<HTMLDivElement, { data: LetterheadData }>(
                             src={BRAND.logoTransparent}
                             alt=""
                             crossOrigin="anonymous"
-                            style={{ width: 400, height: 400, objectFit: "contain" }}
+                            style={{ width: 380, height: 380, objectFit: "contain" }}
                         />
                     </div>
                 )}
 
-                {/* Header Section */}
-                <div style={{ position: "relative", zIndex: 1, marginBottom: 20 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 12 }}>
-                        <div>
+                {/* ═══════════════════════════════════════════════
+                    HEADER SECTION
+                    ═══════════════════════════════════════════════ */}
+                <div style={{
+                    position: "relative",
+                    zIndex: 1,
+                    padding: "40px 50px 0 50px",
+                }}>
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "flex-start",
+                    }}>
+                        {/* Left: Logo + Identity */}
+                        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                             <img
                                 src={BRAND.logo}
                                 alt="Matrix Logo"
                                 crossOrigin="anonymous"
-                                style={{ width: 70, height: 70, objectFit: "contain" }}
+                                style={{ width: 56, height: 56, objectFit: "contain" }}
                             />
-                        </div>
-                        <div style={{ textAlign: "right" }}>
-                            <div style={{ 
-                                fontFamily: BRAND.fonts.heading, 
-                                fontSize: 16, 
-                                fontWeight: 900, 
-                                color: "#000", 
-                                textTransform: "uppercase" 
-                            }}>
-                                {BRAND.companyShort}
+                            <div>
+                                <div style={{
+                                    fontFamily: BRAND.fonts.heading,
+                                    fontSize: 17,
+                                    fontWeight: 900,
+                                    color: "#0a0a0a",
+                                    textTransform: "uppercase",
+                                    lineHeight: 1.1,
+                                }}>
+                                    Matrix MultiTech
+                                </div>
+                                <div style={{
+                                    fontFamily: BRAND.fonts.heading,
+                                    fontSize: 8,
+                                    fontWeight: 800,
+                                    color: BRAND.colors.yellowDark,
+                                    textTransform: "uppercase",
+                                    marginTop: 5,
+                                }}>
+                                    Telecom  |  Real Estate
+                                </div>
                             </div>
-                            <div style={{ 
-                                fontFamily: BRAND.fonts.body, 
-                                fontSize: 10, 
-                                color: BRAND.colors.yellowDark, 
-                                fontWeight: 700, 
-                                marginTop: 4,
-                                textTransform: "uppercase"
+                        </div>
+
+                        {/* Right: Contact details stacked */}
+                        <div style={{ textAlign: "right" }}>
+                            <div style={{
+                                fontSize: 8,
+                                color: "#555",
+                                lineHeight: 1.9,
+                                fontWeight: 500,
                             }}>
-                                {BRAND.tagline}
+                                <div>{BRAND.phone}</div>
+                                <div>{BRAND.email}</div>
+                                <div>{BRAND.website}</div>
+                                <div>GPS: {BRAND.gps}</div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Styled Separator */}
-                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 40 }}>
-                        <div style={{ height: 3, width: 40, background: BRAND.colors.yellow }} />
-                        <div style={{ height: 1, flex: 1, background: "rgba(0,0,0,0.06)" }} />
-                    </div>
+                    {/* Separator — thin line with brand accent */}
+                    <div style={{
+                        marginTop: 18,
+                        height: 2,
+                        background: `linear-gradient(90deg, ${BRAND.colors.yellow} 0%, ${BRAND.colors.yellow} 80px, #e8e8e8 80px, #e8e8e8 100%)`,
+                    }} />
                 </div>
 
-                {/* Letter content container */}
+                {/* ═══════════════════════════════════════════════
+                    BODY — Letter content area
+                    ═══════════════════════════════════════════════ */}
                 <div
                     style={{
                         position: "relative",
                         zIndex: 1,
                         flex: 1,
+                        padding: "36px 50px 0 50px",
                         fontFamily: BRAND.fonts.body,
                         fontSize: 12,
-                        color: "#222",
-                        lineHeight: 1.8,
+                        color: "#1a1a1a",
+                        lineHeight: 1.85,
                         whiteSpace: "pre-wrap",
                         textAlign: "left",
                     }}
@@ -105,26 +159,68 @@ const LetterheadTemplate = forwardRef<HTMLDivElement, { data: LetterheadData }>(
                     {data.content || "Your letter content will appear here..."}
                 </div>
 
-                {/* Footer Section - Removed broken tracking formatting for PDF canvas */}
-                <div style={{ position: "relative", zIndex: 1, marginTop: 40, borderTop: "1px solid rgba(0,0,0,0.06)", paddingTop: 16 }}>
-                    <div style={{ 
-                        display: "flex", 
-                        justifyContent: "space-between", // Spread out elements instead of gap+tracking
-                        alignItems: "center",
-                        fontFamily: BRAND.fonts.body, 
-                        fontSize: 8, 
-                        color: "#888", 
-                        fontWeight: 600
+                {/* ═══════════════════════════════════════════════
+                    FOOTER SECTION — Premium two-tier footer
+                    ═══════════════════════════════════════════════ */}
+                <div style={{
+                    position: "relative",
+                    zIndex: 1,
+                    padding: "0 50px",
+                    marginTop: 24,
+                }}>
+                    {/* Upper footer: company name + address */}
+                    <div style={{
+                        borderTop: "1px solid #e0e0e0",
+                        paddingTop: 14,
+                        paddingBottom: 10,
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "flex-start",
                     }}>
-                        <span style={{textTransform: "uppercase"}}>{BRAND.address}</span>
-                        <span style={{ color: BRAND.colors.yellow }}>•</span>
-                        <span>{BRAND.phone}</span>
-                        <span style={{ color: BRAND.colors.yellow }}>•</span>
-                        <span style={{textTransform: "uppercase"}}>{BRAND.email}</span>
-                        <span style={{ color: BRAND.colors.yellow }}>•</span>
-                        <span style={{textTransform: "uppercase"}}>{BRAND.website}</span>
+                        <div>
+                            <div style={{
+                                fontFamily: BRAND.fonts.heading,
+                                fontSize: 8,
+                                fontWeight: 900,
+                                color: "#111",
+                                textTransform: "uppercase",
+                                marginBottom: 3,
+                            }}>
+                                {BRAND.company}
+                            </div>
+                            <div style={{
+                                fontSize: 7,
+                                color: "#888",
+                                fontWeight: 500,
+                            }}>
+                                {BRAND.location}
+                            </div>
+                        </div>
+                        <div style={{ textAlign: "right" }}>
+                            <div style={{
+                                fontSize: 7,
+                                color: "#888",
+                                fontWeight: 500,
+                            }}>
+                                www.{BRAND.website}
+                            </div>
+                            <div style={{
+                                fontSize: 7,
+                                color: "#aaa",
+                                fontWeight: 500,
+                                marginTop: 2,
+                            }}>
+                                {BRAND.email}
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                {/* Bottom brand strip — the signature accent */}
+                <div style={{
+                    height: 4,
+                    background: `linear-gradient(90deg, ${BRAND.colors.yellow} 0%, ${BRAND.colors.yellow}66 40%, transparent 100%)`,
+                }} />
             </div>
         );
     }
