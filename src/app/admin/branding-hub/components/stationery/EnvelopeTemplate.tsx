@@ -17,12 +17,10 @@ const EnvelopeTemplate = forwardRef<HTMLDivElement>((_, ref) => {
                 overflow: "hidden",
             }}
         >
-            {/* Subtle watermark */}
             <div style={{ position: "absolute", top: "60%", left: "75%", transform: "translate(-50%, -50%)", opacity: 0.015, pointerEvents: "none" }}>
                 <img src={BRAND.logoTransparent} alt="" crossOrigin="anonymous" style={{ width: 300, height: 300, objectFit: "contain" }} />
             </div>
 
-            {/* Return address header */}
             <div style={{ position: "relative", zIndex: 1 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 12 }}>
                     <img
@@ -34,32 +32,32 @@ const EnvelopeTemplate = forwardRef<HTMLDivElement>((_, ref) => {
                     <div>
                         <div style={{ 
                             fontFamily: BRAND.fonts.heading, 
-                            fontSize: 12, 
+                            fontSize: 16, 
                             fontWeight: 900, 
                             color: "#000", 
-                            letterSpacing: "2.5px" 
+                            textTransform: "uppercase" 
                         }}>
                             {BRAND.companyShort}
                         </div>
                         <div style={{ 
-                            fontSize: 8, 
+                            fontSize: 10, 
                             color: BRAND.colors.yellowDark, 
                             fontWeight: 700, 
-                            letterSpacing: "1px", 
-                            marginTop: 2 
+                            marginTop: 4,
+                            textTransform: "uppercase" 
                         }}>
-                            {BRAND.tagline.toUpperCase()}
+                            {BRAND.tagline}
                         </div>
                     </div>
                 </div>
-                <div style={{ fontSize: 9.5, color: "#666", lineHeight: 1.8, marginLeft: 60, borderLeft: "1px solid rgba(0,0,0,0.06)", paddingLeft: 16 }}>
-                    {BRAND.location.toUpperCase()}<br />
+                <div style={{ fontSize: 10, color: "#666", lineHeight: 1.8, marginLeft: 60, borderLeft: "1px solid rgba(0,0,0,0.06)", paddingLeft: 16 }}>
+                    <span style={{textTransform: "uppercase", fontWeight: 600}}>{BRAND.location}</span><br />
                     T: {BRAND.phone}<br />
-                    E: {BRAND.email.toUpperCase()}
+                    E: <span style={{textTransform: "uppercase", fontWeight: 600}}>{BRAND.email}</span>
                 </div>
             </div>
 
-            {/* Stamp area - more premium */}
+            {/* Stamp area */}
             <div style={{
                 position: "absolute",
                 top: 48,
@@ -72,25 +70,24 @@ const EnvelopeTemplate = forwardRef<HTMLDivElement>((_, ref) => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: 8,
+                fontSize: 10,
                 color: "#ccc",
-                letterSpacing: "2px",
                 fontWeight: 700,
             }}>
                 <div style={{ fontSize: 16, marginBottom: 4 }}>▧</div>
                 STAMP
             </div>
 
-            {/* Recipient area (center aligned) */}
+            {/* Recipient area */}
             <div style={{
                 position: "absolute",
                 top: "60%",
-                left: "50%",
+                left: "45%",
                 transform: "translate(-20%, -20%)",
-                width: "40%",
+                width: "45%",
             }}>
                 <div style={{ width: 40, height: 3, background: BRAND.colors.yellow, marginBottom: 16 }} />
-                <div style={{ fontSize: 14, color: "#aaa", lineHeight: 2, fontStyle: "italic", letterSpacing: "0.5px" }}>
+                <div style={{ fontSize: 14, color: "#aaa", lineHeight: 2, fontStyle: "italic" }}>
                     Recipient Full Name<br />
                     Organization Name<br />
                     P.O. Box / Street Address<br />
@@ -105,7 +102,7 @@ const EnvelopeTemplate = forwardRef<HTMLDivElement>((_, ref) => {
                 left: 0,
                 right: 0,
                 height: 4,
-                background: `linear-gradient(90deg, ${BRAND.colors.yellow}, ${BRAND.colors.yellow}22)`,
+                background: `linear-gradient(90deg, ${BRAND.colors.yellow}, rgba(217,222,0,0.1))`,
             }} />
         </div>
     );

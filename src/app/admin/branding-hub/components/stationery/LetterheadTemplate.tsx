@@ -18,14 +18,14 @@ const LetterheadTemplate = forwardRef<HTMLDivElement, { data: LetterheadData }>(
                     height: 877,
                     background: "#ffffff",
                     fontFamily: BRAND.fonts.body,
-                    padding: "48px 60px", // Increased padding for a more premium look
+                    padding: "48px 60px",
                     position: "relative",
                     overflow: "hidden",
                     display: "flex",
                     flexDirection: "column",
                 }}
             >
-                {/* Watermark - Refined opacity and centering */}
+                {/* Watermark */}
                 {data.showWatermark && (
                     <div
                         style={{
@@ -33,7 +33,7 @@ const LetterheadTemplate = forwardRef<HTMLDivElement, { data: LetterheadData }>(
                             top: "50%",
                             left: "50%",
                             transform: "translate(-50%, -50%)",
-                            opacity: 0.015, // Lowered even further for extreme subtlety
+                            opacity: 0.015,
                             pointerEvents: "none",
                             zIndex: 0,
                         }}
@@ -61,20 +61,18 @@ const LetterheadTemplate = forwardRef<HTMLDivElement, { data: LetterheadData }>(
                         <div style={{ textAlign: "right" }}>
                             <div style={{ 
                                 fontFamily: BRAND.fonts.heading, 
-                                fontSize: 14, 
+                                fontSize: 16, 
                                 fontWeight: 900, 
                                 color: "#000", 
-                                letterSpacing: "3px",
                                 textTransform: "uppercase" 
                             }}>
                                 {BRAND.companyShort}
                             </div>
                             <div style={{ 
                                 fontFamily: BRAND.fonts.body, 
-                                fontSize: 9, 
+                                fontSize: 10, 
                                 color: BRAND.colors.yellowDark, 
                                 fontWeight: 700, 
-                                letterSpacing: "2px", 
                                 marginTop: 4,
                                 textTransform: "uppercase"
                             }}>
@@ -107,28 +105,24 @@ const LetterheadTemplate = forwardRef<HTMLDivElement, { data: LetterheadData }>(
                     {data.content || "Your letter content will appear here..."}
                 </div>
 
-                {/* Footer Section */}
+                {/* Footer Section - Removed broken tracking formatting for PDF canvas */}
                 <div style={{ position: "relative", zIndex: 1, marginTop: 40, borderTop: "1px solid rgba(0,0,0,0.06)", paddingTop: 16 }}>
                     <div style={{ 
                         display: "flex", 
-                        justifyContent: "center", 
-                        flexWrap: "wrap", 
-                        gap: "12px", 
+                        justifyContent: "space-between", // Spread out elements instead of gap+tracking
+                        alignItems: "center",
                         fontFamily: BRAND.fonts.body, 
-                        fontSize: 7.5, 
+                        fontSize: 8, 
                         color: "#888", 
-                        letterSpacing: "0.5px",
-                        fontWeight: 500
+                        fontWeight: 600
                     }}>
-                        <span>{BRAND.address.toUpperCase()}</span>
+                        <span style={{textTransform: "uppercase"}}>{BRAND.address}</span>
                         <span style={{ color: BRAND.colors.yellow }}>•</span>
                         <span>{BRAND.phone}</span>
                         <span style={{ color: BRAND.colors.yellow }}>•</span>
-                        <span>{BRAND.email.toUpperCase()}</span>
+                        <span style={{textTransform: "uppercase"}}>{BRAND.email}</span>
                         <span style={{ color: BRAND.colors.yellow }}>•</span>
-                        <span>{BRAND.website.toUpperCase()}</span>
-                        <span style={{ color: BRAND.colors.yellow }}>•</span>
-                        <span>GPS: {BRAND.gps}</span>
+                        <span style={{textTransform: "uppercase"}}>{BRAND.website}</span>
                     </div>
                 </div>
             </div>

@@ -63,7 +63,7 @@ export default function InvoiceTemplate({ onBack }: { onBack: () => void }) {
                         </div>
                         <div className="p-3 md:p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-auto">
                             <div className="transform scale-[0.42] sm:scale-[0.55] md:scale-[0.7] origin-top">
-                                <div ref={templateRef} style={{ width: 620, height: 877, background: "#ffffff", fontFamily: BRAND.fonts.body, padding: "48px 50px", position: "relative", letterSpacing: "0.2px", wordSpacing: "0px", overflow: "hidden" }}>
+                                <div ref={templateRef} style={{ width: 620, height: 877, background: "#ffffff", fontFamily: BRAND.fonts.body, padding: "48px 50px", position: "relative", overflow: "hidden" }}>
                                     {/* Subtle background watermark */}
                                     <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", opacity: 0.015, pointerEvents: "none", zIndex: 0 }}>
                                         <img src={BRAND.logoTransparent} alt="" crossOrigin="anonymous" style={{ width: 350, height: 350, objectFit: "contain" }} />
@@ -73,13 +73,13 @@ export default function InvoiceTemplate({ onBack }: { onBack: () => void }) {
                                     <div style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 32 }}>
                                         <div>
                                             <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 64, height: 64, objectFit: "contain", marginBottom: 12 }} />
-                                            <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 13, fontWeight: 900, color: "#000", letterSpacing: "2px" }}>{BRAND.companyShort}</div>
-                                            <div style={{ fontSize: 8, color: BRAND.colors.yellowDark, fontWeight: 700, letterSpacing: "1px", marginTop: 2 }}>{BRAND.tagline.toUpperCase()}</div>
+                                            <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 16, fontWeight: 900, color: "#000", textTransform: "uppercase" }}>{BRAND.companyShort}</div>
+                                            <div style={{ fontSize: 10, color: BRAND.colors.yellowDark, fontWeight: 800, marginTop: 4, textTransform: "uppercase" }}>{BRAND.tagline}</div>
                                         </div>
                                         <div style={{ textAlign: "right" }}>
-                                            <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 32, fontWeight: 900, color: BRAND.colors.yellow, letterSpacing: 6, lineHeight: 1 }}>INVOICE</div>
-                                            <div style={{ fontSize: 10, color: "#888", marginTop: 12, fontWeight: 600 }}>NO. <span style={{ color: "#333" }}>{data.invoiceNo}</span></div>
-                                            <div style={{ fontSize: 10, color: "#888", fontWeight: 600 }}>DATE <span style={{ color: "#333" }}>{data.date}</span></div>
+                                            <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 40, fontWeight: 900, color: BRAND.colors.yellow, lineHeight: 1 }}>INVOICE</div>
+                                            <div style={{ fontSize: 12, color: "#888", marginTop: 12, fontWeight: 700 }}>NO. <span style={{ color: "#333" }}>{data.invoiceNo}</span></div>
+                                            <div style={{ fontSize: 12, color: "#888", fontWeight: 700 }}>DATE <span style={{ color: "#333" }}>{data.date}</span></div>
                                         </div>
                                     </div>
 
@@ -88,43 +88,43 @@ export default function InvoiceTemplate({ onBack }: { onBack: () => void }) {
                                     {/* From / To Section */}
                                     <div style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "space-between", marginBottom: 40, gap: 40 }}>
                                         <div style={{ flex: 1 }}>
-                                            <div style={{ fontSize: 9, fontWeight: 800, color: "#aaa", letterSpacing: 2, marginBottom: 10, textTransform: "uppercase" }}>FROM</div>
-                                            <div style={{ fontSize: 12, color: "#111", fontWeight: 700, marginBottom: 4 }}>{BRAND.company}</div>
-                                            <div style={{ fontSize: 10, color: "#666", whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{BRAND.location}{"\n"}{BRAND.phone}{"\n"}{BRAND.email}</div>
+                                            <div style={{ fontSize: 11, fontWeight: 900, color: "#aaa", marginBottom: 10, textTransform: "uppercase" }}>FROM</div>
+                                            <div style={{ fontSize: 14, color: "#111", fontWeight: 800, marginBottom: 4 }}>{BRAND.company}</div>
+                                            <div style={{ fontSize: 12, color: "#666", whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{BRAND.location}{"\n"}{BRAND.phone}{"\n"}{BRAND.email}</div>
                                         </div>
                                         <div style={{ flex: 1, textAlign: "right" }}>
-                                            <div style={{ fontSize: 9, fontWeight: 800, color: "#aaa", letterSpacing: 2, marginBottom: 10, textTransform: "uppercase" }}>BILL TO</div>
-                                            <div style={{ fontSize: 12, color: "#111", fontWeight: 700, marginBottom: 4 }}>{data.clientName}</div>
-                                            <div style={{ fontSize: 10, color: "#666", whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{data.clientAddress}</div>
+                                            <div style={{ fontSize: 11, fontWeight: 900, color: "#aaa", marginBottom: 10, textTransform: "uppercase" }}>BILL TO</div>
+                                            <div style={{ fontSize: 14, color: "#111", fontWeight: 800, marginBottom: 4 }}>{data.clientName}</div>
+                                            <div style={{ fontSize: 12, color: "#666", whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{data.clientAddress}</div>
                                         </div>
                                     </div>
 
                                     {/* Table Section */}
                                     <div style={{ position: "relative", zIndex: 1, marginBottom: 32 }}>
                                         <div style={{ display: "flex", borderBottom: `2px solid #000`, padding: "0 12px 12px 12px" }}>
-                                            <div style={{ flex: 3.5, fontSize: 10, fontWeight: 800, color: "#000", letterSpacing: 1.5 }}>DESCRIPTION</div>
-                                            <div style={{ flex: 0.8, fontSize: 10, fontWeight: 800, color: "#000", letterSpacing: 1.5, textAlign: "center" }}>QTY</div>
-                                            <div style={{ flex: 1.2, fontSize: 10, fontWeight: 800, color: "#000", letterSpacing: 1.5, textAlign: "right" }}>RATE</div>
-                                            <div style={{ flex: 1.5, fontSize: 10, fontWeight: 800, color: "#000", letterSpacing: 1.5, textAlign: "right" }}>AMOUNT</div>
+                                            <div style={{ flex: 3.5, fontSize: 12, fontWeight: 900, color: "#000" }}>DESCRIPTION</div>
+                                            <div style={{ flex: 0.8, fontSize: 12, fontWeight: 900, color: "#000", textAlign: "center" }}>QTY</div>
+                                            <div style={{ flex: 1.2, fontSize: 12, fontWeight: 900, color: "#000", textAlign: "right" }}>RATE</div>
+                                            <div style={{ flex: 1.5, fontSize: 12, fontWeight: 900, color: "#000", textAlign: "right" }}>AMOUNT</div>
                                         </div>
                                         {data.items.map((item, i) => (
                                             <div key={i} style={{ display: "flex", padding: "14px 12px", borderBottom: "1px solid #efefef", alignItems: "center" }}>
                                                 <div style={{ flex: 3.5 }}>
-                                                    <div style={{ fontSize: 11, color: "#111", fontWeight: 600 }}>{item.description || "—"}</div>
+                                                    <div style={{ fontSize: 13, color: "#111", fontWeight: 600 }}>{item.description || "—"}</div>
                                                 </div>
-                                                <div style={{ flex: 0.8, fontSize: 11, color: "#444", textAlign: "center" }}>{item.qty}</div>
-                                                <div style={{ flex: 1.2, fontSize: 11, color: "#444", textAlign: "right" }}>{item.rate.toLocaleString("en-GH", { minimumFractionDigits: 2 })}</div>
-                                                <div style={{ flex: 1.5, fontSize: 11, color: "#111", textAlign: "right", fontWeight: 700 }}>GH₵ {(item.qty * item.rate).toLocaleString("en-GH", { minimumFractionDigits: 2 })}</div>
+                                                <div style={{ flex: 0.8, fontSize: 13, color: "#444", textAlign: "center" }}>{item.qty}</div>
+                                                <div style={{ flex: 1.2, fontSize: 13, color: "#444", textAlign: "right" }}>{item.rate.toLocaleString("en-GH", { minimumFractionDigits: 2 })}</div>
+                                                <div style={{ flex: 1.5, fontSize: 13, color: "#111", textAlign: "right", fontWeight: 700 }}>GH₵ {(item.qty * item.rate).toLocaleString("en-GH", { minimumFractionDigits: 2 })}</div>
                                             </div>
                                         ))}
                                     </div>
 
                                     {/* Totals Section */}
                                     <div style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "flex-end", marginBottom: 40 }}>
-                                        <div style={{ width: 220 }}>
-                                            <div style={{ display: "flex", justifyContent: "space-between", padding: "12px 12px", background: "rgba(217,222,0,0.05)", borderRadius: 4 }}>
-                                                <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 13, fontWeight: 900, color: "#000", letterSpacing: 1 }}>GRAND TOTAL</div>
-                                                <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 16, fontWeight: 900, color: BRAND.colors.yellowDark }}>GH₵ {total.toLocaleString("en-GH", { minimumFractionDigits: 2 })}</div>
+                                        <div style={{ width: 260 }}>
+                                            <div style={{ display: "flex", justifyContent: "space-between", padding: "14px 16px", background: "rgba(217,222,0,0.1)", borderRadius: 6 }}>
+                                                <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 16, fontWeight: 900, color: "#000" }}>GRAND TOTAL</div>
+                                                <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 18, fontWeight: 900, color: BRAND.colors.yellowDark }}>GH₵ {total.toLocaleString("en-GH", { minimumFractionDigits: 2 })}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -134,16 +134,16 @@ export default function InvoiceTemplate({ onBack }: { onBack: () => void }) {
                                         <div style={{ flex: 1 }}>
                                             {data.notes && (
                                                 <div style={{ marginBottom: 20 }}>
-                                                    <div style={{ fontSize: 8, fontWeight: 800, color: "#aaa", letterSpacing: 1.5, marginBottom: 8 }}>NOTES</div>
-                                                    <div style={{ fontSize: 9, color: "#666", lineHeight: 1.7, whiteSpace: "pre-wrap", borderLeft: `2px solid ${BRAND.colors.yellow}`, paddingLeft: 12 }}>{data.notes}</div>
+                                                    <div style={{ fontSize: 11, fontWeight: 900, color: "#aaa", marginBottom: 8, textTransform: "uppercase" }}>NOTES</div>
+                                                    <div style={{ fontSize: 11, color: "#666", lineHeight: 1.7, whiteSpace: "pre-wrap", borderLeft: `2px solid ${BRAND.colors.yellow}`, paddingLeft: 12 }}>{data.notes}</div>
                                                 </div>
                                             )}
                                         </div>
                                         <div style={{ flex: 1 }}>
                                             {data.paymentTerms && (
                                                 <div>
-                                                    <div style={{ fontSize: 8, fontWeight: 800, color: "#aaa", letterSpacing: 1.5, marginBottom: 8 }}>PAYMENT TERMS</div>
-                                                    <div style={{ fontSize: 9, color: "#666", lineHeight: 1.7 }}>{data.paymentTerms}</div>
+                                                    <div style={{ fontSize: 11, fontWeight: 900, color: "#aaa", marginBottom: 8, textTransform: "uppercase" }}>PAYMENT TERMS</div>
+                                                    <div style={{ fontSize: 11, color: "#666", lineHeight: 1.7 }}>{data.paymentTerms}</div>
                                                 </div>
                                             )}
                                         </div>
@@ -151,8 +151,10 @@ export default function InvoiceTemplate({ onBack }: { onBack: () => void }) {
 
                                     {/* Footer Section */}
                                     <div style={{ position: "absolute", bottom: 40, left: 50, right: 50, borderTop: "1px solid #efefef", paddingTop: 16 }}>
-                                        <div style={{ fontSize: 7.5, color: "#aaa", textAlign: "center", letterSpacing: "1px", fontWeight: 500 }}>
-                                            {BRAND.companyShort} • {BRAND.location} • {BRAND.website.toUpperCase()}
+                                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: "#aaa", fontWeight: 600 }}>
+                                            <span style={{textTransform: "uppercase"}}>{BRAND.companyShort}</span>
+                                            <span style={{textTransform: "uppercase"}}>{BRAND.location}</span>
+                                            <span style={{textTransform: "uppercase"}}>{BRAND.website}</span>
                                         </div>
                                     </div>
                                 </div>

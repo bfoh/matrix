@@ -78,13 +78,13 @@ export default function WatermarkGenerator({ onBack }: { onBack: () => void }) {
                                         />
                                         <div style={{
                                             fontFamily: BRAND.fonts.heading,
-                                            fontSize: position === "center" ? 18 : 10,
-                                            fontWeight: 800,
+                                            fontSize: position === "center" ? 22 : 12,
+                                            fontWeight: 900,
                                             color: "#fff",
-                                            letterSpacing: 3,
                                             textShadow: "0 1px 4px rgba(0,0,0,0.5)",
+                                            textTransform: "uppercase"
                                         }}>
-                                            MATRIX MULTITECH
+                                            {BRAND.companyShort}
                                         </div>
                                     </div>
                                 </div>

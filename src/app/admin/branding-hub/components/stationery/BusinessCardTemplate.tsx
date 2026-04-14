@@ -11,9 +11,6 @@ interface BusinessCardData {
     email: string;
 }
 
-/**
- * Front side — two-column layout: info left, logo right
- */
 export const BusinessCardFront = forwardRef<HTMLDivElement, { data: BusinessCardData }>(
     ({ data }, ref) => {
         return (
@@ -22,59 +19,40 @@ export const BusinessCardFront = forwardRef<HTMLDivElement, { data: BusinessCard
                 style={{
                     width: 1050,
                     height: 600,
-                    background: "#050505", // Slightly deeper black
+                    background: "#050505",
                     fontFamily: BRAND.fonts.body,
                     position: "relative",
                     overflow: "hidden",
                     display: "flex",
                 }}
             >
-                {/* ── Left column: Name + Contact ── */}
+                {/* Tech Grid Background */}
+                <div style={{ position: "absolute", inset: 0, opacity: 0.05, backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+
+                {/* Left Column: Info */}
                 <div
                     style={{
                         flex: 1,
-                        padding: "72px 40px 60px 72px",
+                        padding: "80px 60px",
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "space-between",
                         position: "relative",
                         zIndex: 1,
+                        background: "linear-gradient(90deg, rgba(5,5,5,1) 60%, transparent)",
                     }}
                 >
-                    {/* Name block */}
                     <div>
-                        <div
-                            style={{
-                                fontFamily: BRAND.fonts.heading,
-                                fontSize: 40,
-                                fontWeight: 900,
-                                color: "#ffffff",
-                                letterSpacing: "-0.5px",
-                                lineHeight: 1.1,
-                                textTransform: "uppercase"
-                            }}
-                        >
+                        <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 44, fontWeight: 900, color: "#fff", textTransform: "uppercase" }}>
                             {data.name}
                         </div>
-                        <div
-                            style={{
-                                fontFamily: BRAND.fonts.body,
-                                fontSize: 13,
-                                color: BRAND.colors.yellow,
-                                fontWeight: 700,
-                                letterSpacing: "5px",
-                                marginTop: 12,
-                                textTransform: "uppercase"
-                            }}
-                        >
+                        <div style={{ fontFamily: BRAND.fonts.body, fontSize: 16, color: BRAND.colors.yellow, fontWeight: 800, marginTop: 12, textTransform: "uppercase" }}>
                             {data.title}
                         </div>
-                        {/* Accent line */}
-                        <div style={{ width: 44, height: 4, background: BRAND.colors.yellow, marginTop: 28 }} />
+                        <div style={{ width: 60, height: 4, background: BRAND.colors.yellow, marginTop: 30 }} />
                     </div>
 
-                    {/* Contact details */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                         <ContactRow label="M" value={data.phone} />
                         <ContactRow label="E" value={data.email} />
                         <ContactRow label="W" value={BRAND.website.toUpperCase()} />
@@ -82,119 +60,56 @@ export const BusinessCardFront = forwardRef<HTMLDivElement, { data: BusinessCard
                     </div>
                 </div>
 
-                {/* ── Right column: Logo + QR ── */}
+                {/* Right Column: Logo */}
                 <div
                     style={{
                         width: 380,
+                        position: "relative",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
-                        position: "relative",
-                        background: "rgba(255,255,255,0.02)",
                         borderLeft: "1px solid rgba(255,255,255,0.05)",
+                        background: "rgba(255,255,255,0.02)",
                     }}
                 >
-                    {/* Subtle background glow */}
-                    <div
-                        style={{
-                            position: "absolute",
-                            inset: 0,
-                            background: "radial-gradient(circle at center, rgba(217,222,0,0.04) 0%, transparent 70%)",
-                            pointerEvents: "none",
-                        }}
-                    />
-
-                    {/* Logo Section */}
+                    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at center, rgba(217,222,0,0.08) 0%, transparent 60%)", pointerEvents: "none" }} />
+                    
                     <div style={{ position: "relative", zIndex: 1, marginBottom: 40, textAlign: "center" }}>
-                        <img
-                            src={BRAND.logo}
-                            alt="Matrix Logo"
-                            crossOrigin="anonymous"
-                            style={{
-                                width: 90,
-                                height: 90,
-                                objectFit: "contain",
-                            }}
-                        />
-                        <div style={{ 
-                            fontFamily: BRAND.fonts.heading, 
-                            fontSize: 10, 
-                            fontWeight: 800, 
-                            color: "#fff", 
-                            letterSpacing: "4px", 
-                            marginTop: 20,
-                            textTransform: "uppercase"
-                        }}>
+                        <div style={{ background: "#fff", width: 120, height: 120, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px", boxShadow: "0 10px 40px rgba(0,0,0,0.5)"}}>
+                            <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 80, height: 80, objectFit: "contain" }} />
+                        </div>
+                        <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 16, fontWeight: 900, color: "#fff", textTransform: "uppercase" }}>
                             {BRAND.companyShort}
                         </div>
                     </div>
 
-                    {/* QR Code Container */}
-                    <div
-                        style={{
-                            padding: 8,
-                            background: "#ffffff",
-                            borderRadius: 6,
-                            position: "relative",
-                            zIndex: 1,
-                            boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
-                        }}
-                    >
-                        <QRCodeSVG value={BRAND.websiteUrl} size={64} bgColor="#ffffff" fgColor="#000000" />
+                    <div style={{ padding: 12, background: "#fff", borderRadius: 8, boxShadow: "0 10px 30px rgba(0,0,0,0.5)", position: "relative", zIndex: 1 }}>
+                        <QRCodeSVG value={BRAND.websiteUrl} size={80} bgColor="#fff" fgColor="#000" />
                     </div>
                 </div>
 
-                {/* Top accent line */}
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 4, background: BRAND.colors.yellow }} />
-
-                {/* Vertical accent */}
-                <div style={{ position: "absolute", bottom: 0, left: 72, width: 200, height: 2, background: `linear-gradient(90deg, ${BRAND.colors.yellow}, transparent)` }} />
+                {/* Left Yellow Line */}
+                <div style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: 8, background: BRAND.colors.yellow }} />
             </div>
         );
     }
 );
 BusinessCardFront.displayName = "BusinessCardFront";
 
-/** Reusable contact row */
 function ContactRow({ label, value, small }: { label: string; value: string; small?: boolean }) {
     return (
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <div
-                style={{
-                    width: 22,
-                    height: 22,
-                    borderRadius: 4,
-                    border: "1px solid rgba(217,222,0,0.25)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 11,
-                    fontWeight: 700,
-                    color: "#D9DE00",
-                    fontFamily: "Montserrat, sans-serif",
-                    flexShrink: 0,
-                }}
-            >
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <div style={{ width: 28, height: 28, borderRadius: 4, background: "rgba(217,222,0,0.1)", border: "1px solid rgba(217,222,0,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 900, color: "#D9DE00", fontFamily: "Montserrat, sans-serif" }}>
                 {label}
             </div>
-            <span
-                style={{
-                    fontSize: small ? 13 : 15,
-                    color: small ? "#888888" : "#cccccc",
-                    letterSpacing: "0.3px",
-                    wordSpacing: "0px",
-                }}
-            >
+            <span style={{ fontSize: small ? 14 : 16, color: small ? "rgba(255,255,255,0.5)" : "#fff", fontWeight: 500, fontFamily: "Montserrat, sans-serif" }}>
                 {value}
             </span>
         </div>
     );
 }
 
-/**
- * Back side — brand identity
- */
 export const BusinessCardBack = forwardRef<HTMLDivElement, object>(
     (_, ref) => {
         return (
@@ -213,65 +128,28 @@ export const BusinessCardBack = forwardRef<HTMLDivElement, object>(
                     justifyContent: "center",
                 }}
             >
-                {/* Subtle radial glow */}
-                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at center, rgba(217,222,0,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
+                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at center, rgba(217,222,0,0.1) 0%, transparent 70%)", pointerEvents: "none" }} />
+                
+                <div style={{ position: "absolute", inset: 0, opacity: 0.05, backgroundImage: "linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff), linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff)", backgroundPosition: "0 0, 10px 10px", backgroundSize: "20px 20px" }} />
 
-                {/* Top accent */}
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 4, background: BRAND.colors.yellow }} />
-
-                {/* Corner accents - refined */}
-                <div style={{ position: "absolute", bottom: 40, left: 40, width: 60, height: 2, background: BRAND.colors.yellow }} />
-                <div style={{ position: "absolute", bottom: 40, left: 40, width: 2, height: 60, background: BRAND.colors.yellow }} />
-                <div style={{ position: "absolute", bottom: 40, right: 40, width: 60, height: 2, background: BRAND.colors.yellow }} />
-                <div style={{ position: "absolute", bottom: 40, right: 40, width: 2, height: 60, background: BRAND.colors.yellow }} />
-
-                {/* Logo Section */}
-                <div style={{ position: "relative", zIndex: 1, textAlign: "center" }}>
-                    <img
-                        src={BRAND.logo}
-                        alt="Matrix Logo"
-                        crossOrigin="anonymous"
-                        style={{ width: 160, height: 160, objectFit: "contain" }}
-                    />
-
-                    {/* Company name */}
-                    <div
-                        style={{
-                            fontSize: 28,
-                            fontWeight: 900,
-                            color: "#ffffff",
-                            letterSpacing: "8px",
-                            marginTop: 32,
-                            textTransform: "uppercase"
-                        }}
-                    >
+                <div style={{ position: "relative", zIndex: 1, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <div style={{ background: "#fff", width: 160, height: 160, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 32, boxShadow: "0 0 60px rgba(217,222,0,0.2)"}}>
+                        <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 100, height: 100, objectFit: "contain" }} />
+                    </div>
+                    <div style={{ fontSize: 40, fontWeight: 900, color: "#fff", textTransform: "uppercase" }}>
                         {BRAND.companyShort}
                     </div>
-
-                    {/* Tagline */}
-                    <div
-                        style={{
-                            fontFamily: BRAND.fonts.body,
-                            fontSize: 14,
-                            color: BRAND.colors.yellow,
-                            letterSpacing: "5px",
-                            fontWeight: 700,
-                            marginTop: 12,
-                            textTransform: "uppercase"
-                        }}
-                    >
+                    <div style={{ fontFamily: BRAND.fonts.body, fontSize: 18, color: BRAND.colors.yellow, fontWeight: 800, marginTop: 16, textTransform: "uppercase" }}>
                         {BRAND.tagline}
                     </div>
                 </div>
 
-                {/* Minimalist divider */}
-                <div style={{ position: "absolute", bottom: 60, width: 40, height: 3, background: BRAND.colors.yellow }} />
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 8, background: BRAND.colors.yellow }} />
             </div>
         );
     }
 );
 BusinessCardBack.displayName = "BusinessCardBack";
 
-// Default export for backwards compat
 const BusinessCardTemplate = BusinessCardFront;
 export default BusinessCardTemplate;

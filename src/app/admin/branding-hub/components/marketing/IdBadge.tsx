@@ -73,7 +73,7 @@ export default function IdBadge({ onBack }: { onBack: () => void }) {
 
                                 {/* Content Section */}
                                 <div style={{ padding: "50px 24px 24px", textAlign: "center" }}>
-                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 9, fontWeight: 900, color: BRAND.colors.yellow, letterSpacing: 2, marginBottom: 20 }}>{BRAND.companyShort}</div>
+                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 13, fontWeight: 900, color: BRAND.colors.yellow, marginBottom: 20, textTransform: "uppercase" }}>{BRAND.companyShort}</div>
 
                                     {/* Photo Section */}
                                     <div style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}>
@@ -88,9 +88,9 @@ export default function IdBadge({ onBack }: { onBack: () => void }) {
 
                                     {/* Employee Info */}
                                     <div style={{ marginBottom: 32 }}>
-                                        <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 20, fontWeight: 900, color: "#fff", letterSpacing: 0.5 }}>{data.name.toUpperCase()}</div>
-                                        <div style={{ fontSize: 13, color: BRAND.colors.yellow, fontWeight: 700, letterSpacing: 2, marginTop: 6, textTransform: "uppercase" }}>{data.title}</div>
-                                        <div style={{ fontSize: 9, color: "rgba(255,255,255,0.3)", marginTop: 8, letterSpacing: 1.5, fontWeight: 600 }}>DEPT: {data.department.toUpperCase()}</div>
+                                        <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 24, fontWeight: 900, color: "#fff", textTransform: "uppercase" }}>{data.name}</div>
+                                        <div style={{ fontSize: 16, color: BRAND.colors.yellow, fontWeight: 800, marginTop: 6, textTransform: "uppercase" }}>{data.title}</div>
+                                        <div style={{ fontSize: 10, color: "rgba(255,255,255,0.4)", marginTop: 8, fontWeight: 700, textTransform: "uppercase" }}>DEPT: {data.department}</div>
                                     </div>
 
                                     {/* QR Code Section */}
@@ -98,7 +98,7 @@ export default function IdBadge({ onBack }: { onBack: () => void }) {
                                         <div style={{ padding: 6, background: "#fff", borderRadius: 8, boxShadow: "0 4px 10px rgba(0,0,0,0.5)" }}>
                                             <QRCodeSVG value={BRAND.websiteUrl} size={60} bgColor="#fff" fgColor="#000" />
                                         </div>
-                                        <div style={{ fontSize: 7, color: "rgba(255,255,255,0.2)", letterSpacing: 1, fontWeight: 600 }}>OFFICIAL IDENTITY CARD</div>
+                                        <div style={{ fontSize: 8, color: "rgba(255,255,255,0.3)", fontWeight: 700 }}>OFFICIAL IDENTITY CARD</div>
                                     </div>
                                 </div>
 

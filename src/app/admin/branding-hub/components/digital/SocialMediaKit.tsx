@@ -47,7 +47,7 @@ export default function SocialMediaKit({ onBack }: { onBack: () => void }) {
                         <div style={{ width: 220, height: 220, borderRadius: "50%", border: `4px solid ${BRAND.colors.yellow}`, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 60px rgba(217,222,0,0.15)" }}>
                             <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 140, height: 140, objectFit: "contain" }} />
                         </div>
-                        <div style={{ position: "absolute", bottom: 30, fontFamily: BRAND.fonts.heading, fontSize: 12, color: "rgba(255,255,255,0.4)", letterSpacing: 4, fontWeight: 700 }}>
+                        <div style={{ position: "absolute", bottom: 30, fontFamily: BRAND.fonts.heading, fontSize: 13, color: "rgba(255,255,255,0.4)", fontWeight: 800, textTransform: "uppercase" }}>
                             {BRAND.tagline}
                         </div>
                     </div>
@@ -61,9 +61,9 @@ export default function SocialMediaKit({ onBack }: { onBack: () => void }) {
                         <div style={{ display: "flex", alignItems: "center", gap: 40 }}>
                             <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 100, height: 100, objectFit: "contain" }} />
                             <div>
-                                <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 28, fontWeight: 800, color: "#fff", letterSpacing: 3 }}>MATRIX MULTITECH LTD</div>
-                                <div style={{ fontFamily: BRAND.fonts.body, fontSize: 14, color: BRAND.colors.yellow, letterSpacing: 3, fontWeight: 600, marginTop: 6 }}>{BRAND.tagline}</div>
-                                <div style={{ fontFamily: BRAND.fonts.body, fontSize: 11, color: "rgba(255,255,255,0.3)", marginTop: 10, letterSpacing: 1 }}>{BRAND.website} • {BRAND.phone}</div>
+                                <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 32, fontWeight: 900, color: "#fff", textTransform: "uppercase" }}>MATRIX MULTITECH LTD</div>
+                                <div style={{ fontFamily: BRAND.fonts.body, fontSize: 16, color: BRAND.colors.yellow, fontWeight: 800, marginTop: 8, textTransform: "uppercase" }}>{BRAND.tagline}</div>
+                                <div style={{ fontFamily: BRAND.fonts.body, fontSize: 13, color: "rgba(255,255,255,0.3)", marginTop: 12, fontWeight: 600 }}>{BRAND.website.toUpperCase()} &nbsp;&nbsp;|&nbsp;&nbsp; {BRAND.phone}</div>
                             </div>
                         </div>
                     </div>
@@ -76,8 +76,8 @@ export default function SocialMediaKit({ onBack }: { onBack: () => void }) {
                         <div style={{ display: "flex", alignItems: "center", gap: 50 }}>
                             <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 120, height: 120, objectFit: "contain" }} />
                             <div>
-                                <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 42, fontWeight: 800, color: "#fff", letterSpacing: 4 }}>MATRIX MULTITECH</div>
-                                <div style={{ fontFamily: BRAND.fonts.body, fontSize: 18, color: BRAND.colors.yellow, letterSpacing: 4, fontWeight: 600, marginTop: 8 }}>{BRAND.tagline}</div>
+                                <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 48, fontWeight: 900, color: "#fff", textTransform: "uppercase" }}>MATRIX MULTITECH</div>
+                                <div style={{ fontFamily: BRAND.fonts.body, fontSize: 24, color: BRAND.colors.yellow, fontWeight: 800, marginTop: 12, textTransform: "uppercase" }}>{BRAND.tagline}</div>
                             </div>
                         </div>
                         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 4, background: `linear-gradient(90deg, transparent, ${BRAND.colors.yellow}, transparent)` }} />
@@ -88,11 +88,11 @@ export default function SocialMediaKit({ onBack }: { onBack: () => void }) {
                 <SocialItem label="Instagram Story" desc="1080×1920 — IG Stories" onDownload={() => handleDownload("ig-story", "IG Story")} isGenerating={isGenerating}>
                     <div ref={igRef} style={{ width: 1080, height: 1920, background: BRAND.colors.black, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
                         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, rgba(217,222,0,0.06) 0%, transparent 60%)" }} />
-                        <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 200, height: 200, objectFit: "contain", marginBottom: 40 }} />
-                        <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 48, fontWeight: 800, color: "#fff", letterSpacing: 5, textAlign: "center" }}>MATRIX<br />MULTITECH LTD</div>
-                        <div style={{ fontFamily: BRAND.fonts.body, fontSize: 20, color: BRAND.colors.yellow, letterSpacing: 5, fontWeight: 600, marginTop: 16 }}>{BRAND.tagline}</div>
-                        <div style={{ fontFamily: BRAND.fonts.body, fontSize: 14, color: "rgba(255,255,255,0.3)", marginTop: 40, letterSpacing: 2 }}>{BRAND.website}</div>
-                        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 6, background: BRAND.colors.yellow }} />
+                        <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 220, height: 220, objectFit: "contain", marginBottom: 50 }} />
+                        <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 56, fontWeight: 900, color: "#fff", textAlign: "center", textTransform: "uppercase", lineHeight: 1.1 }}>MATRIX<br />MULTITECH LTD</div>
+                        <div style={{ fontFamily: BRAND.fonts.body, fontSize: 24, color: BRAND.colors.yellow, fontWeight: 800, marginTop: 20, textTransform: "uppercase" }}>{BRAND.tagline}</div>
+                        <div style={{ fontFamily: BRAND.fonts.body, fontSize: 18, color: "rgba(255,255,255,0.4)", marginTop: 50, fontWeight: 700, textTransform: "uppercase" }}>{BRAND.website}</div>
+                        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 8, background: BRAND.colors.yellow }} />
                     </div>
                 </SocialItem>
             </div>

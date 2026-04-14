@@ -42,20 +42,18 @@ const ComplimentSlipTemplate = forwardRef<HTMLDivElement, { data: ComplimentSlip
                     <div style={{ textAlign: "right" }}>
                         <div style={{ 
                             fontFamily: BRAND.fonts.heading, 
-                            fontSize: 11, 
+                            fontSize: 14, 
                             fontWeight: 900, 
                             color: "#000", 
-                            letterSpacing: "2px",
                             textTransform: "uppercase" 
                         }}>
                             {BRAND.companyShort}
                         </div>
                         <div style={{ 
                             fontFamily: BRAND.fonts.body, 
-                            fontSize: 7, 
+                            fontSize: 8, 
                             color: BRAND.colors.yellowDark, 
                             fontWeight: 700, 
-                            letterSpacing: "1px", 
                             marginTop: 3,
                             textTransform: "uppercase"
                         }}>
@@ -74,14 +72,13 @@ const ComplimentSlipTemplate = forwardRef<HTMLDivElement, { data: ComplimentSlip
                 <div style={{ flex: 1 }}>
                     <div style={{
                         fontFamily: BRAND.fonts.heading,
-                        fontSize: 11,
+                        fontSize: 14,
                         fontWeight: 800,
                         color: "#bbb",
                         textTransform: "uppercase",
-                        letterSpacing: "3px",
                         marginBottom: 12,
                     }}>
-                        With Compliments
+                        WITH COMPLIMENTS
                     </div>
 
                     <div style={{
@@ -98,12 +95,12 @@ const ComplimentSlipTemplate = forwardRef<HTMLDivElement, { data: ComplimentSlip
 
                 {/* Minimal Footer */}
                 <div style={{ marginTop: 24, borderTop: "1px solid rgba(0,0,0,0.04)", paddingTop: 12 }}>
-                    <div style={{ display: "flex", justifyContent: "center", gap: 12, fontSize: 6.5, color: "#aaa", fontWeight: 600, letterSpacing: 0.5 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 8, color: "#aaa", fontWeight: 600 }}>
                         <span>{BRAND.phone}</span>
                         <span style={{ color: BRAND.colors.yellow }}>•</span>
-                        <span>{BRAND.email.toUpperCase()}</span>
+                        <span style={{textTransform: "uppercase"}}>{BRAND.email}</span>
                         <span style={{ color: BRAND.colors.yellow }}>•</span>
-                        <span>{BRAND.website.toUpperCase()}</span>
+                        <span style={{textTransform: "uppercase"}}>{BRAND.website}</span>
                     </div>
                 </div>
             </div>

@@ -24,8 +24,8 @@ interface Property {
 
 const PropertyStat = ({ val, label }: { val: number | string, label: string }) => (
     <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        <div style={{ fontSize: 32, fontWeight: 900, color: BRAND.colors.yellow, fontFamily: BRAND.fonts.heading, minWidth: 60 }}>{val}</div>
-        <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: 2, fontWeight: 700 }}>{label}</div>
+        <div style={{ fontSize: 36, fontWeight: 900, color: BRAND.colors.yellow, fontFamily: BRAND.fonts.heading, minWidth: 60 }}>{val}</div>
+        <div style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", fontWeight: 800, textTransform: "uppercase" }}>{label}</div>
     </div>
 );
 
@@ -142,12 +142,11 @@ export default function PropertyFlyer({ onBack }: { onBack: () => void }) {
                                                 right: 40, 
                                                 background: BRAND.colors.yellow, 
                                                 color: "#000", 
-                                                padding: "12px 28px", 
+                                                padding: "16px 36px", 
                                                 borderRadius: 6, 
                                                 fontFamily: BRAND.fonts.heading, 
-                                                fontSize: 16, 
+                                                fontSize: 18, 
                                                 fontWeight: 900, 
-                                                letterSpacing: 3,
                                                 boxShadow: "0 10px 30px rgba(0,0,0,0.3)"
                                             }}>
                                                 {property.status.toUpperCase()}
@@ -159,8 +158,8 @@ export default function PropertyFlyer({ onBack }: { onBack: () => void }) {
                                                     <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 36, height: 36, objectFit: "contain" }} />
                                                 </div>
                                                 <div>
-                                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 13, fontWeight: 800, color: "#fff", letterSpacing: 3, textTransform: "uppercase" }}>{BRAND.companyShort}</div>
-                                                    <div style={{ fontSize: 9, color: BRAND.colors.yellow, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase" }}>{BRAND.tagline}</div>
+                                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 16, fontWeight: 800, color: "#fff", textTransform: "uppercase" }}>{BRAND.companyShort}</div>
+                                                    <div style={{ fontSize: 10, color: BRAND.colors.yellow, fontWeight: 700, textTransform: "uppercase" }}>{BRAND.tagline}</div>
                                                 </div>
                                             </div>
 
@@ -174,7 +173,6 @@ export default function PropertyFlyer({ onBack }: { onBack: () => void }) {
                                                     fontFamily: BRAND.fonts.heading, 
                                                     fontSize: 48, 
                                                     fontWeight: 900, 
-                                                    letterSpacing: "-1px",
                                                     boxShadow: "0 10px 40px rgba(0,0,0,0.5)"
                                                 }}>
                                                     GH₵ {property.price.toLocaleString()}
@@ -186,7 +184,7 @@ export default function PropertyFlyer({ onBack }: { onBack: () => void }) {
                                         <div style={{ padding: "50px 60px" }}>
                                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 40 }}>
                                                 <div style={{ flex: 1 }}>
-                                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 36, fontWeight: 900, color: "#fff", letterSpacing: "0.5px", lineHeight: 1.1, textTransform: "uppercase" }}>
+                                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 36, fontWeight: 900, color: "#fff", lineHeight: 1.1, textTransform: "uppercase" }}>
                                                         {headline || property.title}
                                                     </div>
                                                     <div style={{ fontSize: 18, color: "rgba(255,255,255,0.4)", marginTop: 12, display: "flex", alignItems: "center", gap: 8, fontWeight: 500 }}>
@@ -217,19 +215,19 @@ export default function PropertyFlyer({ onBack }: { onBack: () => void }) {
                                         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 100, background: "#111", borderTop: `1px solid ${BRAND.colors.yellow}33`, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 60px" }}>
                                             <div style={{ display: "flex", alignItems: "center", gap: 40 }}>
                                                 <div>
-                                                    <div style={{ fontSize: 10, color: BRAND.colors.yellow, fontWeight: 800, letterSpacing: 2, marginBottom: 4 }}>CONTACT AGENT</div>
-                                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 18, fontWeight: 800, color: "#fff", letterSpacing: 1 }}>{BRAND.phone}</div>
+                                                    <div style={{ fontSize: 12, color: BRAND.colors.yellow, fontWeight: 800, marginBottom: 4 }}>CONTACT AGENT</div>
+                                                    <div style={{ fontFamily: BRAND.fonts.heading, fontSize: 24, fontWeight: 800, color: "#fff" }}>{BRAND.phone}</div>
                                                 </div>
                                                 <div>
-                                                    <div style={{ fontSize: 10, color: "rgba(255,255,255,0.3)", fontWeight: 800, letterSpacing: 2, marginBottom: 4 }}>EMAIL</div>
-                                                    <div style={{ fontSize: 14, color: "#fff", fontWeight: 600 }}>{BRAND.email.toUpperCase()}</div>
+                                                    <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 800, marginBottom: 4 }}>EMAIL</div>
+                                                    <div style={{ fontSize: 16, color: "#fff", fontWeight: 600 }}>{BRAND.email.toUpperCase()}</div>
                                                 </div>
                                             </div>
                                             
                                             <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
                                                 <div style={{ textAlign: "right" }}>
-                                                    <div style={{ fontSize: 10, color: "rgba(255,255,255,0.3)", fontWeight: 800, letterSpacing: 2, marginBottom: 4 }}>WEBSITE</div>
-                                                    <div style={{ fontSize: 14, color: BRAND.colors.yellow, fontWeight: 700 }}>{BRAND.website.toUpperCase()}</div>
+                                                    <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 800, marginBottom: 4 }}>WEBSITE</div>
+                                                    <div style={{ fontSize: 16, color: BRAND.colors.yellow, fontWeight: 700 }}>{BRAND.website.toUpperCase()}</div>
                                                 </div>
                                                 <div style={{ background: "#fff", padding: 6, borderRadius: 8, boxShadow: "0 4px 12px rgba(0,0,0,0.5)" }}>
                                                     <QRCodeSVG value={BRAND.websiteUrl} size={52} bgColor="#fff" fgColor="#000" />

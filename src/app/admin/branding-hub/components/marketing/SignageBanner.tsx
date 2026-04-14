@@ -56,32 +56,32 @@ export default function SignageBanner({ onBack }: { onBack: () => void }) {
                                         <div style={{ background: "#fff", width: 100, height: 100, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto", boxShadow: "0 8px 20px rgba(0,0,0,0.3)" }}>
                                             <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 64, height: 64, objectFit: "contain" }} />
                                         </div>
-                                        <div style={{ fontSize: 18, color: "rgba(255,255,255,0.4)", letterSpacing: 6, marginTop: 24, fontWeight: 800, textTransform: "uppercase" }}>{BRAND.companyShort}</div>
+                                        <div style={{ fontSize: 24, color: "rgba(255,255,255,0.4)", marginTop: 24, fontWeight: 900, textTransform: "uppercase" }}>{BRAND.companyShort}</div>
                                     </div>
 
                                     {/* Status Section */}
                                     <div style={{ textAlign: "center", width: "100%" }}>
-                                        <div style={{ fontSize: 140, fontWeight: 900, color: BRAND.colors.yellow, letterSpacing: -2, lineHeight: 0.9, textTransform: "uppercase" }}>
+                                        <div style={{ fontSize: 160, fontWeight: 900, color: BRAND.colors.yellow, lineHeight: 0.9, textTransform: "uppercase" }}>
                                             {data.status}
                                         </div>
                                         {data.customText && (
-                                            <div style={{ fontSize: 36, color: "#fff", marginTop: 20, fontFamily: BRAND.fonts.body, fontWeight: 600, letterSpacing: 1 }}>
-                                                {data.customText.toUpperCase()}
+                                            <div style={{ fontSize: 40, color: "#fff", marginTop: 20, fontFamily: BRAND.fonts.body, fontWeight: 700, textTransform: "uppercase" }}>
+                                                {data.customText}
                                             </div>
                                         )}
                                     </div>
 
                                     {/* Contact Section */}
                                     <div style={{ textAlign: "center" }}>
-                                        <div style={{ display: "flex", alignItems: "center", gap: 16, justifyContent: "center", marginBottom: 12 }}>
-                                            <div style={{ height: 2, width: 40, background: BRAND.colors.yellow }} />
-                                            <div style={{ fontSize: 56, color: "#fff", fontWeight: 900, fontFamily: BRAND.fonts.body, letterSpacing: 1 }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: 16, justifySelf: "center", marginBottom: 12 }}>
+                                            <div style={{ height: 4, width: 40, background: BRAND.colors.yellow }} />
+                                            <div style={{ fontSize: 64, color: "#fff", fontWeight: 900, fontFamily: BRAND.fonts.body }}>
                                                 {data.phone}
                                             </div>
-                                            <div style={{ height: 2, width: 40, background: BRAND.colors.yellow }} />
+                                            <div style={{ height: 4, width: 40, background: BRAND.colors.yellow }} />
                                         </div>
-                                        <div style={{ fontSize: 20, color: BRAND.colors.yellow, letterSpacing: 4, fontWeight: 700 }}>
-                                            {BRAND.website.toUpperCase()}
+                                        <div style={{ fontSize: 26, color: BRAND.colors.yellow, fontWeight: 800, textTransform: "uppercase" }}>
+                                            {BRAND.website}
                                         </div>
                                     </div>
 

@@ -52,21 +52,21 @@ export default function PresentationCover({ onBack }: { onBack: () => void }) {
 
                                     <div style={{ position: "relative", zIndex: 1, flex: 1, display: "flex", flexDirection: "column" }}>
                                         {/* Top Branding */}
-                                        <div style={{ display: "flex", alignItems: "center", gap: 24, marginBottom: "auto" }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: 32, marginBottom: "auto" }}>
                                             <img src={BRAND.logo} alt="Matrix Logo" crossOrigin="anonymous" style={{ width: 100, height: 100, objectFit: "contain" }} />
                                             <div>
-                                                <div style={{ fontSize: 24, fontWeight: 900, color: "#fff", letterSpacing: 6, textTransform: "uppercase" }}>{BRAND.companyShort}</div>
-                                                <div style={{ fontSize: 13, color: BRAND.colors.yellow, letterSpacing: 4, fontWeight: 700, marginTop: 4, textTransform: "uppercase" }}>{BRAND.tagline}</div>
+                                                <div style={{ fontSize: 36, fontWeight: 900, color: "#fff", textTransform: "uppercase" }}>{BRAND.companyShort}</div>
+                                                <div style={{ fontSize: 18, color: BRAND.colors.yellow, fontWeight: 800, marginTop: 4, textTransform: "uppercase" }}>{BRAND.tagline}</div>
                                             </div>
                                         </div>
 
                                         {/* Main Content Area */}
                                         <div style={{ marginBottom: "auto" }}>
-                                            <div style={{ width: 120, height: 6, background: BRAND.colors.yellow, marginBottom: 40 }} />
-                                            <div style={{ fontSize: 100, fontWeight: 900, color: "#fff", letterSpacing: "-2px", lineHeight: 1.05, maxWidth: 1200, textTransform: "uppercase" }}>
+                                            <div style={{ width: 180, height: 8, background: BRAND.colors.yellow, marginBottom: 40 }} />
+                                            <div style={{ fontSize: 110, fontWeight: 900, color: "#fff", lineHeight: 1.05, maxWidth: 1200, textTransform: "uppercase" }}>
                                                 {data.title}
                                             </div>
-                                            <div style={{ fontSize: 32, color: "rgba(255,255,255,0.4)", marginTop: 24, fontFamily: BRAND.fonts.body, fontWeight: 500, letterSpacing: 2, maxWidth: 1000 }}>
+                                            <div style={{ fontSize: 40, color: "rgba(255,255,255,0.6)", marginTop: 24, fontFamily: BRAND.fonts.body, fontWeight: 500, maxWidth: 1000 }}>
                                                 {data.subtitle}
                                             </div>
                                         </div>
@@ -74,11 +74,11 @@ export default function PresentationCover({ onBack }: { onBack: () => void }) {
                                         {/* Bottom Presenter Details */}
                                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
                                             <div>
-                                                <div style={{ fontSize: 14, color: BRAND.colors.yellow, fontWeight: 800, letterSpacing: 3, marginBottom: 8, textTransform: "uppercase" }}>PRESENTED BY</div>
-                                                <div style={{ fontSize: 28, color: "#fff", fontWeight: 700, fontFamily: BRAND.fonts.body }}>{data.presenter.toUpperCase()}</div>
+                                                <div style={{ fontSize: 20, color: BRAND.colors.yellow, fontWeight: 900, marginBottom: 8, textTransform: "uppercase" }}>PRESENTED BY</div>
+                                                <div style={{ fontSize: 36, color: "#fff", fontWeight: 700, fontFamily: BRAND.fonts.body }}>{data.presenter.toUpperCase()}</div>
                                             </div>
                                             <div style={{ textAlign: "right" }}>
-                                                <div style={{ fontSize: 14, color: "rgba(255,255,255,0.3)", fontWeight: 700, letterSpacing: 2 }}>{data.date.toUpperCase()}</div>
+                                                <div style={{ fontSize: 24, color: "rgba(255,255,255,0.4)", fontWeight: 700 }}>{data.date.toUpperCase()}</div>
                                             </div>
                                         </div>
                                     </div>

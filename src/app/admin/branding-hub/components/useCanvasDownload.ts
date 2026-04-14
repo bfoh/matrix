@@ -21,6 +21,13 @@ function captureElement(el: HTMLElement, scale: number) {
                 }
                 parent = parent.parentElement;
             }
+            
+            // Force geometric precision to avoid text mangling/overlapping
+            clonedEl.style.textRendering = "geometricPrecision";
+            const allElements = clonedEl.querySelectorAll('*') as NodeListOf<HTMLElement>;
+            allElements.forEach(el => {
+                el.style.textRendering = "geometricPrecision";
+            });
         },
     });
 }
