@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { ArrowLeft, Download, Loader2, Bed, Bath, Maximize } from "lucide-react";
+import { ArrowLeft, Download, Loader2 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useCanvasDownload } from "../useCanvasDownload";
 import { usePdfDownload } from "../usePdfDownload";
@@ -10,9 +10,9 @@ import { BRAND } from "../brandConstants";
 import { createClient } from "@/lib/supabase";
 
 interface Property {
-    id: number;
+    id: string;
     title: string;
-    price: number;
+    price: string;
     status: string;
     address: string;
     image: string;
@@ -36,7 +36,7 @@ export default function PropertyFlyer({ onBack }: { onBack: () => void }) {
     const isGenerating = isPng || isPdf;
 
     const [properties, setProperties] = useState<Property[]>([]);
-    const [selectedId, setSelectedId] = useState<number | null>(null);
+    const [selectedId, setSelectedId] = useState<string | null>(null);
     const [headline, setHeadline] = useState("");
     const [tagline, setTagline] = useState("");
     const [loading, setLoading] = useState(true);
@@ -46,13 +46,22 @@ export default function PropertyFlyer({ onBack }: { onBack: () => void }) {
     useEffect(() => {
         const fetchProperties = async () => {
             const { data } = await supabase.from("properties").select("*").eq("published", true);
-            if (data) setProperties(data);
+            if (data) setProperties(data as any);
             setLoading(false);
         };
         fetchProperties();
     }, []);
 
     const property = properties.find((p) => p.id === selectedId);
+
+    const formatPrice = (price: string | number) => {
+        if (typeof price === "number") return `GH₵ ${price.toLocaleString()}`;
+        // If it already has currency formatting, return as-is
+        if (typeof price === "string" && price.includes("₵")) return price;
+        // Try to parse as number
+        const num = parseFloat(String(price).replace(/[^0-9.]/g, ""));
+        return isNaN(num) ? price : `GH₵ ${num.toLocaleString()}`;
+    };
 
     const handleAiApply = (text: string) => {
         const lines = text.split("\n").filter(Boolean);
@@ -81,7 +90,7 @@ export default function PropertyFlyer({ onBack }: { onBack: () => void }) {
                         ) : (
                             <select
                                 value={selectedId || ""}
-                                onChange={(e) => setSelectedId(Number(e.target.value) || null)}
+                                onChange={(e) => setSelectedId(e.target.value || null)}
                                 className="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-raleway focus:border-[#D9DE00] focus:outline-none"
                             >
                                 <option value="">Choose a property...</option>
@@ -175,7 +184,7 @@ export default function PropertyFlyer({ onBack }: { onBack: () => void }) {
                                                     fontWeight: 900, 
                                                     boxShadow: "0 10px 40px rgba(0,0,0,0.5)"
                                                 }}>
-                                                    GH₵ {property.price.toLocaleString()}
+                                                    {formatPrice(property.price)}
                                                 </div>
                                             </div>
                                         </div>
@@ -192,7 +201,7 @@ export default function PropertyFlyer({ onBack }: { onBack: () => void }) {
                                                     </div>
                                                     {tagline && (
                                                         <div style={{ fontSize: 16, color: BRAND.colors.yellow, marginTop: 16, fontWeight: 600, fontStyle: "italic", opacity: 0.8 }}>
-                                                            "{tagline}"
+                                                            &quot;{tagline}&quot;
                                                         </div>
                                                     )}
                                                 </div>
