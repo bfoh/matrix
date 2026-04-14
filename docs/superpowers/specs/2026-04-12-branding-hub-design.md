@@ -2,7 +2,7 @@
 
 ## Context
 
-Matrix MultiTech Ltd is a Telcom and Real Estate company based in Accra, Ghana. The CEO (Ernest Opoku) needs a centralized place in the admin portal to generate professional branding materials — business cards, letterheads, flyers, proposals, and more — without relying on external design tools. The branding hub will also include an AI writing assistant powered by Claude to help compose letters, marketing copy, and promotional content before printing.
+Matrix MultiTech Ltd is a Telecom and Real Estate company based in Accra, Ghana. The CEO (Ernest Opoku) needs a centralized place in the admin portal to generate professional branding materials — business cards, letterheads, flyers, proposals, and more — without relying on external design tools. The branding hub will also include an AI writing assistant powered by Claude to help compose letters, marketing copy, and promotional content before printing.
 
 ## Company Details
 
@@ -11,7 +11,7 @@ Matrix MultiTech Ltd is a Telcom and Real Estate company based in Accra, Ghana. 
 | Company Name | Matrix MultiTech Ltd |
 | CEO | Ernest Opoku |
 | Title | CEO |
-| Services Tagline | Telcom \| Real Estate |
+| Services Tagline | Telecom \| Real Estate |
 | Phone | +233 26 767 1110 |
 | Email | info@matrixmultitech.com |
 | Website | matrixmultitech.net |
@@ -53,7 +53,7 @@ Each tab shows a card grid. Clicking a card opens a full editor view with live p
 
 #### 1. Business Card
 - **Dimensions:** 1050 x 600px (3.5" x 2" at 300 DPI)
-- **Layout:** Left 40% — Matrix logo centered, "MATRIX MULTITECH LTD" below, **"Telcom | Real Estate"** tagline underneath. Right 60% — separated by yellow (#D9DE00) vertical divider, name (Ernest Opoku), title (CEO), phone, email, website stacked. QR code bottom-right linking to matrixmultitech.net
+- **Layout:** Left 40% — Matrix logo centered, "MATRIX MULTITECH LTD" below, **"Telecom | Real Estate"** tagline underneath. Right 60% — separated by yellow (#D9DE00) vertical divider, name (Ernest Opoku), title (CEO), phone, email, website stacked. QR code bottom-right linking to matrixmultitech.net
 - **Customizable fields:** Name, Title, Phone, Email
 - **Downloads:** PNG + print-ready PDF (landscape, 3.5" x 2")
 
@@ -171,7 +171,7 @@ Each tab shows a card grid. Clicking a card opens a full editor view with live p
 - **"Apply to Editor" button:** One-click to inject AI-generated content into the material's text fields
 
 ### System Prompt Context (embedded in API route)
-The AI will be instructed that it is a branding and marketing expert for Matrix MultiTech Ltd, a Telcom and Real Estate company in Accra, Ghana. It knows the CEO is Ernest Opoku, the company's services, contact details, and brand voice (professional, premium, trustworthy). It tailors content for the Ghanaian real estate and telecom market.
+The AI will be instructed that it is a branding and marketing expert for Matrix MultiTech Ltd, a Telecom and Real Estate company in Accra, Ghana. It knows the CEO is Ernest Opoku, the company's services, contact details, and brand voice (professional, premium, trustworthy). It tailors content for the Ghanaian real estate and telecom market.
 
 ## Component Architecture
 

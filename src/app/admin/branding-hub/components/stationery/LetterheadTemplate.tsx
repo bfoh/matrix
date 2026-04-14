@@ -99,7 +99,7 @@ const LetterheadTemplate = forwardRef<HTMLDivElement, { data: LetterheadData }>(
                         color: "#222",
                         lineHeight: 1.8,
                         whiteSpace: "pre-wrap",
-                        textAlign: "justify",
+                        textAlign: "left",
                     }}
                 >
                     {data.content || "Your letter content will appear here..."}

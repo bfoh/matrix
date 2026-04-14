@@ -43,11 +43,14 @@ export function usePdfDownload() {
                         parent = parent.parentElement;
                     }
                     
-                    // Force geometric precision to avoid text mangling/overlapping
-                    clonedEl.style.textRendering = "geometricPrecision";
+                    // html2canvas commonly has issues with spaces and kerning if text-rendering is altered
+                    // or if ligatures are enabled. We normalize font properties here.
                     const allElements = clonedEl.querySelectorAll('*') as NodeListOf<HTMLElement>;
                     allElements.forEach(el => {
-                        el.style.textRendering = "geometricPrecision";
+                        el.style.letterSpacing = "normal";
+                        el.style.wordSpacing = "normal";
+                        el.style.fontVariantLigatures = "none";
+                        el.style.textRendering = "auto";
                     });
                 },
             });

@@ -1,7 +1,7 @@
 export const BRAND = {
     company: "Matrix MultiTech Ltd",
-    companyShort: "MATRIX MULTITECH",
-    tagline: "Telcom | Real Estate",
+    companyShort: "Matrix MultiTech",
+    tagline: "Telecom | Real Estate",
     ceo: "Ernest Opoku",
     ceoTitle: "CEO",
     phone: "+233 26 767 1110",

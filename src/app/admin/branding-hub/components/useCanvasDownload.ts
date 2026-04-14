@@ -22,11 +22,13 @@ function captureElement(el: HTMLElement, scale: number) {
                 parent = parent.parentElement;
             }
             
-            // Force geometric precision to avoid text mangling/overlapping
-            clonedEl.style.textRendering = "geometricPrecision";
+            // Normalize font layout metrics to prevent text collapsing (zero-width spaces)
             const allElements = clonedEl.querySelectorAll('*') as NodeListOf<HTMLElement>;
             allElements.forEach(el => {
-                el.style.textRendering = "geometricPrecision";
+                el.style.letterSpacing = "normal";
+                el.style.wordSpacing = "normal";
+                el.style.fontVariantLigatures = "none";
+                el.style.textRendering = "auto";
             });
         },
     });
