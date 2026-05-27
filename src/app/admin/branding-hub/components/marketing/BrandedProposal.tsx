@@ -64,7 +64,7 @@ Matrix MultiTech Ltd`,
                     <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
                         <div className="px-5 py-3 flex justify-between items-center border-b border-white/[0.06]">
                             <span className="text-[10px] tracking-[2px] font-bold text-white/30">PREVIEW</span>
-                            <button onClick={() => downloadPdf(templateRef, { orientation: "portrait", widthInches: 8.27, heightInches: 11.69, scale: 4, filename: "matrix-proposal.pdf" })} disabled={isGenerating} className="flex items-center gap-1.5 text-[10px] font-bold tracking-[1px] px-3 py-1.5 rounded bg-red-500/15 text-red-500 hover:bg-red-500/25 transition-colors disabled:opacity-50">
+                            <button onClick={() => downloadPdf(templateRef, { orientation: "portrait", widthInches: 8.27, heightInches: 11.69, scale: 3, filename: "matrix-proposal.pdf" })} disabled={isGenerating} className="flex items-center gap-1.5 text-[10px] font-bold tracking-[1px] px-3 py-1.5 rounded bg-red-500/15 text-red-500 hover:bg-red-500/25 transition-colors disabled:opacity-50">
                                 {isGenerating ? <Loader2 size={12} className="animate-spin" /> : <Download size={12} />} PDF
                             </button>
                         </div>
@@ -169,7 +169,7 @@ Matrix MultiTech Ltd`,
                             </div>
                             <textarea value={data.content} onChange={(e) => setData({ ...data, content: e.target.value })} rows={10} className="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-raleway focus:border-[#D9DE00] focus:outline-none resize-none leading-relaxed" />
                         </div>
-                        <button onClick={() => downloadPdf(templateRef, { orientation: "portrait", widthInches: 8.27, heightInches: 11.69, scale: 4, filename: "matrix-proposal.pdf" })} disabled={isGenerating} className="w-full flex items-center justify-center gap-2 bg-[#D9DE00] text-black font-bold py-3 rounded-lg text-sm tracking-wider font-montserrat hover:bg-[#e5ea2a] transition-colors disabled:opacity-50">
+                        <button onClick={() => downloadPdf(templateRef, { orientation: "portrait", widthInches: 8.27, heightInches: 11.69, scale: 3, filename: "matrix-proposal.pdf" })} disabled={isGenerating} className="w-full flex items-center justify-center gap-2 bg-[#D9DE00] text-black font-bold py-3 rounded-lg text-sm tracking-wider font-montserrat hover:bg-[#e5ea2a] transition-colors disabled:opacity-50">
                             {isGenerating ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />} DOWNLOAD PDF
                         </button>
                     </div>

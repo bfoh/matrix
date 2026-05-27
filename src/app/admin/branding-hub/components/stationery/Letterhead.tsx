@@ -64,7 +64,7 @@ export default function Letterhead({ onBack }: LetterheadProps) {
             orientation: "portrait",
             widthInches: 8.27,
             heightInches: 11.69,
-            scale: 4,
+            scale: 3,
             filename: "matrix-letterhead.pdf",
         });
     };

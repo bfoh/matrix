@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, RefObject } from "react";
-import { toPng } from "html-to-image";
+import { toJpeg } from "html-to-image";
 import { jsPDF } from "jspdf";
 import { ensureFontsForCapture } from "./loadFontsForCapture";
 
@@ -11,7 +11,12 @@ interface PdfOptions {
     heightInches: number;
     scale?: number;
     filename: string;
+    /** JPEG quality 0-1. Default 0.92 — visually lossless for text/UI. */
+    quality?: number;
 }
+
+const DEFAULT_QUALITY = 0.92;
+const JPEG_BG = "#ffffff";
 
 /**
  * Walks up the DOM tree from `el` and collects any CSS transforms
@@ -50,18 +55,18 @@ export function usePdfDownload() {
         setIsGenerating(true);
 
         try {
-            const { orientation = "portrait", widthInches, heightInches, scale = 3, filename } = options;
+            const { orientation = "portrait", widthInches, heightInches, scale = 3, filename, quality = DEFAULT_QUALITY } = options;
 
             await ensureFontsForCapture();
 
             // Temporarily remove ancestor transforms so pixel dimensions are accurate
             const saved = stripAncestorTransforms(ref.current);
 
-            const pixelRatio = scale;
-            const imgData = await toPng(ref.current, {
-                pixelRatio,
+            const imgData = await toJpeg(ref.current, {
+                pixelRatio: scale,
+                quality,
+                backgroundColor: JPEG_BG,
                 cacheBust: true,
-                // Inline all font-face rules so the SVG foreignObject can use them
                 includeQueryParams: true,
             });
 
@@ -72,9 +77,10 @@ export function usePdfDownload() {
                 orientation,
                 unit: "in",
                 format: [widthInches, heightInches],
+                compress: true,
             });
 
-            pdf.addImage(imgData, "PNG", 0, 0, widthInches, heightInches);
+            pdf.addImage(imgData, "JPEG", 0, 0, widthInches, heightInches, undefined, "FAST");
             pdf.save(filename);
         } catch (error) {
             console.error("Error generating PDF:", error);
@@ -93,27 +99,30 @@ export function usePdfDownload() {
         setIsGenerating(true);
 
         try {
-            const { orientation = "portrait", widthInches, heightInches, scale = 3, filename } = options;
+            const { orientation = "portrait", widthInches, heightInches, scale = 3, filename, quality = DEFAULT_QUALITY } = options;
             await ensureFontsForCapture();
 
             const pdf = new jsPDF({
                 orientation,
                 unit: "in",
                 format: [widthInches, heightInches],
+                compress: true,
             });
 
             for (let i = 0; i < valid.length; i++) {
                 const el = valid[i];
                 const saved = stripAncestorTransforms(el);
-                const imgData = await toPng(el, {
+                const imgData = await toJpeg(el, {
                     pixelRatio: scale,
+                    quality,
+                    backgroundColor: JPEG_BG,
                     cacheBust: true,
                     includeQueryParams: true,
                 });
                 restoreTransforms(saved);
 
                 if (i > 0) pdf.addPage([widthInches, heightInches], orientation);
-                pdf.addImage(imgData, "PNG", 0, 0, widthInches, heightInches);
+                pdf.addImage(imgData, "JPEG", 0, 0, widthInches, heightInches, undefined, "FAST");
             }
 
             pdf.save(filename);
