@@ -1,10 +1,18 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import { ArrowLeft, Download, Loader2 } from "lucide-react";
 import LetterheadTemplate from "./LetterheadTemplate";
 import AiWritingAssistant from "../AiWritingAssistant";
 import { usePdfDownload } from "../usePdfDownload";
+import { paginateLetterContent } from "./paginateLetterContent";
+import { BRAND } from "../brandConstants";
+
+// Body content area of LetterheadTemplate (px). Page = 620x877.
+// Header (~196) + footer (~88) = ~284 used → ~593 available.
+// Body padding-x = 50 each side → width = 520.
+const BODY_MAX_HEIGHT = 588;
+const BODY_WIDTH = 520;
 
 interface LetterheadProps {
     onBack: () => void;
@@ -30,15 +38,29 @@ Chief Executive Officer
 Matrix MultiTech Ltd`;
 
 export default function Letterhead({ onBack }: LetterheadProps) {
-    const templateRef = useRef<HTMLDivElement>(null);
-    const { downloadPdf, isGenerating } = usePdfDownload();
+    const pageRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const { downloadMultiPagePdf, isGenerating } = usePdfDownload();
     const [data, setData] = useState({
         content: DEFAULT_CONTENT,
         showWatermark: true,
     });
+    const pages = useMemo(
+        () =>
+            paginateLetterContent(
+                data.content,
+                BODY_MAX_HEIGHT,
+                BODY_WIDTH,
+                BRAND.fonts.body,
+                12,
+                1.85,
+            ),
+        [data.content],
+    );
 
     const handleDownloadPdf = () => {
-        downloadPdf(templateRef, {
+        // Only first `pages.length` slots are valid this render
+        const els = pageRefs.current.slice(0, pages.length);
+        downloadMultiPagePdf(els, {
             orientation: "portrait",
             widthInches: 8.27,
             heightInches: 11.69,
@@ -68,7 +90,12 @@ export default function Letterhead({ onBack }: LetterheadProps) {
                     {/* Preview */}
                     <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
                         <div className="px-5 py-3 flex justify-between items-center border-b border-white/[0.06]">
-                            <span className="text-[10px] tracking-[2px] font-bold text-white/30">LIVE PREVIEW</span>
+                            <div className="flex items-center gap-3">
+                                <span className="text-[10px] tracking-[2px] font-bold text-white/30">LIVE PREVIEW</span>
+                                <span className="text-[10px] tracking-[1px] font-bold text-[#D9DE00]/80">
+                                    {pages.length} {pages.length === 1 ? "PAGE" : "PAGES"}
+                                </span>
+                            </div>
                             <div className="flex gap-2 items-center">
                                 <label className="flex items-center gap-2 text-[10px] text-white/30 cursor-pointer mr-3">
                                     <input
@@ -91,7 +118,19 @@ export default function Letterhead({ onBack }: LetterheadProps) {
                         </div>
                         <div className="p-3 md:p-6 flex justify-center bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0d0d0d] overflow-auto">
                             <div className="transform scale-[0.42] sm:scale-[0.55] md:scale-[0.75] origin-top">
-                                <LetterheadTemplate ref={templateRef} data={data} />
+                                <div className="flex flex-col gap-8">
+                                    {pages.map((pageContent, i) => (
+                                        <LetterheadTemplate
+                                            key={i}
+                                            ref={(el) => {
+                                                pageRefs.current[i] = el;
+                                            }}
+                                            data={{ ...data, content: pageContent }}
+                                            pageIndex={i}
+                                            totalPages={pages.length}
+                                        />
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>

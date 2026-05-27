@@ -8,6 +8,12 @@ interface LetterheadData {
     showWatermark: boolean;
 }
 
+interface LetterheadTemplateProps {
+    data: LetterheadData;
+    pageIndex?: number;
+    totalPages?: number;
+}
+
 /**
  * Premium A4 Letterhead Template
  * 
@@ -18,8 +24,9 @@ interface LetterheadData {
  * - Footer carries address, registration info, and a brand color strip
  * - Generous whitespace signals luxury and confidence
  */
-const LetterheadTemplate = forwardRef<HTMLDivElement, { data: LetterheadData }>(
-    ({ data }, ref) => {
+const LetterheadTemplate = forwardRef<HTMLDivElement, LetterheadTemplateProps>(
+    ({ data, pageIndex, totalPages }, ref) => {
+        const showPageIndicator = typeof totalPages === "number" && totalPages > 1;
         return (
             <div
                 ref={ref}
@@ -212,6 +219,17 @@ const LetterheadTemplate = forwardRef<HTMLDivElement, { data: LetterheadData }>(
                             }}>
                                 {BRAND.email}
                             </div>
+                            {showPageIndicator && (
+                                <div style={{
+                                    fontSize: 7,
+                                    color: "#888",
+                                    fontWeight: 700,
+                                    marginTop: 4,
+                                    letterSpacing: 1,
+                                }}>
+                                    PAGE {(pageIndex ?? 0) + 1} OF {totalPages}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -84,5 +84,46 @@ export function usePdfDownload() {
         }
     };
 
-    return { downloadPdf, isGenerating };
+    const downloadMultiPagePdf = async (
+        elements: (HTMLElement | null)[],
+        options: PdfOptions
+    ) => {
+        const valid = elements.filter((el): el is HTMLElement => !!el);
+        if (valid.length === 0) return;
+        setIsGenerating(true);
+
+        try {
+            const { orientation = "portrait", widthInches, heightInches, scale = 3, filename } = options;
+            await ensureFontsForCapture();
+
+            const pdf = new jsPDF({
+                orientation,
+                unit: "in",
+                format: [widthInches, heightInches],
+            });
+
+            for (let i = 0; i < valid.length; i++) {
+                const el = valid[i];
+                const saved = stripAncestorTransforms(el);
+                const imgData = await toPng(el, {
+                    pixelRatio: scale,
+                    cacheBust: true,
+                    includeQueryParams: true,
+                });
+                restoreTransforms(saved);
+
+                if (i > 0) pdf.addPage([widthInches, heightInches], orientation);
+                pdf.addImage(imgData, "PNG", 0, 0, widthInches, heightInches);
+            }
+
+            pdf.save(filename);
+        } catch (error) {
+            console.error("Error generating PDF:", error);
+            alert("Error generating PDF. Please try again.");
+        } finally {
+            setIsGenerating(false);
+        }
+    };
+
+    return { downloadPdf, downloadMultiPagePdf, isGenerating };
 }
