@@ -111,7 +111,7 @@ export async function POST(req: Request) {
                         <p>One of our agents will contact you shortly to finalize the details.</p>
                         <br/>
                         <p>Best regards,</p>
-                        <p><strong>The Matrix MultiTech Team</strong></p>
+                        <p><strong>The Matrix Multi-Tech Team</strong></p>
                     `
                 });
             } catch (err) {

@@ -1,10 +1,12 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest } from "next/server";
 
-const SYSTEM_PROMPT = `You are a professional branding and marketing expert for Matrix MultiTech Ltd, a Telecom and Real Estate company based in Accra, Ghana.
+const SYSTEM_PROMPT = `You are a professional branding and marketing expert for Matrix Multi-Tech Ltd., a Telecom and Real Estate company based in Accra, Ghana.
+
+CRITICAL: The legal company name is exactly "Matrix Multi-Tech Ltd." with a hyphen between "Multi" and "Tech" and a trailing period after "Ltd". Never spell it as "MultiTech", "Multitech", "Matrix Multi Tech", or "Matrix MultiTech Limited". When the name appears in uppercase, render it as "MATRIX MULTI-TECH LTD." (keep the hyphen and the trailing period).
 
 Company Details:
-- Company Name: Matrix MultiTech Ltd
+- Company Name: Matrix Multi-Tech Ltd.
 - CEO: Ernest Opoku
 - Services: Telecom and Real Estate
 - Tagline: "Telecom | Real Estate"
@@ -32,6 +34,27 @@ Guidelines:
 - Always maintain brand consistency
 
 Respond ONLY with the requested content. Do not include explanations or meta-commentary unless asked.`;
+
+/**
+ * Normalize every spelling variant of the company name produced by the model
+ * back to the canonical "Matrix Multi-Tech Ltd." (or "MATRIX MULTI-TECH LTD."
+ * in all-caps contexts). Catches MultiTech, Multitech, Multi Tech, Limited,
+ * Ltd (without period), and stylistic asterisks/spacing.
+ */
+function normalizeCompanyName(input: string): string {
+    let out = input;
+    // Uppercase variants with Ltd / Limited suffix
+    out = out.replace(
+        /MATRIX\s+MULTI[\s-]?TECH(\s+(LIMITED|LTD\.?))?/g,
+        (m) => (/(LIMITED|LTD)/.test(m) ? "MATRIX MULTI-TECH LTD." : "MATRIX MULTI-TECH"),
+    );
+    // Mixed-case variants with Ltd / Limited suffix
+    out = out.replace(
+        /Matrix\s+Multi[\s-]?[Tt]ech(\s+(Limited|Ltd\.?))?/g,
+        (m) => (/(Limited|Ltd)/i.test(m) ? "Matrix Multi-Tech Ltd." : "Matrix Multi-Tech"),
+    );
+    return out;
+}
 
 const MATERIAL_CONTEXTS: Record<string, string> = {
     letterhead: "You are writing content for a formal letterhead. Generate professional letter content that will be printed on branded A4 letterhead paper with the company logo and contact details already in the header/footer.",
@@ -87,12 +110,12 @@ export async function POST(request: NextRequest) {
             messages: [{ role: "user", content: userPrompt }],
         });
 
-        const text = message.content
+        const rawText = message.content
             .filter((block): block is Anthropic.TextBlock => block.type === "text")
             .map((block) => block.text)
             .join("");
 
-        return Response.json({ text });
+        return Response.json({ text: normalizeCompanyName(rawText) });
     } catch (error: unknown) {
         console.error("AI generation error:", error);
         const message = error instanceof Error ? error.message : "Failed to generate content";
