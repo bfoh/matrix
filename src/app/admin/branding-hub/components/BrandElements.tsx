@@ -20,7 +20,7 @@ export function BrandHeader({ scale = 1 }: { scale?: number }) {
                     color: "#111",
                     letterSpacing: "2px",
                 }}>
-                    MATRIX MULTITECH LTD
+                    MATRIX MULTI-TECH LTD.
                 </div>
                 <div style={{
                     fontFamily: BRAND.fonts.body,

@@ -16,7 +16,7 @@ export default function BrandedProposal({ onBack }: { onBack: () => void }) {
         date: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }),
         content: `Executive Summary
 
-Matrix MultiTech Ltd is pleased to present this proposal for your consideration. Our team of experienced professionals is committed to delivering exceptional results that exceed your expectations.
+Matrix Multi-Tech Ltd. is pleased to present this proposal for your consideration. Our team of experienced professionals is committed to delivering exceptional results that exceed your expectations.
 
 Scope of Work
 
@@ -40,7 +40,7 @@ Yours faithfully,
 
 Ernest Opoku
 Chief Executive Officer
-Matrix MultiTech Ltd`,
+Matrix Multi-Tech Ltd.`,
     });
 
     const handleAiApply = (text: string) => {

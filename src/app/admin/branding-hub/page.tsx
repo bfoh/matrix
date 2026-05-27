@@ -86,7 +86,7 @@ export default function BrandingHubPage() {
                     <div className="max-w-2xl">
                         <div className="inline-flex items-center gap-3 px-3 py-1.5 rounded-full bg-[#D9DE00]/10 border border-[#D9DE00]/20 mb-6">
                             <div className="w-2 h-2 rounded-full bg-[#D9DE00] animate-pulse" />
-                            <span className="text-[10px] font-bold uppercase tracking-[2px] text-[#D9DE00]">Matrix MultiTech Hub</span>
+                            <span className="text-[10px] font-bold uppercase tracking-[2px] text-[#D9DE00]">Matrix Multi-Tech Hub</span>
                         </div>
                         <h1 className="font-montserrat text-4xl md:text-6xl font-black text-white mb-4 leading-tight uppercase relative">
                             Brand <br className="hidden md:block" />
@@ -202,7 +202,7 @@ function MaterialThumbnail({ id }: { id: MaterialType }) {
                     <div style={{ width: 110, height: 60, background: "#050505", borderRadius: 4, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255,255,255,0.05)", position: "relative", overflow: "hidden" }}>
                         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle, rgba(217,222,0,0.1) 0%, transparent 60%)" }} />
                         <div style={{ fontFamily: "Montserrat,sans-serif", fontSize: 18, fontWeight: 900, color: "#fff" }}>M</div>
-                        <div style={{ fontSize: 4, color: "#D9DE00", fontWeight: 700, marginTop: 4, textTransform: "uppercase" }}>MATRIX MULTITECH</div>
+                        <div style={{ fontSize: 4, color: "#D9DE00", fontWeight: 700, marginTop: 4, textTransform: "uppercase" }}>MATRIX MULTI-TECH</div>
                     </div>
                 </div>
             );
@@ -214,7 +214,7 @@ function MaterialThumbnail({ id }: { id: MaterialType }) {
                             <div style={{ fontFamily: "Montserrat,sans-serif", fontSize: 10, fontWeight: 900, color: "#D9DE00" }}>M</div>
                         </div>
                         <div style={{ textAlign: "right" }}>
-                            <div style={{ fontSize: 5, fontWeight: 800, color: "#000", textTransform: "uppercase" }}>MATRIX MULTITECH</div>
+                            <div style={{ fontSize: 5, fontWeight: 800, color: "#000", textTransform: "uppercase" }}>MATRIX MULTI-TECH</div>
                             <div style={{ fontSize: 3.5, color: "#666", marginTop: 2 }}>TELECOM & REAL ESTATE</div>
                         </div>
                     </div>
@@ -235,7 +235,7 @@ function MaterialThumbnail({ id }: { id: MaterialType }) {
                             <div style={{ fontFamily: "Montserrat,sans-serif", fontSize: 12, fontWeight: 900, color: "#D9DE00" }}>M</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: 6, fontWeight: 800, color: "#000", textTransform: "uppercase" }}>MATRIX MULTITECH LTD</div>
+                            <div style={{ fontSize: 6, fontWeight: 800, color: "#000", textTransform: "uppercase" }}>MATRIX MULTI-TECH LTD.</div>
                             <div style={{ fontSize: 4, color: "#666", marginTop: 2, textTransform: "uppercase" }}>HEADQUARTERS, ACCRA GHANA</div>
                         </div>
                     </div>
@@ -257,7 +257,7 @@ function MaterialThumbnail({ id }: { id: MaterialType }) {
                             <div style={{ fontFamily: "Montserrat,sans-serif", fontSize: 8, fontWeight: 900, color: "#D9DE00" }}>M</div>
                         </div>
                         <div style={{ textAlign: "right" }}>
-                            <div style={{ fontSize: 5, fontWeight: 800, color: "#000", textTransform: "uppercase" }}>MATRIX MULTITECH</div>
+                            <div style={{ fontSize: 5, fontWeight: 800, color: "#000", textTransform: "uppercase" }}>MATRIX MULTI-TECH</div>
                         </div>
                     </div>
                     <div style={{ position: "absolute", top: "50%", transform: "translateY(-50%)", width: "100%", left: 0, textAlign: "center" }}>
@@ -347,7 +347,7 @@ function MaterialThumbnail({ id }: { id: MaterialType }) {
             return (
                 <div style={{ width: 220, height: 124, background: "#050505", borderRadius: 4, padding: "20px", display: "flex", flexDirection: "column", justifyContent: "center", position: "relative", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)" }}>
                     <div style={{ position: "absolute", right: -40, top: -40, width: 120, height: 120, border: "20px solid rgba(217,222,0,0.1)", borderRadius: "50%" }} />
-                    <div style={{ fontFamily: "Montserrat,sans-serif", fontSize: 5, fontWeight: 800, color: "#D9DE00", textTransform: "uppercase", marginBottom: 8 }}>MATRIX MULTITECH LTD</div>
+                    <div style={{ fontFamily: "Montserrat,sans-serif", fontSize: 5, fontWeight: 800, color: "#D9DE00", textTransform: "uppercase", marginBottom: 8 }}>MATRIX MULTI-TECH LTD.</div>
                     <div style={{ fontFamily: "Montserrat,sans-serif", fontSize: 14, fontWeight: 900, color: "#FFF", lineHeight: 1.2, textTransform: "uppercase", width: "80%" }}>ENTERPRISE SOLUTION PROPOSAL</div>
                     <div style={{ position: "absolute", bottom: 0, left: 0, width: "30%", height: 4, background: "#D9DE00" }} />
                 </div>
@@ -378,7 +378,7 @@ function MaterialThumbnail({ id }: { id: MaterialType }) {
                     </div>
                     <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", paddingBottom: "10%" }}>
                         <div style={{ fontFamily: "Montserrat,sans-serif", fontSize: 28, fontWeight: 900, color: "#FFF", textTransform: "uppercase", lineHeight: 1 }}>FOR SALE</div>
-                        <div style={{ fontSize: 6, color: "rgba(255,255,255,0.5)", marginTop: 2, fontWeight: 800, textTransform: "uppercase" }}>MATRIX MULTITECH LTD</div>
+                        <div style={{ fontSize: 6, color: "rgba(255,255,255,0.5)", marginTop: 2, fontWeight: 800, textTransform: "uppercase" }}>MATRIX MULTI-TECH LTD.</div>
                     </div>
                 </div>
             );
@@ -393,7 +393,7 @@ function MaterialThumbnail({ id }: { id: MaterialType }) {
                         <div style={{ fontFamily: "Montserrat,sans-serif", fontSize: 12, fontWeight: 900, color: "#FFF", textTransform: "uppercase", lineHeight: 1.2 }}>PROJECT <br/>PROPOSAL</div>
                         <div style={{ position: "absolute", bottom: 16, left: 20 }}>
                             <div style={{ fontSize: 5, color: "#D9DE00", fontWeight: 800, textTransform: "uppercase" }}>PREPARED BY</div>
-                            <div style={{ fontSize: 6, color: "#FFF", fontWeight: 700, marginTop: 2 }}>MATRIX MULTITECH</div>
+                            <div style={{ fontSize: 6, color: "#FFF", fontWeight: 700, marginTop: 2 }}>MATRIX MULTI-TECH</div>
                         </div>
                     </div>
                 </div>

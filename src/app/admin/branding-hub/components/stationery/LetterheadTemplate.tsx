@@ -107,7 +107,7 @@ const LetterheadTemplate = forwardRef<HTMLDivElement, LetterheadTemplateProps>(
                                     textTransform: "uppercase",
                                     lineHeight: 1.1,
                                 }}>
-                                    Matrix MultiTech
+                                    Matrix Multi-Tech
                                 </div>
                                 <div style={{
                                     fontFamily: BRAND.fonts.heading,

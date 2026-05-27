@@ -35,7 +35,7 @@ Yours faithfully,
 
 Ernest Opoku
 Chief Executive Officer
-Matrix MultiTech Ltd`;
+Matrix Multi-Tech Ltd.`;
 
 export default function Letterhead({ onBack }: LetterheadProps) {
     const pageRefs = useRef<(HTMLDivElement | null)[]>([]);

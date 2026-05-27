@@ -69,7 +69,7 @@ export function generateSignatureHtml(data: EmailSignatureData): string {
     return `<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#333;">
   <tr>
     <td style="border-left:6px solid ${BRAND.colors.yellow};padding-left:16px;vertical-align:middle;">
-      <img src="${BRAND.websiteUrl}/images/matrix-logo.png" alt="Matrix MultiTech" width="64" height="64" style="display:block;" />
+      <img src="${BRAND.websiteUrl}/images/matrix-logo.png" alt="Matrix Multi-Tech" width="64" height="64" style="display:block;" />
     </td>
     <td style="padding-left:20px;vertical-align:middle;">
       <div style="font-size:20px;font-weight:800;color:#111;text-transform:uppercase;">${data.name}</div>
