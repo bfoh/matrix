@@ -42,7 +42,7 @@ export default function Header() {
                     : "bg-gradient-to-b from-black/80 to-transparent py-6"
             )}
         >
-            <div className="container mx-auto px-6 flex items-center justify-between">
+            <div className="container mx-auto px-4 md:px-6 flex items-center justify-between gap-3">
                 {/* Logo */}
                 <Link
                     href="/"
@@ -54,18 +54,18 @@ export default function Header() {
                         }
                     }}
                 >
-                    <div className="relative h-16 w-16 md:h-20 md:w-20 flex-shrink-0">
+                    <div className="relative h-12 w-12 md:h-20 md:w-20 flex-shrink-0">
                         <img
                             src="/matrix-logo-transparent.png"
                             alt="Matrix MultiTech Ltd"
                             className="h-full w-full object-contain group-hover:scale-110 transition-transform duration-700 ease-out"
                         />
                     </div>
-                    <div className="flex flex-col">
-                        <h1 className="text-white font-montserrat font-bold text-[16px] md:text-[20px] tracking-wide leading-none whitespace-nowrap">
+                    <div className="flex flex-col min-w-0">
+                        <h1 className="text-white font-montserrat font-bold text-[13px] sm:text-[16px] md:text-[20px] tracking-wide leading-none whitespace-nowrap">
                             MATRIX <span className="text-white">MULTITECH</span> <span className="text-accent transition-colors duration-300">LTD</span>
                         </h1>
-                        <p className="text-gray-400 font-raleway text-[9px] md:text-[10px] tracking-[0.2em] leading-tight md:ml-[1px]">
+                        <p className="text-gray-400 font-raleway text-[8px] sm:text-[9px] md:text-[10px] tracking-[0.18em] md:tracking-[0.2em] leading-tight md:ml-[1px] whitespace-nowrap">
                             DESIGN | RESIDENTIAL | LAND
                         </p>
                     </div>
@@ -99,10 +99,11 @@ export default function Header() {
 
                 {/* Mobile Menu Button */}
                 <button
-                    className="md:hidden text-white hover:text-primary transition-colors duration-300"
+                    className="md:hidden tap-target flex items-center justify-center text-white hover:text-primary transition-colors duration-300 flex-shrink-0"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
                 >
-                    {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                    {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
                 </button>
             </div>
 

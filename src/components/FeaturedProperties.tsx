@@ -44,11 +44,11 @@ export default function FeaturedProperties() {
     if (properties.length === 0) return null;
 
     return (
-        <section id="featured-properties" className="bg-[#050505] py-24 md:py-32 border-t border-white/5 relative overflow-hidden">
+        <section id="featured-properties" className="bg-[#050505] py-16 md:py-32 border-t border-white/5 relative overflow-hidden">
             {/* Subtle glow effect behind grid */}
             <div className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[80%] h-[400px] bg-primary/5 blur-[150px] rounded-[100%] pointer-events-none z-0" />
 
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="container mx-auto px-4 md:px-6 relative z-10">
 
                 {/* Section Header with Carousel Controls */}
                 <motion.div
@@ -56,18 +56,18 @@ export default function FeaturedProperties() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-20 border-b border-white/10 pb-6 md:pb-8"
+                    className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-20 border-b border-white/10 pb-5 md:pb-8 gap-6 md:gap-0"
                 >
                     <div>
-                        <span className="text-primary font-bold tracking-[4px] text-[12px] uppercase font-raleway block mb-4">
+                        <span className="text-primary font-bold tracking-[3px] md:tracking-[4px] text-[11px] md:text-[12px] uppercase font-raleway block mb-3 md:mb-4">
                             Exclusive Listing
                         </span>
-                        <h2 className="text-white text-[32px] md:text-[48px] font-bold font-montserrat tracking-[1px] uppercase leading-tight">
+                        <h2 className="text-white text-[26px] sm:text-[32px] md:text-[48px] font-bold font-montserrat tracking-[1px] uppercase leading-tight">
                             Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary/80 to-white/50">Properties</span>
                         </h2>
                     </div>
 
-                    <div className="flex items-center gap-4 text-white text-[12px] font-bold font-raleway tracking-[2px] uppercase mt-8 md:mt-0">
+                    <div className="hidden md:flex items-center gap-4 text-white text-[12px] font-bold font-raleway tracking-[2px] uppercase mt-8 md:mt-0">
                         <button className="hover:text-primary transition-colors flex items-center gap-2 group">
                             <span className="w-8 h-[1px] bg-white/30 group-hover:bg-primary transition-colors inline-block" />
                             PREV
@@ -81,7 +81,7 @@ export default function FeaturedProperties() {
                 </motion.div>
 
                 {/* Properties Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
                     {properties.map((property, index) => (
                         <Link href={`/properties/${property.id}`} key={property.id} className="block h-full">
                         <motion.div
@@ -165,10 +165,10 @@ export default function FeaturedProperties() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.4, duration: 0.6 }}
-                    className="flex justify-center mt-20"
+                    className="flex justify-center mt-12 md:mt-20"
                 >
-                    <Link href="/properties">
-                        <button className="group relative border border-white/20 bg-transparent text-white px-14 py-4 text-[12px] font-bold font-raleway tracking-[4px] uppercase overflow-hidden transition-all duration-500 hover:border-accent">
+                    <Link href="/properties" className="w-full sm:w-auto max-w-sm">
+                        <button className="group relative w-full sm:w-auto border border-white/20 bg-transparent text-white px-8 sm:px-14 py-4 text-[11px] sm:text-[12px] font-bold font-raleway tracking-[3px] sm:tracking-[4px] uppercase overflow-hidden transition-all duration-500 hover:border-accent">
                             <span className="relative z-10 group-hover:text-white transition-colors duration-500">View All Properties</span>
                             <div className="absolute inset-0 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-0" />
                         </button>

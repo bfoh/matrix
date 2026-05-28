@@ -72,9 +72,9 @@ export default function BrandingHubPage() {
     }
 
     return (
-        <div className="p-6 md:p-10 max-w-[1600px] mx-auto min-h-screen bg-[#020202]">
+        <div className="p-4 md:p-10 max-w-[1600px] mx-auto min-h-dscreen bg-[#020202]">
             {/* Hero Section */}
-            <div className="relative px-6 md:px-12 pt-12 md:pt-16 pb-10 md:pb-14 mb-8 md:mb-12 rounded-3xl bg-[#080808] border border-white/[0.04] overflow-hidden shadow-2xl">
+            <div className="relative px-4 md:px-12 pt-8 md:pt-16 pb-8 md:pb-14 mb-6 md:mb-12 rounded-2xl md:rounded-3xl bg-[#080808] border border-white/[0.04] overflow-hidden shadow-2xl">
                 {/* Tech Grid Background */}
                 <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
                 
@@ -88,42 +88,42 @@ export default function BrandingHubPage() {
                             <div className="w-2 h-2 rounded-full bg-[#D9DE00] animate-pulse" />
                             <span className="text-[10px] font-bold uppercase tracking-[2px] text-[#D9DE00]">Matrix Multi-Tech Hub</span>
                         </div>
-                        <h1 className="font-montserrat text-4xl md:text-6xl font-black text-white mb-4 leading-tight uppercase relative">
+                        <h1 className="font-montserrat text-3xl sm:text-4xl md:text-6xl font-black text-white mb-3 md:mb-4 leading-tight uppercase relative">
                             Brand <br className="hidden md:block" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D9DE00] to-[#E5EA00]">Engine</span>
                         </h1>
-                        <p className="text-[15px] md:text-lg text-white/40 leading-relaxed font-raleway font-medium max-w-xl">
+                        <p className="text-[13px] md:text-lg text-white/40 leading-relaxed font-raleway font-medium max-w-xl">
                             Enterprise-grade asset generation for Telecom and Real Estate infrastructure. Select a template below to deploy localized materials.
                         </p>
                     </div>
 
                     {/* Stats Matrix */}
-                    <div className="flex gap-4 md:gap-8 backdrop-blur-md bg-black/40 p-6 rounded-2xl border border-white/[0.05]">
-                        <div>
-                            <div className="font-montserrat text-3xl md:text-4xl font-black text-white mb-1 shadow-[#D9DE00]/20 drop-shadow-lg">{MATERIALS.length}</div>
-                            <div className="text-[10px] font-bold uppercase tracking-[2px] text-[#D9DE00]">Assets</div>
+                    <div className="flex gap-3 md:gap-8 backdrop-blur-md bg-black/40 p-4 md:p-6 rounded-xl md:rounded-2xl border border-white/[0.05] w-full md:w-auto">
+                        <div className="flex-1 md:flex-initial">
+                            <div className="font-montserrat text-2xl md:text-4xl font-black text-white mb-1 shadow-[#D9DE00]/20 drop-shadow-lg">{MATERIALS.length}</div>
+                            <div className="text-[9px] md:text-[10px] font-bold uppercase tracking-[1.5px] md:tracking-[2px] text-[#D9DE00]">Assets</div>
                         </div>
                         <div className="w-px bg-white/10" />
-                        <div>
-                            <div className="font-montserrat text-3xl md:text-4xl font-black text-white mb-1">HQ</div>
-                            <div className="text-[10px] font-bold uppercase tracking-[2px] text-[#D9DE00]">Resolution</div>
+                        <div className="flex-1 md:flex-initial">
+                            <div className="font-montserrat text-2xl md:text-4xl font-black text-white mb-1">HQ</div>
+                            <div className="text-[9px] md:text-[10px] font-bold uppercase tracking-[1.5px] md:tracking-[2px] text-[#D9DE00]">Resolution</div>
                         </div>
                         <div className="w-px bg-white/10" />
-                        <div>
-                            <div className="font-montserrat text-3xl md:text-4xl font-black text-white mb-1">0.1s</div>
-                            <div className="text-[10px] font-bold uppercase tracking-[2px] text-[#D9DE00]">Render</div>
+                        <div className="flex-1 md:flex-initial">
+                            <div className="font-montserrat text-2xl md:text-4xl font-black text-white mb-1">0.1s</div>
+                            <div className="text-[9px] md:text-[10px] font-bold uppercase tracking-[1.5px] md:tracking-[2px] text-[#D9DE00]">Render</div>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex gap-2 mb-8 bg-[#0a0a0a] border border-white/[0.04] p-1.5 rounded-2xl w-full max-w-2xl">
+            <div className="flex gap-1.5 md:gap-2 mb-6 md:mb-8 bg-[#0a0a0a] border border-white/[0.04] p-1 md:p-1.5 rounded-xl md:rounded-2xl w-full max-w-2xl">
                 {TABS.map((tab) => (
                     <button
                         key={tab.key}
                         onClick={() => setActiveTab(tab.key)}
-                        className={`flex-1 py-3.5 px-4 text-center text-xs font-bold uppercase transition-all duration-500 rounded-xl flex items-center justify-center gap-2 ${
+                        className={`flex-1 py-3 md:py-3.5 px-2 md:px-4 text-center text-[10px] sm:text-xs font-bold uppercase transition-all duration-500 rounded-lg md:rounded-xl flex items-center justify-center gap-1.5 md:gap-2 ${
                             activeTab === tab.key
                                 ? "bg-[#D9DE00] text-black shadow-[0_0_20px_rgba(217,222,0,0.3)]"
                                 : "text-white/40 hover:text-white/80 hover:bg-white/[0.02]"
@@ -132,7 +132,7 @@ export default function BrandingHubPage() {
                         {tab.key === 'stationery' && <Layers size={14} className={activeTab === tab.key ? "text-black" : "text-white/40"} />}
                         {tab.key === 'digital' && <Sparkles size={14} className={activeTab === tab.key ? "text-black" : "text-white/40"} />}
                         {tab.key === 'marketing' && <Download size={14} className={activeTab === tab.key ? "text-black" : "text-white/40"} />}
-                        <span className="hidden sm:inline" style={{textTransform: 'uppercase'}}>{tab.label}</span>
+                        <span style={{textTransform: 'uppercase'}}>{tab.label}</span>
                         <span
                             className={`ml-1 text-[10px] font-black px-2 py-0.5 rounded-md ${
                                 activeTab === tab.key
@@ -155,7 +155,7 @@ export default function BrandingHubPage() {
             </div>
 
             {/* Assets Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                 {filteredMaterials.map((material) => (
                     <MaterialCard
                         key={material.id}

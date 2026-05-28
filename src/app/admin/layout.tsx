@@ -26,19 +26,20 @@ export default function AdminLayout({
     };
 
     if (isLoginPage) {
-        return <div className="min-h-screen bg-black text-white">{children}</div>;
+        return <div className="min-h-dscreen bg-black text-white">{children}</div>;
     }
 
     return (
-        <div className="min-h-screen bg-black text-white flex flex-col md:flex-row">
+        <div className="h-dscreen bg-black text-white flex flex-col md:flex-row overflow-hidden">
             {/* Mobile Header */}
-            <div className="md:hidden flex items-center justify-between p-4 border-b border-white/10 bg-black z-20 sticky top-0">
-                <h1 className="text-lg font-bold font-montserrat tracking-wider">
+            <div className="md:hidden safe-pt flex items-center justify-between px-4 py-3 border-b border-white/10 bg-black/95 backdrop-blur-md z-30 flex-shrink-0">
+                <h1 className="text-base font-bold font-montserrat tracking-wider">
                     MATRIX <span className="text-[#D9DE00]">ADMIN</span>
                 </h1>
                 <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="p-2 text-gray-400 hover:text-white"
+                    aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                    className="tap-target -mr-2 flex items-center justify-center text-gray-300 hover:text-white"
                 >
                     {isMobileMenuOpen ? (
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -58,10 +59,10 @@ export default function AdminLayout({
 
             {/* Sidebar */}
             <aside className={`
-                fixed md:static inset-y-0 left-0 z-40 w-64 bg-black border-r border-white/10 
+                fixed md:static inset-y-0 left-0 z-40 w-72 max-w-[85vw] md:w-64 bg-black border-r border-white/10
                 transform transition-transform duration-300 ease-in-out md:transform-none
                 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-                flex flex-col h-full
+                flex flex-col h-full safe-pt safe-pb safe-pl
             `}>
                 <div className="p-6 border-b border-white/10 hidden md:block">
                     <h1 className="text-xl font-bold font-montserrat tracking-wider">
@@ -73,7 +74,7 @@ export default function AdminLayout({
                     <Link
                         href="/admin/dashboard"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-md transition-colors ${pathname === "/admin/dashboard"
+                        className={`flex items-center gap-3 px-4 py-3.5 rounded-md transition-colors ${pathname === "/admin/dashboard"
                             ? "bg-[#D9DE00] text-black font-bold"
                             : "text-gray-400 hover:text-white hover:bg-white/5"
                             }`}
@@ -85,7 +86,7 @@ export default function AdminLayout({
                     <Link
                         href="/admin/appointments"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-md transition-colors ${pathname === "/admin/appointments"
+                        className={`flex items-center gap-3 px-4 py-3.5 rounded-md transition-colors ${pathname === "/admin/appointments"
                             ? "bg-[#D9DE00] text-black font-bold"
                             : "text-gray-400 hover:text-white hover:bg-white/5"
                             }`}
@@ -97,7 +98,7 @@ export default function AdminLayout({
                     <Link
                         href="/admin/share-cards"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-md transition-colors ${pathname === "/admin/share-cards"
+                        className={`flex items-center gap-3 px-4 py-3.5 rounded-md transition-colors ${pathname === "/admin/share-cards"
                             ? "bg-[#D9DE00] text-black font-bold"
                             : "text-gray-400 hover:text-white hover:bg-white/5"
                             }`}
@@ -109,7 +110,7 @@ export default function AdminLayout({
                     <Link
                         href="/admin/branding-hub"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-md transition-colors ${pathname === "/admin/branding-hub" || pathname.startsWith("/admin/branding-hub")
+                        className={`flex items-center gap-3 px-4 py-3.5 rounded-md transition-colors ${pathname === "/admin/branding-hub" || pathname.startsWith("/admin/branding-hub")
                             ? "bg-[#D9DE00] text-black font-bold"
                             : "text-gray-400 hover:text-white hover:bg-white/5"
                             }`}
@@ -121,7 +122,7 @@ export default function AdminLayout({
                     <Link
                         href="/admin/social-settings"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-md transition-colors ${pathname === "/admin/social-settings"
+                        className={`flex items-center gap-3 px-4 py-3.5 rounded-md transition-colors ${pathname === "/admin/social-settings"
                             ? "bg-[#D9DE00] text-black font-bold"
                             : "text-gray-400 hover:text-white hover:bg-white/5"
                             }`}
@@ -133,7 +134,7 @@ export default function AdminLayout({
                     <Link
                         href="/admin/properties/new"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-md transition-colors ${pathname === "/admin/properties/new"
+                        className={`flex items-center gap-3 px-4 py-3.5 rounded-md transition-colors ${pathname === "/admin/properties/new"
                             ? "bg-[#D9DE00] text-black font-bold"
                             : "text-gray-400 hover:text-white hover:bg-white/5"
                             }`}
@@ -162,7 +163,7 @@ export default function AdminLayout({
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-y-auto h-[calc(100vh-64px)] md:h-screen">
+            <main className="flex-1 overflow-y-auto overflow-x-hidden safe-pb">
                 {children}
             </main>
         </div>

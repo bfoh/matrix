@@ -103,19 +103,19 @@ export default function AppointmentsPage() {
     }
 
     return (
-        <div className="p-8">
-            <header className="mb-8 flex items-center justify-between">
-                <div>
-                    <h1 className="text-3xl font-montserrat font-bold text-white mb-2">
+        <div className="p-4 md:p-8">
+            <header className="mb-6 md:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                <div className="min-w-0">
+                    <h1 className="text-2xl md:text-3xl font-montserrat font-bold text-white mb-1 md:mb-2">
                         APPOINTMENTS
                     </h1>
-                    <p className="text-gray-400 font-raleway text-sm">
+                    <p className="text-gray-400 font-raleway text-xs md:text-sm">
                         View and manage booking requests.
                     </p>
                 </div>
-                <div className="bg-white/5 border border-white/10 rounded-lg px-4 py-2">
-                    <span className="text-[#D9DE00] font-bold text-lg">{appointments.length}</span>
-                    <span className="text-gray-400 text-sm ml-2">Total Request(s)</span>
+                <div className="bg-white/5 border border-white/10 rounded-lg px-3 md:px-4 py-2 self-start sm:self-auto">
+                    <span className="text-[#D9DE00] font-bold text-base md:text-lg">{appointments.length}</span>
+                    <span className="text-gray-400 text-xs md:text-sm ml-2">Total Request(s)</span>
                 </div>
             </header>
 
@@ -126,7 +126,88 @@ export default function AppointmentsPage() {
                     <p className="text-gray-400 text-sm">Booking requests will appear here.</p>
                 </div>
             ) : (
-                <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+                <>
+                {/* Mobile cards */}
+                <div className="md:hidden space-y-3">
+                    {appointments.map((apt) => {
+                        const dateInfo = getDisplayDate(apt);
+                        const voiceAI = isVoiceAI(apt);
+                        const noteText = getNotesOrMessage(apt);
+                        return (
+                            <div key={apt.id} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                                <div className="flex items-start justify-between gap-3 mb-3">
+                                    <div className="flex items-center gap-2.5 min-w-0">
+                                        <div className="w-8 h-8 rounded-full bg-[#D9DE00]/20 flex items-center justify-center text-[#D9DE00] flex-shrink-0">
+                                            <User size={14} />
+                                        </div>
+                                        <span className="text-white font-bold font-montserrat text-sm truncate">{apt.name}</span>
+                                    </div>
+                                    {voiceAI ? (
+                                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full bg-accent/15 text-[#E31837] border border-accent/30 flex-shrink-0">
+                                            <Mic size={10} /> Voice
+                                        </span>
+                                    ) : (
+                                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full bg-[#D9DE00]/10 text-[#D9DE00] border border-[#D9DE00]/30 flex-shrink-0">
+                                            <Globe size={10} /> Online
+                                        </span>
+                                    )}
+                                </div>
+
+                                <div className="space-y-1.5 mb-3">
+                                    {apt.phone && (
+                                        <div className="flex items-center gap-2 text-gray-300 text-sm">
+                                            <Phone size={12} className="text-gray-500 flex-shrink-0" />
+                                            <a href={`tel:${apt.phone}`} className="hover:text-[#D9DE00] truncate">{apt.phone}</a>
+                                        </div>
+                                    )}
+                                    {apt.email && (
+                                        <div className="flex items-center gap-2 text-gray-300 text-sm">
+                                            <Mail size={12} className="text-gray-500 flex-shrink-0" />
+                                            <a href={`mailto:${apt.email}`} className="hover:text-[#D9DE00] truncate">{apt.email}</a>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {dateInfo && (
+                                    <div className="inline-flex items-center gap-2 text-[#D9DE00] text-xs font-mono bg-[#D9DE00]/10 px-2 py-1 rounded mb-3">
+                                        <Calendar size={12} />
+                                        {dateInfo.date}
+                                        <span className="text-white/40">|</span>
+                                        {dateInfo.time}
+                                    </div>
+                                )}
+
+                                {noteText && (
+                                    <div className="flex gap-2 mb-3 pb-3 border-b border-white/5">
+                                        <MessageSquare size={12} className="text-gray-500 mt-1 flex-shrink-0" />
+                                        <p className="text-gray-300 text-sm leading-relaxed">{noteText}</p>
+                                    </div>
+                                )}
+
+                                <div className="flex items-center justify-between">
+                                    <span className="text-gray-500 text-[10px] font-mono">
+                                        {new Date(apt.created_at).toLocaleDateString()}
+                                    </span>
+                                    <button
+                                        onClick={() => deleteAppointment(apt.id)}
+                                        disabled={deleting === apt.id}
+                                        className="tap-target -mr-2 flex items-center justify-center rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-500/10 transition-all disabled:opacity-50"
+                                        aria-label="Delete appointment"
+                                    >
+                                        {deleting === apt.id ? (
+                                            <Loader2 size={16} className="animate-spin" />
+                                        ) : (
+                                            <Trash2 size={16} />
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+
+                {/* Desktop table */}
+                <div className="hidden md:block bg-white/5 border border-white/10 rounded-xl overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse">
                             <thead>
@@ -233,6 +314,7 @@ export default function AppointmentsPage() {
                         </table>
                     </div>
                 </div>
+                </>
             )}
         </div>
     );

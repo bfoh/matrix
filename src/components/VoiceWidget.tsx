@@ -14,6 +14,19 @@ export default function VoiceWidget() {
     const [volume, setVolume] = useState(0);
     const [collapsed, setCollapsed] = useState(false);
 
+    // Start collapsed on small viewports so widget never covers content
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+        const mq = window.matchMedia("(max-width: 767px)");
+        const apply = (matches: boolean) => {
+            if (matches) setCollapsed(true);
+        };
+        apply(mq.matches);
+        const onChange = (e: MediaQueryListEvent) => apply(e.matches);
+        mq.addEventListener?.("change", onChange);
+        return () => mq.removeEventListener?.("change", onChange);
+    }, []);
+
     useEffect(() => {
         if (!process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY) {
             console.error("Vapi Public Key is missing from environment variables.");
@@ -72,12 +85,14 @@ export default function VoiceWidget() {
             <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="fixed bottom-6 right-6 z-50"
+                style={{ bottom: "calc(env(safe-area-inset-bottom) + 1.25rem)" }}
+                className="fixed right-4 md:right-6 z-40 md:z-50 md:bottom-6"
             >
                 <button
                     onClick={() => setCollapsed(false)}
                     title="Open Matrix AI"
-                    className="relative flex items-center gap-2.5 bg-[#0a0a0a] border border-primary/40 text-primary px-4 py-3 rounded-full shadow-xl hover:border-primary hover:shadow-[0_0_20px_rgba(201,168,76,0.3)] transition-all duration-300"
+                    aria-label="Open Matrix AI"
+                    className="tap-target relative flex items-center gap-2 md:gap-2.5 bg-[#0a0a0a] border border-primary/40 text-primary px-3 md:px-4 py-2.5 md:py-3 rounded-full shadow-xl hover:border-primary hover:shadow-[0_0_20px_rgba(201,168,76,0.3)] transition-all duration-300"
                 >
                     <motion.span
                         animate={{ scale: [1, 1.9], opacity: [0.5, 0] }}
@@ -98,7 +113,8 @@ export default function VoiceWidget() {
             initial={{ x: 120, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 1.8, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-6 right-6 z-50 w-[260px]"
+            style={{ bottom: "calc(env(safe-area-inset-bottom) + 1.25rem)" }}
+            className="fixed right-4 md:right-6 z-40 md:z-50 w-[240px] md:w-[260px] md:bottom-6"
         >
             {/* Ambient glow behind the card */}
             <div

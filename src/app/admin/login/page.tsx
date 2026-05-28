@@ -33,8 +33,8 @@ export default function AdminLogin() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen p-4">
-            <div className="w-full max-w-md bg-[#111] border border-white/10 p-8 rounded-lg shadow-2xl">
+        <div className="flex flex-col items-center justify-center min-h-dscreen p-4 safe-pt safe-pb">
+            <div className="w-full max-w-md bg-[#111] border border-white/10 p-6 md:p-8 rounded-lg shadow-2xl">
                 <div className="text-center mb-8">
                     <h1 className="text-2xl font-bold font-montserrat tracking-wider text-white">
                         MATRIX <span className="text-[#D9DE00]">ADMIN</span>

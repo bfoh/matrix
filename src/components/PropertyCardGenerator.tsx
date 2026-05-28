@@ -290,7 +290,7 @@ export default function PropertyCardGenerator({ property }: PropertyCardGenerato
     return (
         <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             {/* Control Buttons Area */}
-            <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {/* Download Image Button */}
                 <button
                     onClick={generateCard}
@@ -301,19 +301,19 @@ export default function PropertyCardGenerator({ property }: PropertyCardGenerato
                         gap: "10px",
                         background: "linear-gradient(135deg, #333 0%, #000 100%)",
                         color: "#fff",
-                        padding: "14px 28px",
+                        padding: "14px 20px",
                         fontFamily: "Arial, sans-serif",
                         fontWeight: "bold",
-                        fontSize: "13px",
-                        letterSpacing: "2px",
+                        fontSize: "12px",
+                        letterSpacing: "1.5px",
                         textTransform: "uppercase",
                         border: "1px solid #333",
                         cursor: isGenerating ? "not-allowed" : "pointer",
                         opacity: isGenerating ? 0.6 : 1,
                         borderRadius: "4px",
-                        flex: 1,
+                        width: "100%",
                         justifyContent: "center",
-                        minWidth: "200px"
+                        minHeight: "48px"
                     }}
                 >
                     {isGenerating && generatingProgress.includes("Image") ? (
@@ -339,20 +339,20 @@ export default function PropertyCardGenerator({ property }: PropertyCardGenerato
                         gap: "10px",
                         background: "linear-gradient(135deg, #D9DE00 0%, #c4c900 100%)",
                         color: "#000000",
-                        padding: "14px 28px",
+                        padding: "14px 20px",
                         fontFamily: "Arial, sans-serif",
                         fontWeight: "bold",
-                        fontSize: "13px",
-                        letterSpacing: "2px",
+                        fontSize: "12px",
+                        letterSpacing: "1.5px",
                         textTransform: "uppercase",
                         border: "none",
                         cursor: isGenerating ? "not-allowed" : "pointer",
                         opacity: isGenerating ? 0.6 : 1,
                         borderRadius: "4px",
                         boxShadow: "0 4px 15px rgba(217, 222, 0, 0.3)",
-                        flex: 1,
+                        width: "100%",
                         justifyContent: "center",
-                        minWidth: "200px"
+                        minHeight: "48px"
                     }}
                 >
                     {isGenerating && !generatingProgress.includes("Image") ? (
@@ -381,20 +381,20 @@ export default function PropertyCardGenerator({ property }: PropertyCardGenerato
                             ? "linear-gradient(135deg, #ff0050 0%, #00f2ea 100%)"
                             : "linear-gradient(135deg, #666 0%, #444 100%)",
                         color: "#fff",
-                        padding: "14px 28px",
+                        padding: "14px 20px",
                         fontFamily: "Arial, sans-serif",
                         fontWeight: "bold",
-                        fontSize: "13px",
-                        letterSpacing: "2px",
+                        fontSize: "12px",
+                        letterSpacing: "1.5px",
                         textTransform: "uppercase",
                         border: "none",
                         cursor: (!lastVideoBlob || isPostingToTiktok || !tiktokConnection.connected) ? "not-allowed" : "pointer",
                         opacity: (!lastVideoBlob || isPostingToTiktok) ? 0.6 : 1,
                         borderRadius: "4px",
                         boxShadow: tiktokConnection.connected ? "0 4px 15px rgba(255, 0, 80, 0.3)" : "none",
-                        flex: 1,
+                        width: "100%",
                         justifyContent: "center",
-                        minWidth: "200px"
+                        minHeight: "48px"
                     }}
                 >
                     {isPostingToTiktok ? (

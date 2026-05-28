@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat, Raleway } from "next/font/google";
 import "./globals.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { OrganizationSchema, WebsiteSchema } from "@/components/StructuredData";
-import VoiceWidget from "@/components/VoiceWidget";
-import MobileStickyCTA from "@/components/MobileStickyCTA";
+import SiteWidgets from "@/components/SiteWidgets";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -53,6 +52,15 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#000000",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -67,8 +75,7 @@ export default function RootLayout({
         <OrganizationSchema />
         <WebsiteSchema />
         {children}
-        <MobileStickyCTA />
-        <VoiceWidget />
+        <SiteWidgets />
       </body>
     </html>
   );

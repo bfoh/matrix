@@ -59,7 +59,7 @@ export default function PropertiesPage() {
             <Header />
 
             {/* 1. HERO SECTION */}
-            <section className="relative h-[60vh] w-full flex items-center justify-center overflow-hidden">
+            <section className="relative h-[45vh] md:h-[60vh] w-full flex items-center justify-center overflow-hidden">
                 {/* Background Image */}
                 <div className="absolute inset-0">
                     <img
@@ -72,18 +72,18 @@ export default function PropertiesPage() {
                 </div>
 
                 {/* Title */}
-                <div className="relative z-10 text-center">
-                    <h1 className="text-white text-[50px] md:text-[70px] font-raleway font-light tracking-[2px]">
+                <div className="relative z-10 text-center px-4">
+                    <h1 className="text-white text-[40px] sm:text-[50px] md:text-[70px] font-raleway font-light tracking-[2px]">
                         LISTINGS
                     </h1>
                 </div>
             </section>
 
             {/* 2. PROPERTIES GRID */}
-            <section className="flex-grow py-20 bg-white">
-                <div className="container mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <h2 className="text-black text-[24px] md:text-[30px] font-raleway font-normal tracking-[2px] uppercase">
+            <section className="flex-grow py-12 md:py-20 bg-white">
+                <div className="container mx-auto px-4 md:px-6">
+                    <div className="text-center mb-10 md:mb-16">
+                        <h2 className="text-black text-[20px] sm:text-[24px] md:text-[30px] font-raleway font-normal tracking-[2px] uppercase">
                             ALL PROPERTIES
                         </h2>
                     </div>
@@ -91,7 +91,7 @@ export default function PropertiesPage() {
                     {loading ? (
                         <div className="text-center py-20">Loading...</div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8 md:gap-y-12">
                             {properties.map((property) => (
                                 <Link href={`/properties/${property.id}`} key={property.id} className="group cursor-pointer flex flex-col h-full">
                                     {/* Image Container */}
@@ -124,17 +124,17 @@ export default function PropertiesPage() {
                                     </div>
 
                                     {/* Info Box - Seamlessly attached to image */}
-                                    <div className="bg-black p-10 text-white flex flex-col justify-center items-center text-center space-y-3 flex-grow border-t-0">
-                                        <h3 className="text-[24px] font-raleway font-medium tracking-[1px] uppercase text-white">
+                                    <div className="bg-black p-6 md:p-10 text-white flex flex-col justify-center items-center text-center space-y-2 md:space-y-3 flex-grow border-t-0">
+                                        <h3 className="text-[18px] md:text-[24px] font-raleway font-medium tracking-[1px] uppercase text-white line-clamp-2">
                                             {property.title}
                                         </h3>
-                                        <p className="text-white text-[13px] font-bold font-raleway tracking-[1.5px] uppercase">
+                                        <p className="text-white text-[11px] md:text-[13px] font-bold font-raleway tracking-[1.2px] md:tracking-[1.5px] uppercase line-clamp-1">
                                             {property.address}
                                         </p>
-                                        <p className="text-white text-[13px] font-bold font-raleway tracking-[1.5px] uppercase">
+                                        <p className="text-white text-[11px] md:text-[13px] font-bold font-raleway tracking-[1.2px] md:tracking-[1.5px] uppercase">
                                             {property.bedrooms} BD | {property.bathrooms} BA | {property.area_sqm} SQ M
                                         </p>
-                                        <p className="text-white text-[20px] font-bold font-raleway tracking-[1px] pt-4">
+                                        <p className="text-white text-[16px] md:text-[20px] font-bold font-raleway tracking-[1px] pt-2 md:pt-4">
                                             {property.price}
                                         </p>
                                     </div>

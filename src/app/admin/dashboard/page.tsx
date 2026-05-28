@@ -70,23 +70,23 @@ export default function AdminDashboard() {
     };
 
     return (
-        <div className="p-8">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+        <div className="p-4 md:p-8">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-4">
                 <div>
-                    <h1 className="text-3xl font-montserrat font-bold text-white mb-2">DASHBOARD</h1>
-                    <p className="text-gray-400 font-raleway text-sm">Manage your property listings</p>
+                    <h1 className="text-2xl md:text-3xl font-montserrat font-bold text-white mb-1 md:mb-2">DASHBOARD</h1>
+                    <p className="text-gray-400 font-raleway text-xs md:text-sm">Manage your property listings</p>
                 </div>
 
-                <div className="flex gap-3">
-                    <Link href="/admin/share-cards">
-                        <button className="flex items-center gap-2 bg-white text-black px-6 py-3 rounded font-bold font-raleway tracking-wider uppercase hover:bg-gray-200 transition-colors">
-                            <Share2 size={18} />
+                <div className="grid grid-cols-2 md:flex gap-2 md:gap-3 w-full md:w-auto">
+                    <Link href="/admin/share-cards" className="w-full">
+                        <button className="w-full flex items-center justify-center gap-2 bg-white text-black px-4 md:px-6 py-3 rounded font-bold font-raleway tracking-wider uppercase hover:bg-gray-200 transition-colors text-xs md:text-sm">
+                            <Share2 size={16} />
                             <span>Share Cards</span>
                         </button>
                     </Link>
-                    <Link href="/admin/properties/new">
-                        <button className="flex items-center gap-2 bg-[#D9DE00] text-black px-6 py-3 rounded font-bold font-raleway tracking-wider uppercase hover:bg-[#b0b300] transition-colors">
-                            <Plus size={18} />
+                    <Link href="/admin/properties/new" className="w-full">
+                        <button className="w-full flex items-center justify-center gap-2 bg-[#D9DE00] text-black px-4 md:px-6 py-3 rounded font-bold font-raleway tracking-wider uppercase hover:bg-[#b0b300] transition-colors text-xs md:text-sm">
+                            <Plus size={16} />
                             <span>Add Property</span>
                         </button>
                     </Link>

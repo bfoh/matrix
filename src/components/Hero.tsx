@@ -26,7 +26,7 @@ export default function Hero() {
     };
 
     return (
-        <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <section className="relative h-dscreen w-full flex items-center justify-center overflow-hidden">
             {/* Gradient overlays */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-black/60 z-10 pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/30 z-10 pointer-events-none" />
@@ -96,7 +96,7 @@ export default function Hero() {
 
                 {/* Main headline */}
                 <motion.div variants={itemVariants} className="mb-5">
-                    <h1 className="text-white text-[46px] md:text-[78px] lg:text-[92px] font-bold tracking-tight font-montserrat uppercase leading-[0.92]">
+                    <h1 className="text-white text-[38px] sm:text-[46px] md:text-[78px] lg:text-[92px] font-bold tracking-tight font-montserrat uppercase leading-[0.92]">
                         LUXURY LIVING
                         <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-light to-white/70">
@@ -107,7 +107,7 @@ export default function Hero() {
 
                 {/* Subheading */}
                 <motion.div variants={itemVariants}>
-                    <p className="text-white/60 text-[13px] md:text-[15px] font-raleway tracking-[0.18em] mb-12 max-w-xl mx-auto uppercase">
+                    <p className="text-white/60 text-[12px] md:text-[15px] font-raleway tracking-[0.15em] md:tracking-[0.18em] mb-8 md:mb-12 max-w-xl mx-auto uppercase px-2">
                         Bespoke properties in Accra&apos;s most coveted addresses
                     </p>
                 </motion.div>
@@ -115,11 +115,11 @@ export default function Hero() {
                 {/* CTAs */}
                 <motion.div
                     variants={itemVariants}
-                    className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                    className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center w-full max-w-md sm:max-w-none mx-auto"
                 >
                     {/* Primary CTA */}
-                    <Link href="#featured-properties">
-                        <button className="group relative bg-primary text-black px-12 py-4 font-montserrat font-bold text-[12px] uppercase tracking-[0.2em] overflow-hidden transition-all duration-500 hover:shadow-[0_0_32px_rgba(201,168,76,0.45)] min-w-[220px]">
+                    <Link href="#featured-properties" className="w-full sm:w-auto">
+                        <button className="group relative w-full sm:w-auto bg-primary text-black px-8 sm:px-12 py-4 font-montserrat font-bold text-[12px] uppercase tracking-[0.2em] overflow-hidden transition-all duration-500 hover:shadow-[0_0_32px_rgba(201,168,76,0.45)] sm:min-w-[220px]">
                             <span className="relative z-10 group-hover:text-black transition-colors duration-300">
                                 Explore Properties
                             </span>
@@ -130,7 +130,7 @@ export default function Hero() {
                     {/* Secondary CTA — ghost */}
                     <button
                         onClick={() => setIsModalOpen(true)}
-                        className="group relative border border-white/30 text-white/90 px-12 py-4 font-montserrat font-bold text-[12px] uppercase tracking-[0.2em] overflow-hidden transition-all duration-500 hover:border-primary/60 min-w-[220px]"
+                        className="group relative w-full sm:w-auto border border-white/30 text-white/90 px-8 sm:px-12 py-4 font-montserrat font-bold text-[12px] uppercase tracking-[0.2em] overflow-hidden transition-all duration-500 hover:border-primary/60 sm:min-w-[220px]"
                     >
                         <span className="relative z-10 group-hover:text-black transition-colors duration-500">
                             Book a Consultation

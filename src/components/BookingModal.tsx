@@ -78,25 +78,26 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+                        className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 pointer-events-none safe-pt"
                     >
-                        <div className="bg-[#111] border border-white/10 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden pointer-events-auto flex flex-col max-h-[90vh]">
+                        <div className="bg-[#111] border border-white/10 w-full max-w-lg rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden pointer-events-auto flex flex-col" style={{ maxHeight: "calc(100dvh - env(safe-area-inset-top))" }}>
 
                             {/* Header */}
-                            <div className="flex items-center justify-between p-6 border-b border-white/10 bg-[#161616]">
-                                <h2 className="text-xl font-montserrat font-bold text-white tracking-wide uppercase">
+                            <div className="flex items-center justify-between px-5 md:px-6 py-4 md:py-6 border-b border-white/10 bg-[#161616] flex-shrink-0">
+                                <h2 className="text-base md:text-xl font-montserrat font-bold text-white tracking-wide uppercase">
                                     Book Appointment
                                 </h2>
                                 <button
                                     onClick={onClose}
-                                    className="text-gray-400 hover:text-white transition-colors p-1"
+                                    aria-label="Close"
+                                    className="tap-target -mr-2 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
                                 >
-                                    <X size={24} />
+                                    <X size={22} />
                                 </button>
                             </div>
 
                             {/* Body */}
-                            <div className="p-6 overflow-y-auto custom-scrollbar">
+                            <div className="p-5 md:p-6 overflow-y-auto custom-scrollbar safe-pb">
                                 {success ? (
                                     <div className="flex flex-col items-center justify-center py-10 space-y-4 text-center">
                                         <div className="w-16 h-16 bg-[#D9DE00] rounded-full flex items-center justify-center mb-2">
