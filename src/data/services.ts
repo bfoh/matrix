@@ -290,6 +290,72 @@ export const servicesData: ServiceData[] = [
             label: "average occupancy rate across managed portfolio"
         },
         cta: "Protect Your Investment"
+    },
+    {
+        slug: "software-development",
+        id: 5,
+        title: "Software Development",
+        tagline: "From Concept to Code — Digital Products Built for the African Market",
+        heroDescription: "We design and build custom web applications, SaaS platforms, and mobile-ready digital products for businesses across Ghana and West Africa. From hostel management systems to food delivery platforms, we turn ambitious ideas into scalable, revenue-generating software.",
+        overview: "Africa's digital economy is growing faster than any other region in the world. Ghana alone saw mobile money transaction volumes exceed GH₵1 trillion in 2023, while internet penetration and smartphone adoption continue to surge across West Africa. Matrix MultiTech's software development division builds purposeful, market-fit digital products — from sector-specific SaaS platforms to consumer-facing delivery applications — engineered to operate reliably on Ghana's network infrastructure and payment ecosystem. Our live portfolio includes gh-hostels.com, a hostel management SaaS trusted by 300+ student hostels nationwide, and ghdidi.com, a food delivery marketplace connecting Ghanaian consumers with local kitchens across the country. We build software that solves real African problems, not Western templates force-fitted onto local markets.",
+        keyPoints: [
+            "Custom web application & SaaS platform development",
+            "Mobile Money integration — MTN, Vodafone, AirtelTigo & Paystack",
+            "GRA-compliant accounting, VAT/NHIL/GETFund reporting modules",
+            "Mobile-responsive, Ghana-network optimised builds",
+            "Multi-tenant SaaS architecture with white-label support",
+            "Ongoing maintenance, feature development & 24/7 hosting support",
+        ],
+        features: [
+            {
+                title: "GH Hostels — Hostel Management SaaS (gh-hostels.com)",
+                description: "A purpose-built hostel management system covering room bookings with a Gantt calendar, Mobile Money payments via Paystack (MTN/Vodafone/AirtelTigo), GRA-compliant double-entry accounting, SSNIT/PAYE payroll with QR clock-in, and a self-service occupant portal. Trusted by 300+ student hostels across Accra, Kumasi, Cape Coast, Tamale, and Winneba."
+            },
+            {
+                title: "GH Didi — Food Delivery Platform (ghdidi.com)",
+                description: "Ghana's kitchen-to-doorstep food delivery marketplace connecting consumers with local restaurants and neighbourhood kitchens across Accra and beyond. Features kitchen storefront management, MTN/Vodafone Mobile Money and card payments, multi-category browsing across local, continental, fast food, grills, and specialty cuisines, and free delivery options — all with rapid 5-minute kitchen onboarding."
+            },
+            {
+                title: "Fintech & Mobile Money Integration",
+                description: "Deep integration expertise with Ghana's major payment rails — Paystack, MTN Mobile Money, Vodafone Cash, and AirtelTigo Money. We build payment flows that handle split transactions, auto-reconciliation, and GRA VAT/NHIL/GETFund compliance out of the box — so your platform is audit-ready from day one."
+            },
+            {
+                title: "Scalable SaaS Architecture",
+                description: "We architect software for growth from day one. Multi-tenant row-level database isolation, role-based access control, custom white-label domains, and cloud-native deployment on Supabase and Vercel — so your platform scales from 10 to 10,000 users without a costly rebuild."
+            }
+        ],
+        process: [
+            {
+                step: "01",
+                title: "Discovery & Requirements",
+                description: "We map your business processes, target users, and technical requirements in detail. We challenge assumptions, identify the MVP scope, and produce a clear product specification before a single line of code is written."
+            },
+            {
+                step: "02",
+                title: "UI/UX Design & Prototyping",
+                description: "Wireframes, interactive prototypes, and high-fidelity visual design tailored to Ghanaian user expectations and device habits. We validate with real users before development begins — saving costly rework downstream."
+            },
+            {
+                step: "03",
+                title: "Full-Stack Development",
+                description: "We build using modern, proven frameworks — Next.js, React, TypeScript, Supabase, and Tailwind CSS — optimised for African network conditions and mobile-first usage patterns. Transparent milestone-based delivery keeps you in control throughout."
+            },
+            {
+                step: "04",
+                title: "Testing & Quality Assurance",
+                description: "Comprehensive testing across devices, network speeds, and payment scenarios. We simulate low-bandwidth environments, test every Mobile Money transaction flow, and verify GRA compliance requirements before any public launch."
+            },
+            {
+                step: "05",
+                title: "Launch, Training & Ongoing Support",
+                description: "We handle deployment, domain configuration, and staff training. Post-launch, we provide ongoing maintenance, security updates, and feature development — with 24/7 hosting support so your platform stays live and performant."
+            }
+        ],
+        highlight: {
+            stat: "300+",
+            label: "businesses powered by our software platforms"
+        },
+        cta: "Start Your Project"
     }
 ];
 

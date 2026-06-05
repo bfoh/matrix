@@ -23,7 +23,7 @@ export default function ServicePageClient({ service }: { service: ServiceData })
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     // Related services (other 3)
-    const related = servicesData.filter((s) => s.slug !== service.slug);
+    const related = servicesData.filter((s) => s.slug !== service.slug).slice(0, 3);
 
     return (
         <div className="min-h-screen bg-black text-white">
@@ -70,7 +70,7 @@ export default function ServicePageClient({ service }: { service: ServiceData })
                         custom={1}
                         className="text-primary font-bold tracking-[4px] text-[12px] uppercase font-raleway block mb-5"
                     >
-                        {String(service.id).padStart(2, "0")} / 04 — {service.title}
+                        {String(service.id).padStart(2, "0")} / 05 — {service.title}
                     </motion.span>
 
                     {/* Title */}

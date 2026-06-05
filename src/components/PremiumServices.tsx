@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { House, Key, BrickWall, ClipboardList, ArrowRight } from "lucide-react";
+import { House, Key, BrickWall, ClipboardList, Code2, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function PremiumServices() {
@@ -33,6 +33,13 @@ export default function PremiumServices() {
             icon: <ClipboardList strokeWidth={1.5} className="w-10 h-10 md:w-12 md:h-12" />,
             title: "PROPERTY MANAGEMENT",
             description: "Protect your investment effortlessly. We handle maintenance, tenant relations, and all operations so you don't have to."
+        },
+        {
+            id: 5,
+            slug: "software-development",
+            icon: <Code2 strokeWidth={1.5} className="w-10 h-10 md:w-12 md:h-12" />,
+            title: "SOFTWARE DEVELOPMENT",
+            description: "Custom web apps, SaaS platforms, and mobile-ready digital products built for Ghana and West Africa's fast-growing digital economy."
         }
     ];
 
@@ -85,7 +92,7 @@ export default function PremiumServices() {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 w-full max-w-7xl"
                 >
                     {services.map((service) => (
                         <motion.div
