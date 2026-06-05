@@ -29,7 +29,7 @@ export default function Footer() {
                                     MATRIX <span className="text-primary transition-colors duration-300">MULTITECH</span>
                                 </h3>
                                 <p className="text-white/50 font-raleway text-[9px] xl:text-[10px] tracking-[0.2em] leading-tight md:ml-[1px] mt-1">
-                                    DESIGN | RESIDENTIAL | LAND
+                                    REAL ESTATE | TELECOM | SOFTWARE
                                 </p>
                             </div>
                         </Link>

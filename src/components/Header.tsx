@@ -66,7 +66,7 @@ export default function Header() {
                             MATRIX <span className="text-white">MULTITECH</span> <span className="text-accent transition-colors duration-300">LTD</span>
                         </h1>
                         <p className="text-gray-400 font-raleway text-[8px] sm:text-[9px] md:text-[10px] tracking-[0.18em] md:tracking-[0.2em] leading-tight md:ml-[1px] whitespace-nowrap">
-                            DESIGN | RESIDENTIAL | LAND
+                            REAL ESTATE | TELECOM | SOFTWARE
                         </p>
                     </div>
                 </Link>
