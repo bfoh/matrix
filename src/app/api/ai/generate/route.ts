@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
         const systemContent = `${SYSTEM_PROMPT}\n\n${materialContext}\n\n${toneInstruction}`;
 
         const message = await client.messages.create({
-            model: "claude-sonnet-4-20250514",
+            model: "claude-opus-4-8",
             max_tokens: 2048,
             system: systemContent,
             messages: [{ role: "user", content: userPrompt }],
